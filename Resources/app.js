@@ -48,7 +48,8 @@ if (Ti.version < 1.8 ) {
 	
 	function showAddWindow() {
 		Ti.API.info("add clicked");
-		new AddWindow().open();
+		var addWindow = new AddWindow();
+		addWindow.open();
 	}
 	
 	chartWindowAddButton.addEventListener("click", showAddWindow);
