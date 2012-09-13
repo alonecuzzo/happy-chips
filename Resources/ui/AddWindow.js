@@ -8,6 +8,14 @@ exports.AddWindow = function() {
 		backgroundColor: '#fff'
 	});
 	
+	var scrollview = Ti.UI.createScrollView({
+		contentWidth:'auto',
+		contentHeight:'auto',
+		top:0,
+		showVerticalScrollIndicator:true,
+		showHorizontalScrollIndicator:false
+	});
+	
 	//top buttons etc
 	var cancelButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.CANCEL}); 
 	self.setLeftNavButton(cancelButton);
@@ -19,10 +27,11 @@ exports.AddWindow = function() {
 	});
 	
 	doneButton.addEventListener('click', function() {
-		addPurchase(itemField.value, self);
+		blurTextFields();
+		addPurchase(itemNameTextField.value, self);
 	});
 
-	var itemField = Ti.UI.createTextField({
+	var itemNameTextField = Ti.UI.createTextField({
 		width: '300dp',
 		height: '45dp',
 		top: '20dp',
@@ -30,25 +39,25 @@ exports.AddWindow = function() {
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
 		returnKeyType: Ti.UI.RETURNKEY_DONE
 	});
-	itemField.addEventListener('return', function(e) {
-		addPurchase(itemField.value, self);
+	itemNameTextField.addEventListener('return', function(e) {
+		addPurchase(itemNameTextField.value, self);
+	});
+	
+	var priceField = Ti.UI.createTextField({
+		width: '300dp',
+		height: '45dp',
+		top: '80dp',
+		hintText: 'Item Price',
+		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+		returnKeyType: Ti.UI.RETURNKEY_DEFAULT,
+		keyboardType: Titanium.UI.KEYBOARD_DECIMAL_PAD
 	});
 	
 	var locationButton = Ti.UI.createButton({
 		title: 'Add Location',
 		width: '300dp',
 		height: '40dp',
-		top: '80dp'
-	});
-	
-	var priceField = Ti.UI.createTextField({
-		width: '300dp',
-		height: '45dp',
-		top: '130dp',
-		hintText: 'Item Price',
-		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-		returnKeyType: Ti.UI.RETURNKEY_DEFAULT,
-		keyboardType: Titanium.UI.KEYBOARD_DECIMAL_PAD
+		top: '130dp'
 	});
 	
 	priceField.addEventListener('change', function(){
@@ -89,17 +98,28 @@ exports.AddWindow = function() {
 		top: '330dp'
 	});
 	
-	self.add(itemField);
-	self.add(happinessButton);
-	self.add(photoButton);
-	self.add(locationButton);
-	self.add(tagsTextField);
-	self.add(priceField);
+	scrollview.add(itemNameTextField);
+	scrollview.add(happinessButton);
+	scrollview.add(photoButton);
+	scrollview.add(locationButton);
+	scrollview.add(tagsTextField);
+	scrollview.add(priceField);
+	
+	self.add(scrollview);
+	
+	self.addEventListener("click", blurTextFields);
+	
+	function blurTextFields() {
+		itemNameTextField.blur();
+		priceField.blur();
+		tagsTextField.blur();
+	}
 	
 	return self;
 };
 
 var addPurchase = function(value, win) {
+
 	if (value === '') {
 		alert('Please enter a task first');
 		return;	
