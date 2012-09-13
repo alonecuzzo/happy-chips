@@ -8,6 +8,9 @@ exports.AddWindow = function() {
 		backgroundColor: '#fff'
 	});
 	
+	//TODO: need to fix scrolling view, will probably have to write own function using the scrollTo functionality
+	//in the scrollview class: http://docs.appcelerator.com/titanium/2.1/index.html#!/api/Titanium.UI.ScrollView
+	//it pops into place when clicking above and when clicking textfield below animates down too far
 	var scrollview = Ti.UI.createScrollView({
 		contentWidth:'auto',
 		contentHeight:'auto',
