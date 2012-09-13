@@ -30,8 +30,14 @@ if (Ti.version < 1.8 ) {
  
 	var myOnlyWin = Ti.UI.createWindow({
 	    backgroundColor: '#FFF', 
-	    title : 'Home'  ,
-	    tabBarHidden:true
+	    title : 'Purchases' 
+	    //tabBarHidden:true
+	});
+	
+	var chartWindow = Ti.UI.createWindow({
+		backgroundColor: '#FFF',
+		title : 'Charts',
+		
 	});
 	 
 	var addButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.ADD }); 
@@ -59,10 +65,16 @@ if (Ti.version < 1.8 ) {
 	
 	//hack so we can get the nav bar
 	var tab = Ti.UI.createTab({ 
-	     title :"Doesn't matter",
+	     title :"Purchases",
 	    window: myOnlyWin
+	});
+	
+	var chartTab = Ti.UI.createTab({
+		title: 'Charts',
+		window: chartWindow
 	});
 	 
 	tabGroup.addTab(tab);
+	tabGroup.addTab(chartTab);
 	tabGroup.open();
 })();
