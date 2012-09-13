@@ -28,10 +28,9 @@ if (Ti.version < 1.8 ) {
 	
 	var tabGroup = Ti.UI.createTabGroup();
  
-	var myOnlyWin = Ti.UI.createWindow({
+	var purchasesWindow = Ti.UI.createWindow({
 	    backgroundColor: '#FFF', 
 	    title : 'Purchases' 
-	    //tabBarHidden:true
 	});
 	
 	var chartWindow = Ti.UI.createWindow({
@@ -40,33 +39,24 @@ if (Ti.version < 1.8 ) {
 		
 	});
 	 
-	var addButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.ADD }); 
-	myOnlyWin.setRightNavButton(addButton);
+	var purchaseWindowAddButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.ADD }); 
+	purchasesWindow.setRightNavButton(purchaseWindowAddButton);
 	var AddWindow = require('ui/AddWindow').AddWindow;
 	
-	addButton.addEventListener("click", function() {
+	var chartWindowAddButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.ADD }); 
+	chartWindow.setRightNavButton(chartWindowAddButton);
+	
+	function showAddWindow() {
 		Ti.API.info("add clicked");
 		new AddWindow().open();
-		/*var w = Ti.UI.createWindow({
-			backgroundColor:'#FFF',
-			title: 'Add an Item'
-		});
-		
-		var closeButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.DONE });
-		w.setRightNavButton(closeButton);
-		closeButton.addEventListener('click',function()
-		{
-			w.close();
-		});
-		w.open({modal:true,modalTransitionStyle:Ti.UI.iPhone.MODAL_TRANSITION_STYLE_COVER_VERTICAL,modalStyle:Ti.UI.iPhone.MODAL_PRESENTATION_FULLSCREEN,navBarHidden:false});
-		*/
-		//Ti.Platform.openURL("http://www.google.com/");
-	});
+	}
 	
-	//hack so we can get the nav bar
+	chartWindowAddButton.addEventListener("click", showAddWindow);
+	purchaseWindowAddButton.addEventListener("click", showAddWindow);
+	
 	var tab = Ti.UI.createTab({ 
 	     title :"Purchases",
-	    window: myOnlyWin
+	    window: purchasesWindow
 	});
 	
 	var chartTab = Ti.UI.createTab({
