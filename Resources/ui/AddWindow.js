@@ -1,6 +1,6 @@
 exports.AddWindow = function() {
 	//var db = require('db');
-	var isPriceFieldValid = false;
+	var ispriceTextFieldValid = false;
 	
 	var self = Ti.UI.createWindow({
 		modal: true,
@@ -31,7 +31,7 @@ exports.AddWindow = function() {
 	
 	doneButton.addEventListener('click', function() {
 		blurTextFields();
-		addPurchase(itemNameTextField.value, self);
+		addPurchase(itemNameTextField.value, priceTextField.value, self);
 	});
 
 	var itemNameTextField = Ti.UI.createTextField({
@@ -46,7 +46,7 @@ exports.AddWindow = function() {
 		addPurchase(itemNameTextField.value, self);
 	});
 	
-	var priceField = Ti.UI.createTextField({
+	var priceTextField = Ti.UI.createTextField({
 		width: '300dp',
 		height: '45dp',
 		top: '80dp',
@@ -63,12 +63,12 @@ exports.AddWindow = function() {
 		top: '130dp'
 	});
 	
-	priceField.addEventListener('change', function(){
+	priceTextField.addEventListener('change', function(){
 		//var match = new RegExp(^(\d*\.\d{1,2}|\d+)$);
 		var match = /^(\d*?)(\.\d{1,2})?$/;
-		Ti.API.info("match: " + match.test(priceField.value));
-		isPriceFieldValid = (match.test(priceField.value) === true) ? true : false;
-		Ti.API.info("isPriceFieldValid: " + isPriceFieldValid);
+		Ti.API.info("match: " + match.test(priceTextField.value));
+		ispriceTextFieldValid = (match.test(priceTextField.value) === true) ? true : false;
+		Ti.API.info("ispriceTextFieldValid: " + ispriceTextFieldValid);
 	});
 	
 	var happinessButton = Ti.UI.createButton({
@@ -106,7 +106,7 @@ exports.AddWindow = function() {
 	scrollview.add(photoButton);
 	scrollview.add(locationButton);
 	scrollview.add(tagsTextField);
-	scrollview.add(priceField);
+	scrollview.add(priceTextField);
 	
 	self.add(scrollview);
 	
@@ -114,21 +114,26 @@ exports.AddWindow = function() {
 	
 	function blurTextFields() {
 		itemNameTextField.blur();
-		priceField.blur();
+		priceTextField.blur();
 		tagsTextField.blur();
 	}
 	
 	return self;
 };
 
-var addPurchase = function(value, win) {
+var addPurchase = function(item_name, item_price, win) {
 
-	if (value === '') {
-		alert('Please enter a task first');
+	if (item_name === '') {
+		alert('Please enter a item name first');
 		return;	
 	}
 	
-	//require('db').addItem(value);
+	if (item_price === '') {
+		alert('Please enter a price first');
+		return;	
+	}
+	
+	require('db').addItem(item_name, item_price);
 	Ti.App.fireEvent('app:updateTables');
 	win.close();
 };
