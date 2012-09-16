@@ -43,11 +43,11 @@ if (Ti.version < 1.8 ) {
 		
 	});
 	 
-	var purchaseWindowAddButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.ADD }); 
+	var purchaseWindowAddButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.COMPOSE }); 
 	purchasesWindow.setRightNavButton(purchaseWindowAddButton);
 	var AddWindow = require('ui/AddWindow').AddWindow;
 	
-	var chartWindowAddButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.ADD }); 
+	var chartWindowAddButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.COMPOSE }); 
 	chartWindow.setRightNavButton(chartWindowAddButton);
 	
 	function showAddWindow() {

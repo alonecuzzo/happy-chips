@@ -14,6 +14,8 @@ exports.PurchaseDetailWindow = function(args) {
 	  width: 'auto', height: 'auto'
 	});
 	
+	//TODO: need to make sure returned price rounds to the second decimal point
+	//  	i entered 69.99 for borderlands 2 and got back 69.9899999999!!!!
 	var priceLabel = Ti.UI.createLabel({
 	  color: '#000',
 	  font: {fontSize:12},
