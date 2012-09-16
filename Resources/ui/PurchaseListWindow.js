@@ -11,7 +11,8 @@ exports.PurchaseListWindow = function(args) {
 		var PurchaseDetailWindow = require('ui/PurchaseDetailWindow').PurchaseDetailWindow;
 		var detailWindow = new PurchaseDetailWindow({
 			backgroundColor: '#FFF',
-			title: 'Detail'
+			title: 'Detail',
+			rowID: e.row.id
 		});
 		self.containingTab.open(detailWindow,{animated:true});
 	});
