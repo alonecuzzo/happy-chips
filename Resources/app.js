@@ -63,6 +63,7 @@ if (Ti.version < 1.8 ) {
 	    title :"Purchases",
 	    window: purchasesWindow
 	});
+	purchasesWindow.containingTab = tab;
 	
 	var chartTab = Ti.UI.createTab({
 		title: 'Charts',

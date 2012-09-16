@@ -5,6 +5,18 @@ exports.PurchaseListWindow = function(args) {
 	tableView.setData(getTableData());
 	self.add(tableView);
 	
+	tableView.addEventListener('click', function(e) {
+		//createConfirmDialog(e.row.id, e.row.title, isDone).show();
+		Ti.API.info("you clicked: " + e.row.title);
+		var PurchaseDetailWindow = require('ui/PurchaseDetailWindow').PurchaseDetailWindow;
+		var detailWindow = new PurchaseDetailWindow({
+			backgroundColor: '#FFF',
+			title: 'Detail'
+		});
+		self.containingTab.open(detailWindow,{animated:true});
+	});
+	
+	
 	Ti.App.addEventListener('app:updateTables', function() {
 		tableView.setData(getTableData());
 	});
@@ -17,8 +29,6 @@ var getTableData = function() {
 	var data = [];
 	var row = null;
 	var purchaseItems = db.selectItems();
-	
-	Ti.API.info("array length: " + purchaseItems.length);
 	
 	for (var i = 0; i < purchaseItems.length; i++) {
 		row = Ti.UI.createTableViewRow({
