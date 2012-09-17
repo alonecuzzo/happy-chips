@@ -2,7 +2,7 @@ exports.PurchaseChartWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	var webView = Ti.UI.createWebView({
 		html:htmlString,
-		top:70
+		top:50
 		});
 	
 	var chart1Button = Ti.UI.createButton({
@@ -36,4 +36,4 @@ exports.PurchaseChartWindow = function(args) {
 	return self;
 }
 
-var htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.text(100, 300, "dope ass chart").attr({ font: "12px sans-serif" }); r.piechart(150, 150, 100, [55, 20, 13, 32, 5, 1, 2, 10]); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+var htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.text(145, 20, "dope ass chart").attr({ font: "16px sans-serif" }); r.piechart(150, 140, 100, [55, 20, 13, 32, 5, 1, 2, 10]); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
