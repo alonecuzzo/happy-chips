@@ -30,17 +30,17 @@ if (Ti.version < 1.8 ) {
 	var isTablet = osname === 'ipad' || (osname === 'android' && (width > 899 || height > 899));
 	
 	var tabGroup = Ti.UI.createTabGroup(),
-		PurchaseListWindow = require('ui/PurchaseListWindow').PurchaseListWindow;
+		PurchaseListWindow = require('ui/PurchaseListWindow').PurchaseListWindow,
+		PurchaseChartWindow = require('ui/PurchaseChartWindow').PurchaseChartWindow;
  
 	var purchasesWindow = new PurchaseListWindow({
 	    backgroundColor: '#FFF', 
 	    title : 'Purchases' 
 	});
 	
-	var chartWindow = Ti.UI.createWindow({
+	var chartWindow = new PurchaseChartWindow({
 		backgroundColor: '#FFF',
-		title : 'Charts',
-		
+		title : 'Charts'
 	});
 	 
 	var purchaseWindowAddButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.COMPOSE }); 

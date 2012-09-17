@@ -31,6 +31,8 @@ var getTableData = function() {
 	var row = null;
 	var purchaseItems = db.selectItems();
 	
+	
+	
 	for (var i = 0; i < purchaseItems.length; i++) {
 		row = Ti.UI.createTableViewRow({
 			id: purchaseItems[i].id,
