@@ -12,6 +12,13 @@ exports.CategoryListViewWindow = function(args) {
 		returnKeyType: Ti.UI.RETURNKEY_DONE
 	});
 	
+	var addButton = Titanium.UI.createButton({systemButton: Titanium.UI.iPhone.SystemButton.ADD}); 
+	self.setRightNavButton(addButton);
+	
+	addButton.addEventListener('click', function(){
+		addItemTextField.focus();
+	});
+	
 	addItemTextField.addEventListener('blur', function(){
 		//Ti.API.info("textfield lost focus");
 		//add the item to the db
@@ -22,7 +29,7 @@ exports.CategoryListViewWindow = function(args) {
 	});
 	
 	addRow.add(addItemTextField);
-	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle: 'Categories' });
+	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:'Categories' });
 	var setTableData = function(section) {
 		var db = require('db');
 		var row = null;
