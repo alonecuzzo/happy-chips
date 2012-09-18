@@ -74,7 +74,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	});
 	
 	var categoryButton = Ti.UI.createButton({
-		title: 'Category',
+		title: 'Categories',
 		top: '230dp',
 		width: '300dp',
 		height: '40dp'
