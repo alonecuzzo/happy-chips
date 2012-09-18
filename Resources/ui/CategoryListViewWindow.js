@@ -15,11 +15,15 @@ exports.CategoryListViewWindow = function(args) {
 	addItemTextField.addEventListener('blur', function(){
 		//Ti.API.info("textfield lost focus");
 		//add the item to the db
+		if(addItemTextField.value != '') {
+			require('db').addCategory(addItemTextField.value);
+			Ti.App.fireEvent('app:updateTables');
+		}
 	});
 	
 	addRow.add(addItemTextField);
 	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle: 'Categories' });
-	var setTableData = function() {
+	var setTableData = function(section) {
 		var db = require('db');
 		var row = null;
 		var categories = db.selectCategories();
@@ -33,10 +37,10 @@ exports.CategoryListViewWindow = function(args) {
 					fontWeight: 'bold'	
 				}
 			});
-			sectionCategory.add(row);
+			section.add(row);
 		}
 	}
-	setTableData();
+	setTableData(sectionCategory);
 	sectionCategory.add(addRow);
 	
 	var table = Ti.UI.createTableView({
@@ -51,6 +55,14 @@ exports.CategoryListViewWindow = function(args) {
 			addItemTextField.blur();
 			e.row.hasCheck = !e.row.hasCheck;
 		} 
+	});
+	
+	Ti.App.addEventListener('app:updateTables', function() {
+		sectionCategory = Ti.UI.createTableViewSection({headerTitle: 'Categories'});
+		setTableData(sectionCategory);
+		addItemTextField.value = '';
+		sectionCategory.add(addRow);
+		table.setData([sectionCategory]);
 	});
 	
 	return self;
