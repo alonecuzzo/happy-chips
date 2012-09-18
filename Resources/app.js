@@ -52,7 +52,10 @@ if (Ti.version < 1.8 ) {
 	
 	function showAddWindow() {
 		Ti.API.info("add clicked");
-		var addWindow = new AddWindow();
+		var addWindow = new AddWindow({
+			modal:true,
+			navBarHidden:true
+		});
 		addWindow.open();
 	}
 	

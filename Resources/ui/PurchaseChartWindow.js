@@ -29,6 +29,14 @@ exports.PurchaseChartWindow = function(args) {
 		left: '215dp'
 	});
 	
+	chart2Button.addEventListener('click', function(){
+		webView.html = htmlString;
+	});
+	
+	chart3Button.addEventListener('click', function(){
+		webView.html = '<html>LULZ</html>';
+	});
+	
 	self.add(chart1Button);
 	self.add(chart2Button);
 	self.add(chart3Button);
