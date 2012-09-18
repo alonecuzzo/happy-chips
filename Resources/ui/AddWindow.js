@@ -18,6 +18,9 @@ exports.AddWindow = function(args) {
 	var navGroup = Ti.UI.iPhone.createNavigationGroup({
 		window:addPurchaseContentWindow
 	});
+	
+	addPurchaseContentWindow.navGroup = navGroup;
+	addPurchaseContentWindow.categoryWindow = categoryListView;
 
 	self.add(navGroup);
 	

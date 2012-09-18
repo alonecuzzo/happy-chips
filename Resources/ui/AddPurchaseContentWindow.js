@@ -81,7 +81,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	});
 	
 	categoryButton.addEventListener('click', function(){
-		
+		self.navGroup.open(self.categoryWindow, {animated:true});
 	});
 	
 	var photoButton = Ti.UI.createButton({
