@@ -18,13 +18,25 @@ exports.CategoryListViewWindow = function(args) {
 	});
 	
 	addRow.add(addItemTextField);
-	
 	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle: 'Categories' });
-	sectionCategory.add(Ti.UI.createTableViewRow({ title: 'Clothing' }));
-	sectionCategory.add(Ti.UI.createTableViewRow({ title: 'Drink' }));
-	sectionCategory.add(Ti.UI.createTableViewRow({ title: 'Electronics'}));
-	sectionCategory.add(Ti.UI.createTableViewRow({ title: 'Food' }));
-	sectionCategory.add(Ti.UI.createTableViewRow({ title: 'Video Games' }));
+	var setTableData = function() {
+		var db = require('db');
+		var row = null;
+		var categories = db.selectCategories();
+		
+		for (var i = 0; i < categories.length; i++) {
+			row = Ti.UI.createTableViewRow({
+				id: categories[i].id,
+				title: categories[i].category_name,
+				color: '#000',
+				font: {
+					fontWeight: 'bold'	
+				}
+			});
+			sectionCategory.add(row);
+		}
+	}
+	setTableData();
 	sectionCategory.add(addRow);
 	
 	var table = Ti.UI.createTableView({
@@ -43,3 +55,4 @@ exports.CategoryListViewWindow = function(args) {
 	
 	return self;
 }
+

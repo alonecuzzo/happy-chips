@@ -33,3 +33,21 @@ exports.addItem = function(item_name, item_price) {
 	mydb.execute('insert into purchases values (?,?)', item_name, item_price);
 	mydb.close();
 };
+
+exports.selectCategories = function() {
+	var retData = [];
+	var db = Ti.Database.open(DATABASE_NAME);
+	var rows = db.execute('select ROWID, * from categories order by category_name asc');
+	while (rows.isValidRow()) {
+		retData.push({category_name:rows.fieldByName('category_name'), id:rows.fieldByName('ROWID')});
+		rows.next();
+	}
+	db.close();
+	return retData;
+}
+
+exports.addCategory = function(category_name) {
+	var mydb = Ti.Database.open(DATABASE_NAME);
+	mydb.execute('insert into categories values (?)', category_name);
+	mydb.close();
+}
