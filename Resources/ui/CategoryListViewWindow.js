@@ -4,7 +4,7 @@ exports.CategoryListViewWindow = function(args) {
 	var sectionFruit = Ti.UI.createTableViewSection({ headerTitle: 'Categories' });
 	sectionFruit.add(Ti.UI.createTableViewRow({ title: 'Clothing' }));
 	sectionFruit.add(Ti.UI.createTableViewRow({ title: 'Drink' }));
-	sectionFruit.add(Ti.UI.createTableViewRow({ title: 'Electronics' }));
+	sectionFruit.add(Ti.UI.createTableViewRow({ title: 'Electronics'}));
 	sectionFruit.add(Ti.UI.createTableViewRow({ title: 'Food' }));
 	sectionFruit.add(Ti.UI.createTableViewRow({ title: 'Video Games' }));
 	
@@ -14,6 +14,10 @@ exports.CategoryListViewWindow = function(args) {
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	
 	self.add(table);
+	
+	table.addEventListener('click', function(e){
+		e.row.hasCheck = !e.row.hasCheck;
+	});
 	
 	return self;
 }
