@@ -31,7 +31,8 @@ if (Ti.version < 1.8 ) {
 	
 	var tabGroup = Ti.UI.createTabGroup(),
 		PurchaseListWindow = require('ui/PurchaseListWindow').PurchaseListWindow,
-		PurchaseChartWindow = require('ui/PurchaseChartWindow').PurchaseChartWindow;
+		PurchaseChartWindow = require('ui/PurchaseChartWindow').PurchaseChartWindow,
+		SettingsWindow = require('ui/SettingsWindow').SettingsWindow;
  
 	var purchasesWindow = new PurchaseListWindow({
 	    backgroundColor: '#FFF', 
@@ -41,6 +42,11 @@ if (Ti.version < 1.8 ) {
 	var chartWindow = new PurchaseChartWindow({
 		backgroundColor: '#FFF',
 		title : 'Charts'
+	});
+	
+	var settingsWindow = new SettingsWindow({
+		backgroundColor:'#FFF',
+		title:'Settings'
 	});
 	 
 	var purchaseWindowAddButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.COMPOSE }); 
@@ -72,8 +78,15 @@ if (Ti.version < 1.8 ) {
 		title: 'Charts',
 		window: chartWindow
 	});
+	
+	var settingsTab = Ti.UI.createTab({
+		title: 'Settings',
+		window: settingsWindow
+	});
+	settingsWindow.containingTab = settingsTab;
 	 
 	tabGroup.addTab(tab);
 	tabGroup.addTab(chartTab);
+	tabGroup.addTab(settingsTab);
 	tabGroup.open();
 })();

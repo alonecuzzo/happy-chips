@@ -44,6 +44,14 @@ exports.CategoryListViewWindow = function(args) {
 					fontWeight: 'bold'	
 				}
 			});
+			
+			if(self.catsAreSelectable == true) {
+
+			} else {
+				row.setTouchEnabled(false);
+				row.setSelectionStyle(Ti.UI.iPhone.TableViewCellSelectionStyle.NONE);
+			}
+			
 			section.add(row);
 		}
 	}
@@ -60,7 +68,9 @@ exports.CategoryListViewWindow = function(args) {
 	table.addEventListener('click', function(e){
 		if(e.row.getTitle() != ''){
 			addItemTextField.blur();
-			e.row.hasCheck = !e.row.hasCheck;
+			if(self.catsAreSelectable == true){
+				e.row.hasCheck = !e.row.hasCheck;
+			}
 		} 
 	});
 	

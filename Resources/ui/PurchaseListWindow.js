@@ -7,7 +7,7 @@ exports.PurchaseListWindow = function(args) {
 	
 	tableView.addEventListener('click', function(e) {
 		//createConfirmDialog(e.row.id, e.row.title, isDone).show();
-		Ti.API.info("you clicked: " + e.row.title);
+		//Ti.API.info("you clicked: " + e.row.title);
 		var PurchaseDetailWindow = require('ui/PurchaseDetailWindow').PurchaseDetailWindow;
 		var detailWindow = new PurchaseDetailWindow({
 			backgroundColor: '#FFF',
