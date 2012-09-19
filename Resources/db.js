@@ -28,9 +28,20 @@ exports.selectItem = function(rowID) {
 	return retData;
 }
 
-exports.addItem = function(item_name, item_price) {
+exports.addItem = function(item_name, item_price, item_categories) {
 	var mydb = Ti.Database.open(DATABASE_NAME);
-	mydb.execute('insert into purchases values (?,?)', item_name, item_price);
+	mydb.execute('insert into purchases values (?,?,0,0,0,0,0,0,0,0,0,0,0,0)', item_name, item_price);
+	Ti.API.info('categories: ' + item_categories);
+	if(item_categories.length > 0) {
+		var row = mydb.execute('select ROWID from purchases order by rowid desc limit 1');
+		var purchaseId = row.fieldByName('ROWID');
+		var categoriesLength = item_categories.length;
+		for(var i=0; i<=categoriesLength-1; i++) {
+			Ti.API.info('adding category to db: ' + item_categories[i]);
+			mydb.execute('insert into purchases_categories values (?,?)', purchaseId, item_categories[i]);
+		}
+	}
+
 	mydb.close();
 };
 

@@ -119,8 +119,6 @@ exports.AddPurchaseContentWindow = function(args) {
 
 var addPurchase = function(item_name, item_price, win, categoryView) {
 
-	Ti.API.info('list: ' + categoryView.getSelectedCategories());
-
 	if (item_name === '') {
 		alert('Please enter a item name first');
 		return;	
@@ -130,8 +128,9 @@ var addPurchase = function(item_name, item_price, win, categoryView) {
 		alert('Please enter a price first');
 		return;	
 	}	
-
-	require('db').addItem(item_name, item_price);
+	
+	//should probably make an object to be passed vs all of these fields...
+	require('db').addItem(item_name, item_price, categoryView.getSelectedCategories());
 	Ti.App.fireEvent('app:updateTables');
 	win.close();
 };
