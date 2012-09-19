@@ -15,6 +15,7 @@ exports.AddWindow = function(args) {
 		title: 'Categories'
 	});
 	categoryListView.catsAreSelectable = true;
+	addPurchaseContentWindow.categoryListView = categoryListView;
 	
 	var navGroup = Ti.UI.iPhone.createNavigationGroup({
 		window:addPurchaseContentWindow

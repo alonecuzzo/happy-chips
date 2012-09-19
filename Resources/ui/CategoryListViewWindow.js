@@ -1,5 +1,6 @@
 exports.CategoryListViewWindow = function(args) {
 	self = Ti.UI.createWindow(args);
+	self.checkCategoryIds = [];
 	
 	var addRow = Ti.UI.createTableViewRow();
 	
@@ -34,7 +35,6 @@ exports.CategoryListViewWindow = function(args) {
 		var db = require('db');
 		var row = null;
 		var categories = db.selectCategories();
-		
 		for (var i = 0; i < categories.length; i++) {
 			row = Ti.UI.createTableViewRow({
 				id: categories[i].id,
@@ -58,6 +58,22 @@ exports.CategoryListViewWindow = function(args) {
 	setTableData(sectionCategory);
 	sectionCategory.add(addRow);
 	
+	//need a function that loops through every row in the table and checks the checked status, 
+	//then adds it to an array
+	var collectCheckMarks = function() {
+		var rows = sectionCategory.getRows();
+		var rowLength = rows.length;
+		var checkMarkIds = [];
+		for(var i=0; i<=rowLength-1; i++) {
+			var row = rows[i];
+			if(row.hasCheck){
+				checkMarkIds.push(row.id);
+			}
+		}
+		return checkMarkIds;
+		//.API.info('checked row length: ' + checkMarkIds);
+	}
+	
 	var table = Ti.UI.createTableView({
 	  data: [sectionCategory]
 	});
@@ -70,6 +86,7 @@ exports.CategoryListViewWindow = function(args) {
 			addItemTextField.blur();
 			if(self.catsAreSelectable == true){
 				e.row.hasCheck = !e.row.hasCheck;
+				self.checkCategoryIds = collectCheckMarks();
 			}
 		} 
 	});
@@ -81,6 +98,10 @@ exports.CategoryListViewWindow = function(args) {
 		sectionCategory.add(addRow);
 		table.setData([sectionCategory]);
 	});
+	
+	self.getSelectedCategories = function() {
+		return self.checkCategoryIds;
+	}
 	
 	return self;
 }

@@ -26,7 +26,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	
 	doneButton.addEventListener('click', function() {
 		blurTextFields();
-		addPurchase(itemNameTextField.value, priceTextField.value, args.parentWindow);
+		addPurchase(itemNameTextField.value, priceTextField.value, args.parentWindow, self.categoryListView);
 	});
 
 	var itemNameTextField = Ti.UI.createTextField({
@@ -117,7 +117,9 @@ exports.AddPurchaseContentWindow = function(args) {
 	return self;
 }
 
-var addPurchase = function(item_name, item_price, win) {
+var addPurchase = function(item_name, item_price, win, categoryView) {
+
+	Ti.API.info('list: ' + categoryView.getSelectedCategories());
 
 	if (item_name === '') {
 		alert('Please enter a item name first');
@@ -127,8 +129,8 @@ var addPurchase = function(item_name, item_price, win) {
 	if (item_price === '') {
 		alert('Please enter a price first');
 		return;	
-	}
-	
+	}	
+
 	require('db').addItem(item_name, item_price);
 	Ti.App.fireEvent('app:updateTables');
 	win.close();
