@@ -30,6 +30,7 @@ exports.selectItem = function(rowID) {
 
 exports.addItem = function(item_name, item_price, item_categories) {
 	var mydb = Ti.Database.open(DATABASE_NAME);
+	//zeroes are just holders since db has so many columns now
 	mydb.execute('insert into purchases values (?,?,0,0,0,0,0,0,0,0,0,0,0,0)', item_name, item_price);
 	Ti.API.info('categories: ' + item_categories);
 	if(item_categories.length > 0) {
