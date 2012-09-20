@@ -1,7 +1,11 @@
 exports.AddPurchaseContentWindow = function(args) {
 	var ispriceTextFieldValid = false;
+	Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
+	Titanium.Geolocation.distanceFilter = 10;
 	
-	var self = Ti.UI.createWindow(args);
+	var self = Ti.UI.createWindow(args),
+		userLat = 0,
+		userLon = 0;
 	
 	//TODO: need to fix scrolling view, will probably have to write own function using the scrollTo functionality
 	//in the scrollview class: http://docs.appcelerator.com/titanium/2.1/index.html#!/api/Titanium.UI.ScrollView
@@ -27,7 +31,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	doneButton.addEventListener('click', function() {
 		blurTextFields();
 		addPurchase(itemNameTextField.value, priceTextField.value, args.parentWindow, self.categoryListView,
-			noteTextArea.value);
+			noteTextArea.value, userLat, userLon);
 	});
 
 	var itemNameTextField = Ti.UI.createTextField({
@@ -42,6 +46,7 @@ exports.AddPurchaseContentWindow = function(args) {
 		// addPurchase(itemNameTextField.value, self);
 	// });
 	
+	
 	var priceTextField = Ti.UI.createTextField({
 		width: '300dp',
 		height: '45dp',
@@ -53,11 +58,36 @@ exports.AddPurchaseContentWindow = function(args) {
 	});
 	
 	var locationButton = Ti.UI.createButton({
-		title: 'Add Location',
+		title: 'Location',
+		top: '130dp',
 		width: '300dp',
-		height: '40dp',
-		top: '130dp'
+		height: '40dp'
 	});
+	locationButton.addEventListener('click', function(){
+		Titanium.Geolocation.getCurrentPosition(function(e) {
+			if (e.error) {
+			    alert('HFL cannot get your current location');
+			    return;
+			}
+			 
+			var longitude = e.coords.longitude;
+			var latitude = e.coords.latitude;
+			var altitude = e.coords.altitude;
+			var heading = e.coords.heading;
+			var accuracy = e.coords.accuracy;
+			var speed = e.coords.speed;
+			var timestamp = e.coords.timestamp;
+			var altitudeAccuracy = e.coords.altitudeAccuracy;
+			    
+			userLat = latitude;
+			userLon = longitude;
+		});
+	});
+	
+
+	
+
+	
 	
 	priceTextField.addEventListener('change', function(){
 		//var match = new RegExp(^(\d*\.\d{1,2}|\d+)$);
@@ -123,7 +153,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	return self;
 }
 
-var addPurchase = function(item_name, item_price, win, categoryView, noteText) {
+var addPurchase = function(item_name, item_price, win, categoryView, noteText, userLat, userLon) {
 
 	if (item_name === '') {
 		alert('Please enter a item name first');
@@ -144,6 +174,9 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText) {
 	if(noteText != '') {
 		optionalFields.note = noteText;
 	}
+	
+	optionalFields.userLat = userLat;
+	optionalFields.userLon = userLon;
 	
 	//should probably make an object to be passed vs all of these fields...
 	require('db').addItem(item_name, item_price, optionalFields);

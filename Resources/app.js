@@ -30,6 +30,8 @@ if (Ti.version < 1.8 ) {
 	    return this[property] !== undefined;
 	};
 	
+	Ti.Geolocation.purpose = "Recieve User Location";
+	
 	//considering tablet to have one dimension over 900px - this is imperfect, so you should feel free to decide
 	//yourself what you consider a tablet form factor for android
 	var isTablet = osname === 'ipad' || (osname === 'android' && (width > 899 || height > 899));

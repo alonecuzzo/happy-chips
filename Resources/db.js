@@ -30,8 +30,11 @@ exports.selectItem = function(rowID) {
 
 exports.addItem = function(item_name, item_price, optional_args) {
 	var mydb = Ti.Database.open(DATABASE_NAME);
+	
+	Ti.API.info("lat: " + optional_args.userLat + ' lon: ' + optional_args.userLon);
 	 
-	mydb.execute('insert into purchases (item_name, item_price, note) values (?,?,?)', item_name, item_price,optional_args.note);
+	mydb.execute('insert into purchases (item_name, item_price, note, location_latitude, location_longitude) values (?,?,?,?,?)', 
+			item_name, item_price,optional_args.note, optional_args.userLat, optional_args.userLon);
 	
 	if(optional_args.hasOwnProperty('categoryIds')) {
 		if(optional_args.categoryIds.length > 0) {
