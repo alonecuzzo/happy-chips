@@ -4,7 +4,7 @@
 
 INSERT INTO purchases
 (
-	name,
+	item_name,
 	item_price
 )
 VALUES
@@ -15,7 +15,7 @@ VALUES
 
 INSERT INTO purchases
 (
-	name,
+	item_name,
 	item_price
 )
 VALUES
@@ -26,7 +26,7 @@ VALUES
 
 INSERT INTO purchases
 (
-	name,
+	item_name,
 	item_price
 )
 VALUES

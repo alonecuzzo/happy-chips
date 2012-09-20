@@ -1,6 +1,6 @@
 CREATE TABLE purchases
 (
-	name 						VARCHAR(30),
+	item_name 					VARCHAR(30),
 	item_price					REAL,
 	location_latitude 			NUMERIC,
 	location_longitude			NUMERIC,

@@ -28,21 +28,22 @@ exports.selectItem = function(rowID) {
 	return retData;
 }
 
-exports.addItem = function(item_name, item_price, item_categories) {
+exports.addItem = function(item_name, item_price, optional_args) {
 	var mydb = Ti.Database.open(DATABASE_NAME);
-	//zeroes are just holders since db has so many columns now
-	mydb.execute('insert into purchases values (?,?,0,0,0,0,0,0,0,0,0,0,0,0)', item_name, item_price);
-	Ti.API.info('categories: ' + item_categories);
-	if(item_categories.length > 0) {
-		var row = mydb.execute('select ROWID from purchases order by rowid desc limit 1');
-		var purchaseId = row.fieldByName('ROWID');
-		var categoriesLength = item_categories.length;
-		for(var i=0; i<=categoriesLength-1; i++) {
-			Ti.API.info('adding category to db: ' + item_categories[i]);
-			mydb.execute('insert into purchases_categories values (?,?)', purchaseId, item_categories[i]);
+	 
+	mydb.execute('insert into purchases (item_name, item_price, note) values (?,?,?)', item_name, item_price,optional_args.note);
+	
+	if(optional_args.hasOwnProperty('categoryIds')) {
+		if(optional_args.categoryIds.length > 0) {
+			var row = mydb.execute('select ROWID from purchases order by rowid desc limit 1');
+			var purchaseId = row.fieldByName('ROWID');
+			var categoriesLength = optional_args.categoryIds.length;
+			for(var i=0; i<=categoriesLength-1; i++) {
+				Ti.API.info('adding category to db: ' + optional_args.categoryIds[i]);
+				mydb.execute('insert into purchase_categories values (?,?)', purchaseId, optional_args.categoryIds[i]);
+			}
 		}
 	}
-
 	mydb.close();
 };
 

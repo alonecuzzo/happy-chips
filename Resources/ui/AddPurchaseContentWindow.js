@@ -26,7 +26,8 @@ exports.AddPurchaseContentWindow = function(args) {
 	
 	doneButton.addEventListener('click', function() {
 		blurTextFields();
-		addPurchase(itemNameTextField.value, priceTextField.value, args.parentWindow, self.categoryListView);
+		addPurchase(itemNameTextField.value, priceTextField.value, args.parentWindow, self.categoryListView,
+			noteTextArea.value);
 	});
 
 	var itemNameTextField = Ti.UI.createTextField({
@@ -37,9 +38,9 @@ exports.AddPurchaseContentWindow = function(args) {
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
 		returnKeyType: Ti.UI.RETURNKEY_DONE
 	});
-	itemNameTextField.addEventListener('return', function(e) {
-		addPurchase(itemNameTextField.value, self);
-	});
+	// itemNameTextField.addEventListener('return', function(e) {
+		// addPurchase(itemNameTextField.value, self);
+	// });
 	
 	var priceTextField = Ti.UI.createTextField({
 		width: '300dp',
@@ -91,11 +92,14 @@ exports.AddPurchaseContentWindow = function(args) {
 		height: '40dp'
 	});
 	
-	var addButton = Ti.UI.createButton({
-		title: 'Add',
-		width: '300dp',
-		height: '40dp',
-		top: '330dp'
+	var noteTextArea = Ti.UI.createTextArea({
+	  borderWidth: 2,
+	  borderColor: '#bbb',
+	  returnKeyType: Ti.UI.RETURNKEY_GO,
+	  textAlign: 'left',
+	  hintText: 'Note',
+	  top: '330dp',
+	  width: '300dp', height: '70dp'
 	});
 	
 	scrollview.add(itemNameTextField);
@@ -104,6 +108,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	scrollview.add(locationButton);
 	scrollview.add(categoryButton);
 	scrollview.add(priceTextField);
+	scrollview.add(noteTextArea);
 	
 	self.add(scrollview);
 	
@@ -112,12 +117,13 @@ exports.AddPurchaseContentWindow = function(args) {
 	function blurTextFields() {
 		itemNameTextField.blur();
 		priceTextField.blur();
+		noteTextArea.blur();
 	}
 	
 	return self;
 }
 
-var addPurchase = function(item_name, item_price, win, categoryView) {
+var addPurchase = function(item_name, item_price, win, categoryView, noteText) {
 
 	if (item_name === '') {
 		alert('Please enter a item name first');
@@ -129,8 +135,18 @@ var addPurchase = function(item_name, item_price, win, categoryView) {
 		return;	
 	}	
 	
+	var optionalFields = {};
+	
+	if(categoryView.getSelectedCategories().length > 0){
+		optionalFields.categoryIds = categoryView.getSelectedCategories();
+	}
+	
+	if(noteText != '') {
+		optionalFields.note = noteText;
+	}
+	
 	//should probably make an object to be passed vs all of these fields...
-	require('db').addItem(item_name, item_price, categoryView.getSelectedCategories());
+	require('db').addItem(item_name, item_price, optionalFields);
 	Ti.App.fireEvent('app:updateTables');
 	win.close();
 };
