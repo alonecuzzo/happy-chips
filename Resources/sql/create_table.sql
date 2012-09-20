@@ -26,3 +26,8 @@ CREATE TABLE categories
 (
 	category_name				VARCHAR(30)
 );
+
+CREATE TABLE emotions
+(
+	emotion						VARCHAR(30)
+);

@@ -31,7 +31,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	doneButton.addEventListener('click', function() {
 		blurTextFields();
 		addPurchase(itemNameTextField.value, priceTextField.value, args.parentWindow, self.categoryListView,
-			noteTextArea.value, userLat, userLon);
+			noteTextArea.value, userLat, userLon, self.questionWindow);
 	});
 
 	var itemNameTextField = Ti.UI.createTextField({
@@ -84,11 +84,6 @@ exports.AddPurchaseContentWindow = function(args) {
 		});
 	});
 	
-
-	
-
-	
-	
 	priceTextField.addEventListener('change', function(){
 		//var match = new RegExp(^(\d*\.\d{1,2}|\d+)$);
 		var match = /^(\d*?)(\.\d{1,2})?$/;
@@ -104,6 +99,11 @@ exports.AddPurchaseContentWindow = function(args) {
 		height: '40dp'
 	});
 	
+	happinessButton.addEventListener('click', function(){
+		blurTextFields();
+		self.navGroup.open(self.questionWindow, {animated:true});
+	});
+	
 	var categoryButton = Ti.UI.createButton({
 		title: 'Categories',
 		top: '230dp',
@@ -112,6 +112,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	});
 	
 	categoryButton.addEventListener('click', function(){
+		blurTextFields();
 		self.navGroup.open(self.categoryWindow, {animated:true});
 	});
 	
@@ -153,7 +154,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	return self;
 }
 
-var addPurchase = function(item_name, item_price, win, categoryView, noteText, userLat, userLon) {
+var addPurchase = function(item_name, item_price, win, categoryView, noteText, userLat, userLon, questionWindow) {
 
 	if (item_name === '') {
 		alert('Please enter a item name first');
@@ -177,6 +178,7 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText, u
 	
 	optionalFields.userLat = userLat;
 	optionalFields.userLon = userLon;
+	optionalFields.question_1_emotion = questionWindow.getAnswerId();
 	
 	//should probably make an object to be passed vs all of these fields...
 	require('db').addItem(item_name, item_price, optionalFields);

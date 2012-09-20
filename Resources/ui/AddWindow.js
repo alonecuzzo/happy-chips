@@ -2,7 +2,14 @@ exports.AddWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	
 	var CategoryListViewWindow = require('ui/CategoryListViewWindow').CategoryListViewWindow,
-		AddPurchaseContentWindow = require('ui/AddPurchaseContentWindow').AddPurchaseContentWindow;
+		AddPurchaseContentWindow = require('ui/AddPurchaseContentWindow').AddPurchaseContentWindow,
+		QuestionWindow = require('ui/QuestionWindow').QuestionWindow;
+		
+	var questionWindow = new QuestionWindow({
+		title: 'Question 1',
+		backgroundColor: '#FFF',
+		parentWindow: self
+	});
 	
 	var addPurchaseContentWindow = new AddPurchaseContentWindow({
 		title: 'Add Item',
@@ -23,6 +30,7 @@ exports.AddWindow = function(args) {
 	
 	addPurchaseContentWindow.navGroup = navGroup;
 	addPurchaseContentWindow.categoryWindow = categoryListView;
+	addPurchaseContentWindow.questionWindow = questionWindow;
 
 	self.add(navGroup);
 	
