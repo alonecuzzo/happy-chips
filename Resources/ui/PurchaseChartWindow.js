@@ -1,7 +1,6 @@
 exports.PurchaseChartWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	var webView = Ti.UI.createWebView({
-		html:htmlString,
 		top:50
 		});
 	
@@ -41,7 +40,24 @@ exports.PurchaseChartWindow = function(args) {
 	self.add(chart2Button);
 	self.add(chart3Button);
 	self.add(webView);
+	
+	//
+	var sums = require('db').getEmotionalSums();
+	var sumsString = '[';
+	//Ti.API.info('sums length: ' + sums.length);
+	for(var i=0; i<=sums.length-1; i++) {
+		if(i == (sums.length-1)){
+			sumsString += sums[i].sum + ']';
+		} else {
+			sumsString += sums[i].sum + ', ';
+		}
+	}
+	
+	Ti.API.info('sum string: ' + sumsString);
+	
+	var htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.text(145, 20, "dope ass chart").attr({ font: "16px sans-serif" }); r.piechart(150, 140, 100, ' + sumsString + '); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+	webView.html = htmlString;
 	return self;
 }
 
-var htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.text(145, 20, "dope ass chart").attr({ font: "16px sans-serif" }); r.piechart(150, 140, 100, [55, 20, 13, 32, 5, 1, 2, 10]); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+

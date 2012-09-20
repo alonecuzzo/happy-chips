@@ -67,7 +67,7 @@ exports.selectItem = function(rowID) {
 exports.addItem = function(item_name, item_price, optional_args) {
 	var mydb = Ti.Database.open(DATABASE_NAME);
 	
-	Ti.API.info("lat: " + optional_args.userLat + ' lon: ' + optional_args.userLon);
+	//Ti.API.info("lat: " + optional_args.userLat + ' lon: ' + optional_args.userLon);
 	 
 	mydb.execute('insert into purchases (item_name, item_price, note, location_latitude, location_longitude, question_1_emotion) values (?,?,?,?,?,?)', 
 			item_name, item_price,optional_args.note, optional_args.userLat, optional_args.userLon, optional_args.question_1_emotion);
@@ -106,6 +106,28 @@ exports.selectEmotions = function() {
 		retData.push({emotion:rows.fieldByName('emotion'), id:rows.fieldByName('ROWID')});
 		rows.next();
 	}
+	db.close();
+	return retData;
+}
+
+exports.getEmotionalSums = function() {
+	var retData = [];
+	var db = Ti.Database.open(DATABASE_NAME);
+	var emotionIds = [];
+	var emotions = db.execute('select ROWID from emotions');
+	while(emotions.isValidRow()) {
+		emotionIds.push(emotions.fieldByName('ROWID'));
+		emotions.next();
+	}
+	
+	//now scroll through emotion ids grabbing $$ sum
+	for(var i=0; i<=emotionIds.length-1; i++) {
+		var sum = db.execute('select sum(item_price) as priceSum from purchases where question_1_emotion=?', emotionIds[i]);
+		if(sum.fieldByName('priceSum') != null){
+			retData.push({id:emotionIds[i], sum:sum.fieldByName('priceSum')});
+		}	
+	}
+	
 	db.close();
 	return retData;
 }
