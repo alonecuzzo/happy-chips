@@ -41,7 +41,7 @@ exports.PurchaseChartWindow = function(args) {
 	self.add(chart3Button);
 	self.add(webView);
 	
-	//
+	//TODO:create a function that refreshes the drawing of the charts once a purchase is added/modified/or removed from db
 	var sums = require('db').getEmotionalSums();
 	var sumsString = '[';
 	//Ti.API.info('sums length: ' + sums.length);
