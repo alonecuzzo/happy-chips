@@ -6,6 +6,22 @@ exports.PurchaseDetailWindow = function(args) {
 	
 	Ti.API.info("item price: " + item.item_price);
 	
+	var date = new Date(item.date_time*1000);
+	var hours = date.getHours();
+	var minutes = date.getMinutes();
+	var seconds = date.getSeconds();
+	var day = date.getDate();
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var formattedTime = year + ', ' + month + ', ' + day + ', ' + hours + ':' + minutes;
+	
+	Ti.API.info("item date_time: " + formattedTime);
+	Ti.API.info("item lat: " + item.location_latitude);
+	Ti.API.info("item lon: " + item.location_longitude);
+	Ti.API.info("item note: " + item.note);
+	Ti.API.info("categories: " + item.categoryNames);
+	
+	
 	var titleLabel = Ti.UI.createLabel({
 	  color: '#000',
 	  font: {fontSize:12},

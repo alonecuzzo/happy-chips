@@ -9,7 +9,8 @@ exports.selectItems = function() {
 	var db = Ti.Database.open(DATABASE_NAME);
 	var rows = db.execute('select ROWID, * from purchases');
 	while (rows.isValidRow()) {
-		retData.push({item_name:rows.fieldByName('item_name'), id:rows.fieldByName('ROWID'), item_price:rows.fieldByName('item_price')});
+		retData.push({item_name:rows.fieldByName('item_name'), 
+			id:rows.fieldByName('ROWID'), item_price:rows.fieldByName('item_price'), item_price:rows.fieldByName('item_price')});
 		rows.next();
 	}
 	db.close();
@@ -21,9 +22,37 @@ exports.selectItem = function(rowID) {
 	var db = Ti.Database.open(DATABASE_NAME);
 	var rows = db.execute('select ROWID, * from purchases where ROWID=? limit 1', rowID);
 	while (rows.isValidRow()) {
-		retData.push({item_name:rows.fieldByName('item_name'), id:rows.fieldByName('ROWID'), item_price:rows.fieldByName('item_price')});
+		retData.push({item_name:rows.fieldByName('item_name'), id:rows.fieldByName('ROWID'), item_price:rows.fieldByName('item_price'),
+					note:rows.fieldByName('note'), location_latitude:rows.fieldByName('location_latitude'), location_longitude:rows.fieldByName('location_longitude'),
+					date_time:rows.fieldByName('date_time')});
 		rows.next();
 	}
+	var categories = db.execute('select ROWID, * from purchase_categories where purchase_id=?', rowID);
+	var categoryIds = [];
+	while(categories.isValidRow()) {
+		categoryIds.push(categories.fieldByName('category_id'));
+		categories.next();
+	}
+	//Ti.API.info('category ids: ' + categoryIds);
+	var categoryNames = [];
+	var categoryNameQuery = 'select category_name from categories where ROWID in (';
+	if(categoryIds.length > 0) {
+		for(var i=0; i<=categoryIds.length-1; i++) {
+			if((i == (categoryIds.length-1))){
+				categoryNameQuery += '?';
+			} else {
+				categoryNameQuery += '?,';
+			}
+		}
+		categoryNameQuery += ')';
+		var categoryName = db.execute(categoryNameQuery, categoryIds);
+		while(categoryName.isValidRow()) {
+			categoryNames.push(categoryName.fieldByName('category_name'));
+			categoryName.next();
+		}
+		retData[0].categoryNames = categoryNames;
+	}
+	
 	db.close();
 	return retData;
 }
@@ -42,7 +71,7 @@ exports.addItem = function(item_name, item_price, optional_args) {
 			var purchaseId = row.fieldByName('ROWID');
 			var categoriesLength = optional_args.categoryIds.length;
 			for(var i=0; i<=categoriesLength-1; i++) {
-				Ti.API.info('adding category to db: ' + optional_args.categoryIds[i]);
+				//Ti.API.info('adding category to db: ' + optional_args.categoryIds[i]);
 				mydb.execute('insert into purchase_categories values (?,?)', purchaseId, optional_args.categoryIds[i]);
 			}
 		}
