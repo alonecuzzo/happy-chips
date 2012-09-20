@@ -21,6 +21,7 @@ exports.PurchaseDetailWindow = function(args) {
 	Ti.API.info("item note: " + item.note);
 	Ti.API.info("categories: " + item.categoryNames);
 	Ti.API.info("emotion: " + item.question_1_emotion);
+	Ti.API.info("emotion name: " + item.question_1_emotion_name);
 	
 	
 	var titleLabel = Ti.UI.createLabel({
