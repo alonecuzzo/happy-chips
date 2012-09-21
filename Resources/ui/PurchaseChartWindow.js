@@ -57,10 +57,10 @@ exports.PurchaseChartWindow = function(args) {
 		for(var i=0; i<=sums.length-1; i++) {
 			if(i == (sums.length-1)){
 				sumsString += sums[i].sum + ']';
-				legendString += '"' + sums[i].emotion + '"]';
+				legendString += '"' + sums[i].emotion + ' - $' + sums[i].sum + '"]';
 			} else {
 				sumsString += sums[i].sum + ', ';
-				legendString += '"' + sums[i].emotion + '", ';
+				legendString += '"' + sums[i].emotion + ' - $' + sums[i].sum + '", ';
 			}
 		}
 		
