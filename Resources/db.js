@@ -114,17 +114,17 @@ exports.getEmotionalSums = function() {
 	var retData = [];
 	var db = Ti.Database.open(DATABASE_NAME);
 	var emotionIds = [];
-	var emotions = db.execute('select ROWID from emotions');
+	var emotions = db.execute('select ROWID, * from emotions');
 	while(emotions.isValidRow()) {
-		emotionIds.push(emotions.fieldByName('ROWID'));
+		emotionIds.push({id:emotions.fieldByName('ROWID'), emotion:emotions.fieldByName('emotion')});
 		emotions.next();
 	}
 	
 	//now scroll through emotion ids grabbing $$ sum
 	for(var i=0; i<=emotionIds.length-1; i++) {
-		var sum = db.execute('select sum(item_price) as priceSum from purchases where question_1_emotion=?', emotionIds[i]);
+		var sum = db.execute('select sum(item_price) as priceSum from purchases where question_1_emotion=?', emotionIds[i].id);
 		if(sum.fieldByName('priceSum') != null){
-			retData.push({id:emotionIds[i], sum:sum.fieldByName('priceSum')});
+			retData.push({id:emotionIds[i].id, sum:sum.fieldByName('priceSum'), emotion:emotionIds[i].emotion});
 		}	
 	}
 	

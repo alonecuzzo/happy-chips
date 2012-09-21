@@ -52,19 +52,23 @@ exports.PurchaseChartWindow = function(args) {
 	function populateHTML() {
 		var sums = require('db').getEmotionalSums();
 		var sumsString = '[';
+		var legendString = '[';
 		//Ti.API.info('sums length: ' + sums.length);
 		for(var i=0; i<=sums.length-1; i++) {
 			if(i == (sums.length-1)){
 				sumsString += sums[i].sum + ']';
+				legendString += '"' + sums[i].emotion + '"]';
 			} else {
 				sumsString += sums[i].sum + ', ';
+				legendString += '"' + sums[i].emotion + '", ';
 			}
 		}
-		htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.text(145, 20, "dope ass chart").attr({ font: "16px sans-serif" }); r.piechart(150, 140, 100, ' + sumsString + '); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+		
+		htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.text(145, 20, "dope ass chart").attr({ font: "16px sans-serif" }); r.piechart(150, 140, 100, ' + sumsString + ', { legend: ' + legendString + ', legendpos: "south", href: ["http://raphaeljs.com", "http://g.raphaeljs.com"]}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 		webView.html = htmlString;
 		Ti.API.info('sum string: ' + sumsString);
+		Ti.API.info('legend string: ' + legendString);
 	}
-	
 	return self;
 }
 
