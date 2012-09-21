@@ -3,6 +3,7 @@ exports.SettingsWindow = function(args) {
 	
 	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:'Settings' });
 	sectionCategory.add(Ti.UI.createTableViewRow({title:'Manage Categories', hasChild:true}));
+	sectionCategory.add(Ti.UI.createTableViewRow({title:'Manage Limits', hasChild:true}));
 	
 	var table = Ti.UI.createTableView({
 	  data: [sectionCategory]
