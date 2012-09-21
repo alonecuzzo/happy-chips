@@ -151,7 +151,7 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 			categoryQuery += purchasesWithEmotionArray[i] + ',';
 		}
 	}
-	Ti.API.info('category query: ' + categoryQuery);
+	//Ti.API.info('category query: ' + categoryQuery);
 	var categoriesInQuestionArray = [];
 	var categoriesInQuestion = db.execute('select category_id from purchase_categories where purchase_id in (' + categoryQuery + ')');
 	while(categoriesInQuestion.isValidRow()) {
@@ -168,30 +168,44 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 			sumQuery += categoriesInQuestionArray[i] + ',';
 		}
 	}
-	Ti.API.info('categories in question: ' + categoriesInQuestionArray);
+	//Ti.API.info('categories in question: ' + categoriesInQuestionArray);
 	var purchaseIdsFromCategoryIdsArray = [];
 	
 	//do a loop through the categories in question
 	for(var i=0; i<= categoriesInQuestionArray.length-1; i++) {
 		var purchaseIdsFromCategoryIds = db.execute('select purchase_id, category_id from purchase_categories where category_id=?', categoriesInQuestionArray[i]);
+		var pids = [];
+		var cid = -1;
 		while(purchaseIdsFromCategoryIds.isValidRow()) {
-			purchaseIdsFromCategoryIdsArray.push({purchase_id:purchaseIdsFromCategoryIds.fieldByName('purchase_id'), 
-						category_id:purchaseIdsFromCategoryIds.fieldByName('category_id')});
-			Ti.API.info('hey im inserting category_id: ' + purchaseIdsFromCategoryIds.fieldByName('category_id') + ' for purchase_id: ' + purchaseIdsFromCategoryIds.fieldByName('purchase_id'));
+			pids.push(purchaseIdsFromCategoryIds.fieldByName('purchase_id'));
+			cid = purchaseIdsFromCategoryIds.fieldByName('category_id');
+			//Ti.API.info('hey im inserting category_id: ' + purchaseIdsFromCategoryIds.fieldByName('category_id') + ' for purchase_id: ' + purchaseIdsFromCategoryIds.fieldByName('purchase_id'));
 			purchaseIdsFromCategoryIds.next();
+		}
+		purchaseIdsFromCategoryIdsArray.push({purchase_ids:pids, category_id:cid});
+	}
+	
+	//Ti.API.info('purchase ids ' + purchaseIdsFromCategoryIdsArray);
+	
+	for(var i=0; i<=purchaseIdsFromCategoryIdsArray.length-1; i++) {
+		//need to build query
+		var pidString = '';
+		for(var k=0; k<=purchaseIdsFromCategoryIdsArray[i].purchase_ids.length-1; k++) {
+			if((k == (purchaseIdsFromCategoryIdsArray[i].purchase_ids.length-1))){
+				pidString += purchaseIdsFromCategoryIdsArray[i].purchase_ids[k];
+			} else {
+				pidString += purchaseIdsFromCategoryIdsArray[i].purchase_ids[k] + ',';
+			}
+		}
+		//Ti.API.info('purchase ids for query: ' + pidString + ' with catid: ' + purchaseIdsFromCategoryIdsArray[i].category_id);
+		var sumsInQuestion = db.execute('select sum(item_price) as priceSum from purchases where question_1_emotion=? and ROWID in (' + pidString + ')', emotionId);
+		while(sumsInQuestion.isValidRow()){
+			retData.push({category_id:purchaseIdsFromCategoryIdsArray[i].category_id, sum:sumsInQuestion.fieldByName('priceSum')});
+			//Ti.API.info('for cat id: ' + purchaseIdsFromCategoryIdsArray[i].category_id + ' we have a sum of ' + sumsInQuestion.fieldByName('priceSum'));
+			sumsInQuestion.next();
 		}
 	}
 	
-	Ti.API.info('purchase ids ' + purchaseIdsFromCategoryIdsArray);
-	// now need to get the sums of each purchase that matches the category id?? & the emotion
-	var j = 0;
-	var sumsInQuestion = db.execute('select sum(item_price) as priceSum from purchases where question_1_emotion=? and ROWID in (' + sumQuery + ')');
-	while(sumsInQuestion.isValidRow()){
-		retData.push({sum:sumsInQuestion.fieldByName('priceSum'), categoryId:categoriesInQuestionArray[j]});
-		//Ti.API.info('adding sum of ' + sumsInQuestion.fieldByName('priceSum') + ' for category id: ' + categoriesInQuestionArray[j]);
-		j += 1;
-		sumsInQuestion.next();
-	}
 	db.close();
 	return retData;
 }
