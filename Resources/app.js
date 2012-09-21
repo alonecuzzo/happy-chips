@@ -39,7 +39,8 @@ if (Ti.version < 1.8 ) {
 	var tabGroup = Ti.UI.createTabGroup(),
 		PurchaseListWindow = require('ui/PurchaseListWindow').PurchaseListWindow,
 		PurchaseChartWindow = require('ui/PurchaseChartWindow').PurchaseChartWindow,
-		SettingsWindow = require('ui/SettingsWindow').SettingsWindow;
+		SettingsWindow = require('ui/SettingsWindow').SettingsWindow,
+		ProfileWindow = require('ui/ProfileWindow').ProfileWindow;
  
 	var purchasesWindow = new PurchaseListWindow({
 	    backgroundColor: '#FFF', 
@@ -54,6 +55,11 @@ if (Ti.version < 1.8 ) {
 	var settingsWindow = new SettingsWindow({
 		backgroundColor:'#FFF',
 		title:'Settings'
+	});
+	
+	var profileWindow = new ProfileWindow({
+		backgroundColor:'#FFF',
+		title:'Profile'
 	});
 	 
 	var purchaseWindowAddButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.COMPOSE }); 
@@ -87,6 +93,12 @@ if (Ti.version < 1.8 ) {
 	});
 	chartWindow.containingTab = chartTab;
 	
+	var profileTab = Ti.UI.createTab({
+		title: 'Profile',
+		window: profileWindow
+	});
+	profileWindow.containingTab = profileTab;
+	
 	var settingsTab = Ti.UI.createTab({
 		title: 'Settings',
 		window: settingsWindow
@@ -95,6 +107,7 @@ if (Ti.version < 1.8 ) {
 	 
 	tabGroup.addTab(tab);
 	tabGroup.addTab(chartTab);
+	tabGroup.addTab(profileTab);
 	tabGroup.addTab(settingsTab);
 	tabGroup.open();
 })();
