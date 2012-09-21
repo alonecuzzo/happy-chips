@@ -189,3 +189,29 @@ VALUES
 (
 	'Indifferent'
 );
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+--User
+
+INSERT INTO users
+(
+	username,
+	email,
+	password,
+	first_name,
+	last_name,
+	points,
+	challenges_completed
+)
+VALUES
+(
+	'alonecuzzo',
+	'jabari.bell@pxlflu.net',
+	'password',
+	'Jabari',
+	'Bell',
+	23,
+	4
+);
+

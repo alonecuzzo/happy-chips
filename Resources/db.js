@@ -178,7 +178,7 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 		while(purchaseIdsFromCategoryIds.isValidRow()) {
 			pids.push(purchaseIdsFromCategoryIds.fieldByName('purchase_id'));
 			cid = purchaseIdsFromCategoryIds.fieldByName('category_id');
-			//Ti.API.info('hey im inserting category_id: ' + purchaseIdsFromCategoryIds.fieldByName('category_id') + ' for purchase_id: ' + purchaseIdsFromCategoryIds.fieldByName('purchase_id'));
+			Ti.API.info('hey im inserting category_id: ' + purchaseIdsFromCategoryIds.fieldByName('category_id') + ' for purchase_id: ' + purchaseIdsFromCategoryIds.fieldByName('purchase_id'));
 			purchaseIdsFromCategoryIds.next();
 		}
 		purchaseIdsFromCategoryIdsArray.push({purchase_ids:pids, category_id:cid});
@@ -226,4 +226,31 @@ exports.getCategoryById = function(category_id) {
 		retData.push({category_name:query.fieldByName('category_name'), id:category_id});
 	}
 	db.close();
+}
+
+exports.getProfileStats = function() {
+	var retData = {};
+	var db = Ti.Database.open(DATABASE_NAME);
+	//total spent
+	var totalSpentQuery = db.execute('select sum(item_price) as purchaseSum, count(item_price) as purchaseCount from purchases');
+	while(totalSpentQuery.isValidRow()) {
+		retData.totalSpent = totalSpentQuery.fieldByName('purchaseSum');
+		retData.purchaseCount = totalSpentQuery.fieldByName('purchaseCount');
+		totalSpentQuery.next();
+	}
+	//total spent while a certain emotion- use previous function
+	//points
+	var userQuery = db.execute('select ROWID, * from users where username=?', 'alonecuzzo');
+	while(userQuery.isValidRow()) {
+		retData.userObject = {};
+		retData.userObject.points = userQuery.fieldByName('points');
+		retData.userObject.challengesCompleted = userQuery.fieldByName('challenges_completed');
+		retData.userObject.firstName = userQuery.fieldByName('first_name');
+		retData.userObject.lastName = userQuery.fieldByName('last_name');
+		retData.userObject.userName = userQuery.fieldByName('username');
+		userQuery.next();
+	}
+	//goals completed - limits/contstraints broken?
+	db.close();
+	return retData;
 }

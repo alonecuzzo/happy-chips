@@ -31,3 +31,14 @@ CREATE TABLE emotions
 (
 	emotion						VARCHAR(30)
 );
+
+CREATE TABLE users
+(
+	username					VARCHAR(30),
+	email						VARCHAR(30),
+	password					VARCHAR(30),
+	first_name					VARCHAR(30),
+	last_name					VARCHAR(30),
+	points						INTEGER,
+	challenges_completed		INTEGER
+);

@@ -57,13 +57,13 @@ exports.AddPurchaseContentWindow = function(args) {
 		keyboardType: Titanium.UI.KEYBOARD_DECIMAL_PAD
 	});
 	
-	var locationButton = Ti.UI.createButton({
-		title: 'Location',
-		top: '130dp',
-		width: '300dp',
-		height: '40dp'
-	});
-	locationButton.addEventListener('click', function(){
+	// var locationButton = Ti.UI.createButton({
+		// title: 'Location',
+		// top: '130dp',
+		// width: '300dp',
+		// height: '40dp'
+	// });
+
 		Titanium.Geolocation.getCurrentPosition(function(e) {
 			if (e.error) {
 			    alert('HFL cannot get your current location');
@@ -82,7 +82,7 @@ exports.AddPurchaseContentWindow = function(args) {
 			userLat = latitude;
 			userLon = longitude;
 		});
-	});
+
 	
 	priceTextField.addEventListener('change', function(){
 		//var match = new RegExp(^(\d*\.\d{1,2}|\d+)$);
@@ -136,7 +136,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	scrollview.add(itemNameTextField);
 	scrollview.add(happinessButton);
 	scrollview.add(photoButton);
-	scrollview.add(locationButton);
+	//scrollview.add(locationButton);
 	scrollview.add(categoryButton);
 	scrollview.add(priceTextField);
 	scrollview.add(noteTextArea);
