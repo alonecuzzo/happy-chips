@@ -10,6 +10,7 @@ exports.ProfileWindow = function(args) {
 	Ti.API.info('first_name: ' + profileObject.userObject.firstName);
 	Ti.API.info('last_name: ' + profileObject.userObject.lastName);
 	Ti.API.info('user_name: ' + profileObject.userObject.userName);
+	Ti.API.info('challenges_completed: ' + profileObject.userObject.challengesCompleted);
 	
 	return self;
 }
