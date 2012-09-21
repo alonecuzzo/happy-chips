@@ -160,6 +160,7 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 	}
 	var sumQuery = '';
 	//build category query string
+	categoriesInQuestionArray = require('util').removeArrayDuplicates(categoriesInQuestionArray);
 	for(var i=0; i<=categoriesInQuestionArray.length-1; i++) {
 		if((i == (categoriesInQuestionArray.length-1))){
 			sumQuery += categoriesInQuestionArray[i];
@@ -167,14 +168,27 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 			sumQuery += categoriesInQuestionArray[i] + ',';
 		}
 	}
-	categoriesInQuestionArray = require('util').removeArrayDuplicates(categoriesInQuestionArray);
 	Ti.API.info('categories in question: ' + categoriesInQuestionArray);
+	var purchaseIdsFromCategoryIdsArray = [];
+	
+	//do a loop through the categories in question
+	for(var i=0; i<= categoriesInQuestionArray.length-1; i++) {
+		var purchaseIdsFromCategoryIds = db.execute('select purchase_id, category_id from purchase_categories where category_id=?', categoriesInQuestionArray[i]);
+		while(purchaseIdsFromCategoryIds.isValidRow()) {
+			purchaseIdsFromCategoryIdsArray.push({purchase_id:purchaseIdsFromCategoryIds.fieldByName('purchase_id'), 
+						category_id:purchaseIdsFromCategoryIds.fieldByName('category_id')});
+			Ti.API.info('hey im inserting category_id: ' + purchaseIdsFromCategoryIds.fieldByName('category_id') + ' for purchase_id: ' + purchaseIdsFromCategoryIds.fieldByName('purchase_id'));
+			purchaseIdsFromCategoryIds.next();
+		}
+	}
+	
+	Ti.API.info('purchase ids ' + purchaseIdsFromCategoryIdsArray);
 	// now need to get the sums of each purchase that matches the category id?? & the emotion
 	var j = 0;
 	var sumsInQuestion = db.execute('select sum(item_price) as priceSum from purchases where question_1_emotion=? and ROWID in (' + sumQuery + ')');
 	while(sumsInQuestion.isValidRow()){
 		retData.push({sum:sumsInQuestion.fieldByName('priceSum'), categoryId:categoriesInQuestionArray[j]});
-		Ti.API.info('adding sum of ' + sumsInQuestion.fieldByName('priceSum') + ' for category id: ' + categoriesInQuestionArray[j]);
+		//Ti.API.info('adding sum of ' + sumsInQuestion.fieldByName('priceSum') + ' for category id: ' + categoriesInQuestionArray[j]);
 		j += 1;
 		sumsInQuestion.next();
 	}
