@@ -1,1 +1,1 @@
-/Users/cuzzo/projects/titanium/happy-chips/Resources/ui/ProfileWIndow.js
+/Users/cuzzo/projects/titanium/happy-chips/Resources/ui/ProfileWindow.js

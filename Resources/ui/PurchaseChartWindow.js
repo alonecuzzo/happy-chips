@@ -50,11 +50,12 @@ exports.PurchaseChartWindow = function(args) {
 	});
 	
 	Titanium.App.addEventListener('fromwebview', function(e) {
-		Ti.API.info('got it: ' + e.id);
+		//Ti.API.info('got it: ' + e.id);
 		var ChartDetailWindow = require('ui/ChartDetailWindow').ChartDetailWindow;
 		var chartDetailWindow = new ChartDetailWindow({
 			title: 'Chart Detail',
-			backgroundColor: '#FFF'
+			backgroundColor: '#FFF',
+			emotionId:e.id
 		});
 		self.containingTab.open(chartDetailWindow,{animated:true});
 	});

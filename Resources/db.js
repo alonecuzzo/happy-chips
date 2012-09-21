@@ -127,9 +127,39 @@ exports.getEmotionalSums = function() {
 			retData.push({id:emotionIds[i].id, sum:sum.fieldByName('priceSum'), emotion:emotionIds[i].emotion});
 		}	
 	}
-	
 	db.close();
 	return retData;
+}
+
+exports.getEmotionalSumByCategory = function(emotionId) {
+	// 1. get all items with emotionId
+	var db = Ti.Database.open(DATABASE_NAME);
+	var purchasesWithEmotionArray = [];
+	var purchasesWithEmotion = db.execute('select ROWID, * from purchases where question_1_emotion=?', emotionId);
+	while(purchasesWithEmotion.isValidRow()) {
+		purchasesWithEmotionArray.push(purchasesWithEmotion.fieldByName('ROWID'));
+		purchasesWithEmotion.next();
+	}
+	Ti.API.info('purchases with emotion: ' + purchasesWithEmotionArray + ' emotion id: ' + emotionId);
+	var categoryQuery = '';
+	//build category query string
+	for(var i=0; i<=purchasesWithEmotionArray.length-1; i++) {
+		if((i == (purchasesWithEmotionArray.length-1))){
+			categoryQuery += purchasesWithEmotionArray[i];
+		} else {
+			categoryQuery += purchasesWithEmotionArray[i] + ',';
+		}
+	}
+	Ti.API.info('category query: ' + categoryQuery);
+	var categoriesInQuestionArray = [];
+	var categoriesInQuestion = db.execute('select category_id from purchase_categories where purchase_id in (' + categoryQuery + ')');
+	while(categoriesInQuestion.isValidRow()) {
+		categoriesInQuestionArray.push(categoriesInQuestion.fieldByName('category_id'));
+		categoriesInQuestion.next();
+	}
+	Ti.API.info('categories in question: ' + categoriesInQuestionArray);
+	
+	db.close();
 }
 
 exports.addCategory = function(category_name) {
