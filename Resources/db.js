@@ -208,7 +208,6 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 			sumsInQuestion.next();
 		}
 	}
-	
 	db.close();
 	return retData;
 }
