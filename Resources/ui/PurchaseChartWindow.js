@@ -51,6 +51,12 @@ exports.PurchaseChartWindow = function(args) {
 	
 	Titanium.App.addEventListener('fromwebview', function(e) {
 		Ti.API.info('got it: ' + e.id);
+		var ChartDetailWindow = require('ui/ChartDetailWindow').ChartDetailWindow;
+		var chartDetailWindow = new ChartDetailWindow({
+			title: 'Chart Detail',
+			backgroundColor: '#FFF'
+		});
+		self.containingTab.open(chartDetailWindow,{animated:true});
 	});
 	
 	function populateHTML() {

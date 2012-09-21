@@ -85,6 +85,7 @@ if (Ti.version < 1.8 ) {
 		title: 'Charts',
 		window: chartWindow
 	});
+	chartWindow.containingTab = chartTab;
 	
 	var settingsTab = Ti.UI.createTab({
 		title: 'Settings',
