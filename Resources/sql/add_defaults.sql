@@ -192,6 +192,67 @@ VALUES
 
 ------------------------------------------------------------------
 ------------------------------------------------------------------
+--Limits
+INSERT INTO limits
+(
+	name,
+	duration,
+	limit_amount,
+	limit_type,
+	limit_constraint,
+	completed
+)
+VALUES
+(
+	'No indifferent spending',
+	60, --one minute
+	450,
+	1,
+	4,
+	'false'
+);
+
+
+INSERT INTO limit_type
+(
+	limit_type
+)
+VALUES
+(
+	'Emotion'
+);
+
+INSERT INTO limit_type
+(
+	limit_type
+)
+VALUES
+(
+	'Category'
+);
+
+INSERT INTO limit_type
+(
+	limit_type
+)
+VALUES
+(
+	'Satisfaction Level'
+);
+
+INSERT INTO limit_type
+(
+	limit_type
+)
+VALUES
+(
+	'Impulse Level'
+);
+
+
+
+------------------------------------------------------------------
+------------------------------------------------------------------
 --User
 
 INSERT INTO users

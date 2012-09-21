@@ -42,3 +42,19 @@ CREATE TABLE users
 	points						INTEGER,
 	challenges_completed		INTEGER
 );
+
+CREATE TABLE limits
+(
+	name						VARCHAR(30),
+	duration					NUMERIC,
+	limit_amount				NUMERIC,
+	limit_type					INTEGER,
+	limit_constraint			INTEGER,
+	completed					BOOLEAN,
+	date_time					TIMESTAMP DEFAULT (strftime('%s', 'now'))
+);
+
+CREATE TABLE limit_type
+(
+	limit_type					VARCHAR(30)
+);
