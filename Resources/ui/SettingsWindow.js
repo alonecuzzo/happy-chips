@@ -8,6 +8,7 @@ exports.SettingsWindow = function(args) {
 	var table = Ti.UI.createTableView({
 	  data: [sectionCategory]
 	});
+	
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	
 	table.addEventListener('click', function(e){
@@ -19,6 +20,14 @@ exports.SettingsWindow = function(args) {
 			});
 			categoryListViewWindow.catsAreSelectable = false;
 			self.containingTab.open(categoryListViewWindow,{animated:true});
+		} else if(e.row.title === 'Manage Limits') {
+			var AddLimitWindow = require('ui/AddLimitWindow').AddLimitWindow;
+			var addLimitWindow = new AddLimitWindow({
+				backgroundColor: '#FFF',
+				title: 'Add Limit'
+			});
+			addLimitWindow.catsAreSelectable = false;
+			self.containingTab.open(addLimitWindow,{animated:true});
 		}
 	})
 	
