@@ -50,23 +50,42 @@ exports.PurchaseChartWindow = function(args) {
 	});
 	
 	Titanium.App.addEventListener('fromwebview', function(e) {
-		Ti.API.info('got it');
+		Ti.API.info('got it: ' + e.id);
 	});
 	
 	function populateHTML() {
 		var sums = require('db').getEmotionalSums();
+		//need to sort
+		var tempSumsArray = [];
+		var atsa = [];
+		for(var i=0; i<=sums.length-1; i++) {
+			tempSumsArray.push(sums[i].sum);
+		}
+		tempSumsArray.sort(function(a,b){return b-a});
+		for(var i=0; i<=sums.length-1; i++) {
+			for(var j=0; j<=sums.length-1; j++) {
+				if(tempSumsArray[i] == sums[j].sum) {
+					atsa[i] = sums[j];
+				}
+			}
+		}
+		
+		sums = atsa;
+		
 		var sumsString = '[';
 		var legendString = '[';
-		var urlString = '["javascript:fireEvent()"]';
-		var fireEventString = '<script type="text/JavaScript">function fireEvent(){Ti.App.fireEvent(\'fromwebview\',{});}</script>';
+		var urlString = '[';
+		var fireEventString = '<script type="text/JavaScript">function fireEvent(msg){Ti.App.fireEvent(\'fromwebview\',{id:msg});}</script>';
 		//Ti.API.info('sums length: ' + sums.length);
 		for(var i=0; i<=sums.length-1; i++) {
 			if(i == (sums.length-1)){
 				sumsString += sums[i].sum + ']';
 				legendString += '"' + sums[i].emotion + ' - $' + sums[i].sum + '"]';
+				urlString += '"javascript:fireEvent(' + sums[i].id + ')"]';
 			} else {
 				sumsString += sums[i].sum + ', ';
 				legendString += '"' + sums[i].emotion + ' - $' + sums[i].sum + '", ';
+				urlString += '"javascript:fireEvent(' + sums[i].id + ')",';
 			}
 		}
 		
