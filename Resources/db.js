@@ -133,6 +133,7 @@ exports.getEmotionalSums = function() {
 
 exports.getEmotionalSumByCategory = function(emotionId) {
 	// 1. get all items with emotionId
+	var retData = [];
 	var db = Ti.Database.open(DATABASE_NAME);
 	var purchasesWithEmotionArray = [];
 	var purchasesWithEmotion = db.execute('select ROWID, * from purchases where question_1_emotion=?', emotionId);
@@ -140,7 +141,7 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 		purchasesWithEmotionArray.push(purchasesWithEmotion.fieldByName('ROWID'));
 		purchasesWithEmotion.next();
 	}
-	Ti.API.info('purchases with emotion: ' + purchasesWithEmotionArray + ' emotion id: ' + emotionId);
+	//Ti.API.info('purchases with emotion: ' + purchasesWithEmotionArray + ' emotion id: ' + emotionId);
 	var categoryQuery = '';
 	//build category query string
 	for(var i=0; i<=purchasesWithEmotionArray.length-1; i++) {
@@ -157,9 +158,28 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 		categoriesInQuestionArray.push(categoriesInQuestion.fieldByName('category_id'));
 		categoriesInQuestion.next();
 	}
+	var sumQuery = '';
+	//build category query string
+	for(var i=0; i<=categoriesInQuestionArray.length-1; i++) {
+		if((i == (categoriesInQuestionArray.length-1))){
+			sumQuery += categoriesInQuestionArray[i];
+		} else {
+			sumQuery += categoriesInQuestionArray[i] + ',';
+		}
+	}
+	categoriesInQuestionArray = require('util').removeArrayDuplicates(categoriesInQuestionArray);
 	Ti.API.info('categories in question: ' + categoriesInQuestionArray);
-	
+	// now need to get the sums of each purchase that matches the category id?? & the emotion
+	var j = 0;
+	var sumsInQuestion = db.execute('select sum(item_price) as priceSum from purchases where question_1_emotion=? and ROWID in (' + sumQuery + ')');
+	while(sumsInQuestion.isValidRow()){
+		retData.push({sum:sumsInQuestion.fieldByName('priceSum'), categoryId:categoriesInQuestionArray[j]});
+		Ti.API.info('adding sum of ' + sumsInQuestion.fieldByName('priceSum') + ' for category id: ' + categoriesInQuestionArray[j]);
+		j += 1;
+		sumsInQuestion.next();
+	}
 	db.close();
+	return retData;
 }
 
 exports.addCategory = function(category_name) {
