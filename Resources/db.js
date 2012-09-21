@@ -170,7 +170,6 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 	}
 	//Ti.API.info('categories in question: ' + categoriesInQuestionArray);
 	var purchaseIdsFromCategoryIdsArray = [];
-	
 	//do a loop through the categories in question
 	for(var i=0; i<= categoriesInQuestionArray.length-1; i++) {
 		var purchaseIdsFromCategoryIds = db.execute('select purchase_id, category_id from purchase_categories where category_id=?', categoriesInQuestionArray[i]);
@@ -184,9 +183,7 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 		}
 		purchaseIdsFromCategoryIdsArray.push({purchase_ids:pids, category_id:cid});
 	}
-	
 	//Ti.API.info('purchase ids ' + purchaseIdsFromCategoryIdsArray);
-	
 	for(var i=0; i<=purchaseIdsFromCategoryIdsArray.length-1; i++) {
 		//need to build query
 		var pidString = '';
@@ -200,8 +197,14 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 		//Ti.API.info('purchase ids for query: ' + pidString + ' with catid: ' + purchaseIdsFromCategoryIdsArray[i].category_id);
 		var sumsInQuestion = db.execute('select sum(item_price) as priceSum from purchases where question_1_emotion=? and ROWID in (' + pidString + ')', emotionId);
 		while(sumsInQuestion.isValidRow()){
-			retData.push({category_id:purchaseIdsFromCategoryIdsArray[i].category_id, sum:sumsInQuestion.fieldByName('priceSum')});
-			//Ti.API.info('for cat id: ' + purchaseIdsFromCategoryIdsArray[i].category_id + ' we have a sum of ' + sumsInQuestion.fieldByName('priceSum'));
+			var categoryName = '';
+			var cn = db.execute('select ROWID,* from categories where ROWID=?', purchaseIdsFromCategoryIdsArray[i].category_id);
+			while(cn.isValidRow()){
+				categoryName = cn.fieldByName('category_name');
+				cn.next();
+			}
+			retData.push({category_id:purchaseIdsFromCategoryIdsArray[i].category_id, sum:sumsInQuestion.fieldByName('priceSum'), category_name:categoryName});
+			Ti.API.info('for cat id: ' + purchaseIdsFromCategoryIdsArray[i].category_id + ', ' + categoryName + ' we have a sum of ' + sumsInQuestion.fieldByName('priceSum'));
 			sumsInQuestion.next();
 		}
 	}
@@ -214,4 +217,14 @@ exports.addCategory = function(category_name) {
 	var mydb = Ti.Database.open(DATABASE_NAME);
 	mydb.execute('insert into categories values (?)', category_name);
 	mydb.close();
+}
+
+exports.getCategoryById = function(category_id) {
+	var db = Ti.Database.open(DATABASE_NAME);
+	var retData = [];
+	var query = db.execute('select ROWID, * from categories where ROWID=?', category_id);
+	while(query.isValidRow()){
+		retData.push({category_name:query.fieldByName('category_name'), id:category_id});
+	}
+	db.close();
 }
