@@ -52,7 +52,9 @@ exports.LimitTypeLimiterListWindow = function(args) {
 	
 	table.addEventListener('click', function(e){
 		e.row.hasCheck = !e.row.hasCheck;
-		var answerId = collectCheckMark(e.row.title);
+		args.addView.limiterId = collectCheckMark(e.row.title);
+		args.addView.limiterName = e.row.title;
+		args.addView.evaluateFields();
 	});
 	
 	return self;

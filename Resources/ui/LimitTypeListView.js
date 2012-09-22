@@ -35,12 +35,13 @@ exports.LimitTypeListView = function(args) {
 		} else if(e.row.title === 'Category') {
 			dbTableName = 'categories';
 		}
-		
+		args.addView.limiterType = dbTableName;
 		var LimitTypeLimiterListWindow = require('ui/LimitTypeLimiterListWindow').LimitTypeLimiterListWindow;
 		var limitTypeLimiterListWindow = new LimitTypeLimiterListWindow({
 			title: 'Choose Limiter',
 			backgroundColor: '#FFF',
-			dbTableName: dbTableName
+			dbTableName: dbTableName,
+			addView: args.addView
 		});
 		self.containingTab.open(limitTypeLimiterListWindow,{animated:true});
 		//will implement once questions are done

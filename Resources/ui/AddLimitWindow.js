@@ -10,11 +10,14 @@ exports.AddLimitWindow = function(args) {
 	});
 	
 	var limiterDate = '';
-	var limiterType = -1;
+	self.limiterType = '';
+	self.limiterId = -1;
+	self.limiterName = '';
 	
-	function evaluateFields(){
+	 self.evaluateFields = function(){
 		var isNameFieldValid = false;
 		var isLimiterDateValid = false;
+		var isLimiterIdValid = false;
 		if(limitNameTextField.value !== ''){
 			isNameFieldValid = true;
 		} else {
@@ -26,15 +29,22 @@ exports.AddLimitWindow = function(args) {
 		} else {
 			isLimiterDateValid = false;
 		}
+		
+		if(self.limiterId > -1) {
+			limiterRow.title = 'Limit Type: ' + self.limiterName;
+			isLimiterIdValid = true;
+		} else {
+			isLimiterIdValid = false;
+		}
 
-		if(isNameFieldValid && isLimiterDateValid) {
+		if(isNameFieldValid && isLimiterDateValid && isLimiterIdValid) {
 			doneButton.enabled = true;
 		} else {
 			doneButton.enabled = false;
 		}
 	}
 	
-	var limitNameRow = Ti.UI.createTableViewRow();
+	var limitNameRow = Ti.UI.createTableViewRow({id:2});
 	var date = new Date();
 	var myLimitDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 	var picker = Ti.UI.createPicker({
@@ -71,14 +81,14 @@ exports.AddLimitWindow = function(args) {
 	
 	cancel.addEventListener('click', function(){
 		picker_view.animate(slide_out);
-		evaluateFields();
+		self.evaluateFields();
 	});
 	
 	done.addEventListener('click', function(){
 		picker_view.animate(slide_out);
 		//limiterDate = picker.getValue();
 		dateRow.title = 'Limited Until: ' + limiterDate;
-		evaluateFields();
+		self.evaluateFields();
 	});
 	
 	picker_view.add(toolbar);
@@ -97,7 +107,11 @@ exports.AddLimitWindow = function(args) {
 	});
 	
 	limitNameTextField.addEventListener('change', function(){
-		evaluateFields();
+		self.evaluateFields();
+	});
+	
+	limitNameTextField.addEventListener('focus', function(){
+		picker_view.animate(slide_out);
 	});
 	
 	limitNameRow.add(limitNameTextField);
@@ -106,7 +120,8 @@ exports.AddLimitWindow = function(args) {
 	sectionCategory.add(limitNameRow);
 	var dateRow = Ti.UI.createTableViewRow({title:'Limited Until', hasChild:true, id:0});
 	sectionCategory.add(dateRow);
-	sectionCategory.add(Ti.UI.createTableViewRow({title:'Limit Type', hasChild:true}));
+	var limiterRow = Ti.UI.createTableViewRow({title:'Limit Type', hasChild:true, id:1});
+	sectionCategory.add(limiterRow);
 	
 	var table = Ti.UI.createTableView({
 	  data: [sectionCategory]
@@ -118,15 +133,16 @@ exports.AddLimitWindow = function(args) {
 		if(e.row.id === 0) {
 			limitNameTextField.blur();
 			picker_view.animate(slide_in);
-		} else if(e.row.title == 'Limit Type') {
+		} else if(e.row.id === 1) {
 			var LimitTypeListView = require('ui/LimitTypeListView').LimitTypeListView;
 			var limitTypeListView = new LimitTypeListView({
 				backgroundColor:'#FFF',
-				title:'Limit Types'
+				title:'Limit Types',
+				addView:self
 			});
 			limitTypeListView.containingTab = self.containingTab;
 			self.containingTab.open(limitTypeListView,{animated:true});
-		}
+		} 
 	});
 
 	 picker.addEventListener('change',function(e) {
