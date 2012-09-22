@@ -24,6 +24,7 @@ exports.AddLimitWindow = function(args) {
 		limitObject.completed = 'false';
 		//insert limit
 		require('db').addLimit(limitObject);
+		Ti.App.fireEvent('app:updateTables');
 		self.parentWindow.close();
 	});
 	
