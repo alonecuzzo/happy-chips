@@ -20,6 +20,16 @@ exports.LimitListView = function(args) {
 	var tableView = Ti.UI.createTableView();
 	tableView.setData(getTableData());
 	self.add(tableView);
+	
+	tableView.addEventListener('click', function(e) {
+		var LimitDetailView = require('ui/LimitDetailView').LimitDetailView;
+		var limitDetailView = new LimitDetailView({
+			backgroundColor: '#FFF',
+			title: 'Detail',
+			rowID: e.row.id
+		});
+		self.containingTab.open(limitDetailView,{animated:true});
+	});
 		
 	function getTableData() {
 		var db = require('db');

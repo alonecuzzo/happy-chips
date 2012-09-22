@@ -29,6 +29,7 @@ exports.ProfileWindow = function(args) {
 				backgroundColor: '#FFF',
 				title: 'Goals'
 			});
+			limitListView.containingTab = self.containingTab;
 			self.containingTab.open(limitListView,{animated:true});
 		} else if(e.row.title === 'Manage Challenges') {
 			var ChallengeListView = require('ui/ChallengeListView').ChallengeListView;
