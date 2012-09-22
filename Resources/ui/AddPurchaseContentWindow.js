@@ -180,6 +180,16 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText, u
 	optionalFields.userLon = userLon;
 	optionalFields.question_1_emotion = questionWindow.getAnswerId();
 	
+	var passedLimitCheck = false;
+	//need to see if there are limits on anything
+	
+	//1. return all limits
+	var limits = require('db').selectLimits();
+	//2. put emotions limits in an emotions array and category limits in category array
+	//3. identify which emotion and category are attached to this item
+	//4. find current sum for each match
+	//5. add this sum and compare
+	
 	//should probably make an object to be passed vs all of these fields...
 	require('db').addItem(item_name, item_price, optionalFields);
 	Ti.App.fireEvent('app:updateTables');
