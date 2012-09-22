@@ -60,7 +60,8 @@ exports.AddLimitWindow = function(args) {
 	
 	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:'Limit Information' });
 	sectionCategory.add(limitNameRow);
-	sectionCategory.add(Ti.UI.createTableViewRow({title:'Limit Duration', hasChild:true}));
+	sectionCategory.add(Ti.UI.createTableViewRow({title:'Limited Until', hasChild:true}));
+	sectionCategory.add(Ti.UI.createTableViewRow({title:'Limit Type', hasChild:true}));
 	
 	var table = Ti.UI.createTableView({
 	  data: [sectionCategory]
@@ -69,9 +70,15 @@ exports.AddLimitWindow = function(args) {
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	
 	table.addEventListener('click', function(e){
-		if(e.row.title === 'Limit Duration') {
-			//show the picker
+		if(e.row.title === 'Limited Until') {
 			picker_view.animate(slide_in);
+		} else if(e.row.title == 'Limit Type') {
+			var LimitTypeListView = require('ui/LimitTypeListView').LimitTypeListView;
+			var limitTypeListView = new LimitTypeListView({
+				backgroundColor:'#FFF',
+				title:'Limit Types'
+			});
+			self.containingTab.open(limitTypeListView,{animated:true});
 		}
 	});
 	

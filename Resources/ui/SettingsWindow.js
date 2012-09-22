@@ -26,6 +26,7 @@ exports.SettingsWindow = function(args) {
 				backgroundColor: '#FFF',
 				title: 'Add Limit'
 			});
+			addLimitWindow.containingTab = self.containingTab;
 			addLimitWindow.catsAreSelectable = false;
 			self.containingTab.open(addLimitWindow,{animated:true});
 		}
