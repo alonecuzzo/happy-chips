@@ -6,7 +6,15 @@ exports.AddLimitWindow = function(args) {
 	self.setRightNavButton(doneButton);
 	
 	doneButton.addEventListener('click', function(){
-		
+		var limitObject = {};
+		limitObject.name = limitNameTextField.value;
+		limitObject.end_date = limiterDate;
+		limitObject.limit_type = self.limiterType;
+		limitObject.limit_constraint = self.limiterId;
+		limitObject.completed = 'false';
+		//insert limit
+		require('db').addLimit(limitObject);
+		self.close();
 	});
 	
 	var limiterDate = '';

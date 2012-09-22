@@ -46,15 +46,15 @@ CREATE TABLE users
 CREATE TABLE limits
 (
 	name						VARCHAR(30),
-	duration					NUMERIC,
+	end_date					NUMERIC,
 	limit_amount				NUMERIC,
-	limit_type					INTEGER,
+	limit_type					VARCHAR(30),
 	limit_constraint			INTEGER,
 	completed					BOOLEAN,
 	date_time					TIMESTAMP DEFAULT (strftime('%s', 'now'))
 );
 
-CREATE TABLE limit_type
+CREATE TABLE limit_types
 (
 	limit_type					VARCHAR(30)
 );

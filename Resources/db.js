@@ -271,10 +271,14 @@ exports.selectFromTable = function(table) {
 	return retData;
 };
 
+exports.addLimit = function(limitObject) {
+	
+}
+
 exports.selectLimitTypes = function() {
 	var retData = [];
 	var db = Ti.Database.open(DATABASE_NAME);
-	var rows = db.execute('select ROWID, * from limit_type');
+	var rows = db.execute('select ROWID, * from limit_types');
 	while (rows.isValidRow()) {
 		retData.push({id:rows.fieldByName('ROWID'), limit_type:rows.fieldByName('limit_type')});
 		rows.next();

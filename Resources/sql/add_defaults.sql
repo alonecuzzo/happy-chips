@@ -196,7 +196,7 @@ VALUES
 INSERT INTO limits
 (
 	name,
-	duration,
+	end_date,
 	limit_amount,
 	limit_type,
 	limit_constraint,
@@ -205,7 +205,7 @@ INSERT INTO limits
 VALUES
 (
 	'No indifferent spending',
-	60, --one minute
+	60, --should be an actual date
 	450,
 	1,
 	4,
@@ -213,7 +213,7 @@ VALUES
 );
 
 
-INSERT INTO limit_type
+INSERT INTO limit_types
 (
 	limit_type
 )
@@ -222,7 +222,7 @@ VALUES
 	'Emotion'
 );
 
-INSERT INTO limit_type
+INSERT INTO limit_types
 (
 	limit_type
 )
@@ -231,7 +231,7 @@ VALUES
 	'Category'
 );
 
-INSERT INTO limit_type
+INSERT INTO limit_types
 (
 	limit_type
 )
@@ -240,7 +240,7 @@ VALUES
 	'Satisfaction Level'
 );
 
-INSERT INTO limit_type
+INSERT INTO limit_types
 (
 	limit_type
 )
