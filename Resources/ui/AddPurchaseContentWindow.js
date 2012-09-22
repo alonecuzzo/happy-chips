@@ -196,11 +196,24 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText, u
 		if(limits[i].limitType === 'emotions') {
 			emotionLimitArray.push(limits[i]);
 		}
-	}
-			
-	Ti.API.info('emotion limit array length: ' + emotionLimitArray.length);
+	}	
+	//Ti.API.info('emotion limit array length: ' + emotionLimitArray.length);
 	//Ti.API.info('limit length: ' + limits.length);
 	//3. identify which emotion and category are attached to this item
+	//we'll just do emotion first
+	//there will always be only one emotion to compare to
+	//ALSO NEED TO PUT A DATE CHECK IN!!!
+	for(var i=0; i<=emotionLimitArray.length-1; i++) {
+		if(emotionLimitArray[i].limitConstraint === optionalFields.question_1_emotion) {
+			//find sum for that emotion
+			var emotionalSums = require('db').getEmotionalSums();
+			for(var j=0; j<=emotionalSums.length-1; j++) {
+				if(emotionLimitArray[i].limitConstraint === emotionalSums[j].id) {
+					Ti.API.info('heres your sum: ' + emotionalSums[i].sum);
+				}
+			}
+		}
+	}
 	//4. find current sum for each match
 	//5. add this sum and compare
 	
