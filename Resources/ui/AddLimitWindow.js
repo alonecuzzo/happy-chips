@@ -78,6 +78,7 @@ exports.AddLimitWindow = function(args) {
 				backgroundColor:'#FFF',
 				title:'Limit Types'
 			});
+			limitTypeListView.containingTab = self.containingTab;
 			self.containingTab.open(limitTypeListView,{animated:true});
 		}
 	});

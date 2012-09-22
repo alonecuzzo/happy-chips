@@ -254,3 +254,31 @@ exports.getProfileStats = function() {
 	db.close();
 	return retData;
 }
+
+exports.selectFromTable = function(table) {
+	var retData = [];
+	var db = Ti.Database.open(DATABASE_NAME);
+	var rows = db.execute('select ROWID, * from ' + table);
+	while (rows.isValidRow()) {
+		if(table === 'emotions'){
+			retData.push({id:rows.fieldByName('ROWID'), emotion:rows.fieldByName('emotion')});
+		} else if(table === 'categories') {
+			retData.push({id:rows.fieldByName('ROWID'), category_name:rows.fieldByName('category_name')});
+		}
+		rows.next();
+	}
+	db.close();
+	return retData;
+};
+
+exports.selectLimitTypes = function() {
+	var retData = [];
+	var db = Ti.Database.open(DATABASE_NAME);
+	var rows = db.execute('select ROWID, * from limit_type');
+	while (rows.isValidRow()) {
+		retData.push({id:rows.fieldByName('ROWID'), limit_type:rows.fieldByName('limit_type')});
+		rows.next();
+	}
+	db.close();
+	return retData;
+};
