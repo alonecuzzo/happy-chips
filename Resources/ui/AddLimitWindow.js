@@ -13,15 +13,23 @@ exports.AddLimitWindow = function(args) {
 	self.limiterType = '';
 	self.limiterId = -1;
 	self.limiterName = '';
+	var amount = '';
 	
 	 self.evaluateFields = function(){
 		var isNameFieldValid = false;
 		var isLimiterDateValid = false;
 		var isLimiterIdValid = false;
+		var isAmountValid = false;
 		if(limitNameTextField.value !== ''){
 			isNameFieldValid = true;
 		} else {
 			isNameFieldValid = false;
+		}
+		
+		if(amountTextField.value !== ''){
+			isAmountValid = true;
+		} else {
+			isAmountValid = false;
 		}
 		
 		if(limiterDate !== ''){
@@ -37,14 +45,15 @@ exports.AddLimitWindow = function(args) {
 			isLimiterIdValid = false;
 		}
 
-		if(isNameFieldValid && isLimiterDateValid && isLimiterIdValid) {
+		if(isNameFieldValid && isLimiterDateValid && isLimiterIdValid && isAmountValid) {
 			doneButton.enabled = true;
 		} else {
 			doneButton.enabled = false;
 		}
 	}
 	
-	var limitNameRow = Ti.UI.createTableViewRow({id:2});
+	var limitNameRow = Ti.UI.createTableViewRow();
+	var amountRow = Ti.UI.createTableViewRow();
 	var date = new Date();
 	var myLimitDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 	var picker = Ti.UI.createPicker({
@@ -106,18 +115,35 @@ exports.AddLimitWindow = function(args) {
 		returnKeyType: Ti.UI.RETURNKEY_DONE
 	});
 	
+	var amountTextField = Ti.UI.createTextField({
+		width: '300dp',
+		height: '45dp',
+		left: '10dp',
+		hintText: 'Limit Amount',
+		borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
+		returnKeyType: Ti.UI.RETURNKEY_DEFAULT,
+		keyboardType: Titanium.UI.KEYBOARD_DECIMAL_PAD
+	});
+	
 	limitNameTextField.addEventListener('change', function(){
+		self.evaluateFields();
+	});
+	
+	amountTextField.addEventListener('change', function(){
 		self.evaluateFields();
 	});
 	
 	limitNameTextField.addEventListener('focus', function(){
 		picker_view.animate(slide_out);
+		amountTextField.blur();
 	});
 	
 	limitNameRow.add(limitNameTextField);
+	amountRow.add(amountTextField);
 	
 	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:'Limit Information'});
 	sectionCategory.add(limitNameRow);
+	sectionCategory.add(amountRow);
 	var dateRow = Ti.UI.createTableViewRow({title:'Limited Until', hasChild:true, id:0});
 	sectionCategory.add(dateRow);
 	var limiterRow = Ti.UI.createTableViewRow({title:'Limit Type', hasChild:true, id:1});
@@ -132,6 +158,7 @@ exports.AddLimitWindow = function(args) {
 	table.addEventListener('click', function(e){
 		if(e.row.id === 0) {
 			limitNameTextField.blur();
+			amountTextField.blur();
 			picker_view.animate(slide_in);
 		} else if(e.row.id === 1) {
 			var LimitTypeListView = require('ui/LimitTypeListView').LimitTypeListView;
