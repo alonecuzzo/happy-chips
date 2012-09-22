@@ -30,7 +30,7 @@ exports.SettingsWindow = function(args) {
 			addLimitWindow.catsAreSelectable = false;
 			self.containingTab.open(addLimitWindow,{animated:true});
 		}
-	})
+	});
 	
 	self.add(table);
 	
