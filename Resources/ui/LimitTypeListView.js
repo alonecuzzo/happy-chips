@@ -43,7 +43,7 @@ exports.LimitTypeListView = function(args) {
 			dbTableName: dbTableName,
 			addView: args.addView
 		});
-		self.containingTab.open(limitTypeLimiterListWindow,{animated:true});
+		self.navGroup.open(limitTypeLimiterListWindow,{animated:true});
 		//will implement once questions are done
 		// } else if(e.row.title === 'Satisfaction Level') {
 // 			

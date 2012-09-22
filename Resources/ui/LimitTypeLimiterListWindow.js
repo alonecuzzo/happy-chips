@@ -42,7 +42,7 @@ exports.LimitTypeLimiterListWindow = function(args) {
 		return checkMarkId;
 	}
 	
-	setTableData(itemSection, args.dbTableName);
+	setTableData(itemSection, self.dbTableName);
 	
 	var table = Ti.UI.createTableView({
 	  data: [itemSection]

@@ -3,7 +3,6 @@ exports.SettingsWindow = function(args) {
 	
 	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:'Settings' });
 	sectionCategory.add(Ti.UI.createTableViewRow({title:'Manage Categories', hasChild:true}));
-	sectionCategory.add(Ti.UI.createTableViewRow({title:'Manage Limits', hasChild:true}));
 	
 	var table = Ti.UI.createTableView({
 	  data: [sectionCategory]
@@ -20,16 +19,7 @@ exports.SettingsWindow = function(args) {
 			});
 			categoryListViewWindow.catsAreSelectable = false;
 			self.containingTab.open(categoryListViewWindow,{animated:true});
-		} else if(e.row.title === 'Manage Limits') {
-			var AddLimitWindow = require('ui/AddLimitWindow').AddLimitWindow;
-			var addLimitWindow = new AddLimitWindow({
-				backgroundColor: '#FFF',
-				title: 'Add Limit'
-			});
-			addLimitWindow.containingTab = self.containingTab;
-			addLimitWindow.catsAreSelectable = false;
-			self.containingTab.open(addLimitWindow,{animated:true});
-		}
+		} 
 	});
 	
 	self.add(table);

@@ -5,6 +5,13 @@ exports.AddLimitWindow = function(args) {
 	doneButton.enabled = false;
 	self.setRightNavButton(doneButton);
 	
+	var cancelButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.CANCEL}); 
+	self.setLeftNavButton(cancelButton);
+	
+	cancelButton.addEventListener('click', function(){
+		self.parentWindow.close();
+	});
+	
 	doneButton.addEventListener('click', function(){
 		var limitObject = {};
 		limitObject.name = limitNameTextField.value;
@@ -17,7 +24,7 @@ exports.AddLimitWindow = function(args) {
 		limitObject.completed = 'false';
 		//insert limit
 		require('db').addLimit(limitObject);
-		self.close();
+		self.parentWindow.close();
 	});
 	
 	var limiterDate = '';
@@ -179,14 +186,7 @@ exports.AddLimitWindow = function(args) {
 		} else if(e.row.id === 1) {
 			limitNameTextField.blur();
 			amountTextField.blur();
-			var LimitTypeListView = require('ui/LimitTypeListView').LimitTypeListView;
-			var limitTypeListView = new LimitTypeListView({
-				backgroundColor:'#FFF',
-				title:'Limit Types',
-				addView:self
-			});
-			limitTypeListView.containingTab = self.containingTab;
-			self.containingTab.open(limitTypeListView,{animated:true});
+			self.navGroup.open(self.limitTypeListView, {animated:true});
 		} 
 	});
 
