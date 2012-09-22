@@ -27,6 +27,21 @@ exports.LimitTypeLimiterListWindow = function(args) {
 		}
 	}
 	
+	var collectCheckMark = function(rowTitle) {
+		var rows = itemSection.getRows();
+		var rowLength = rows.length;
+		var checkMarkId = -1;
+		for(var i=0; i<=rowLength-1; i++) {
+			var row = rows[i];
+			if(row.title === rowTitle){
+				checkMarkId = row.id;
+			} else {
+				row.hasCheck = false;
+			}
+		}
+		return checkMarkId;
+	}
+	
 	setTableData(itemSection, args.dbTableName);
 	
 	var table = Ti.UI.createTableView({
@@ -34,6 +49,11 @@ exports.LimitTypeLimiterListWindow = function(args) {
 	});
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	self.add(table);
+	
+	table.addEventListener('click', function(e){
+		e.row.hasCheck = !e.row.hasCheck;
+		var answerId = collectCheckMark(e.row.title);
+	});
 	
 	return self;
 }
