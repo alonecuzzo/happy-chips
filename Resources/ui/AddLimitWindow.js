@@ -8,7 +8,10 @@ exports.AddLimitWindow = function(args) {
 	doneButton.addEventListener('click', function(){
 		var limitObject = {};
 		limitObject.name = limitNameTextField.value;
-		limitObject.end_date = limiterDate;
+		
+		//need to convert date
+		var myEpoch = limiterDate.getTime()/1000.0;
+		limitObject.end_date = myEpoch;
 		limitObject.limit_type = self.limiterType;
 		limitObject.limit_constraint = self.limiterId;
 		limitObject.limit_amount = amountTextField.value;

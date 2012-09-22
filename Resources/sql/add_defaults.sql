@@ -205,7 +205,7 @@ INSERT INTO limits
 VALUES
 (
 	'No indifferent spending',
-	60, --should be an actual date
+	1348250549, --should be an actual date
 	450,
 	'emotions',
 	4,

@@ -207,12 +207,19 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText, u
 		if(emotionLimitArray[i].limitConstraint === optionalFields.question_1_emotion) {
 			//find sum for that emotion
 			var emotionalSums = require('db').getEmotionalSums();
+			var foundMatch = false;
 			for(var j=0; j<=emotionalSums.length-1; j++) {
 				if(emotionLimitArray[i].limitConstraint === emotionalSums[j].id) {
+					foundMatch = true;
 					var sumItemPriceSum = (emotionalSums[i].sum + item_price);
 					if(sumItemPriceSum > emotionLimitArray[i].limitAmount) {
-						Ti.API.info('you are over the limit');
+						Ti.API.info('you are over the limit: ' + emotionLimitArray[i].endDate);
 					}
+				} 
+			}
+			if(!foundMatch) {
+				if(item_price > emotionLimitArray[i].limitAmount) {
+					Ti.API.info('you are over the limit first: ' + emotionLimitArray[i].endDate);
 				}
 			}
 		}
