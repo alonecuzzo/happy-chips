@@ -209,7 +209,10 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText, u
 			var emotionalSums = require('db').getEmotionalSums();
 			for(var j=0; j<=emotionalSums.length-1; j++) {
 				if(emotionLimitArray[i].limitConstraint === emotionalSums[j].id) {
-					Ti.API.info('heres your sum: ' + emotionalSums[i].sum);
+					var sumItemPriceSum = (emotionalSums[i].sum + item_price);
+					if(sumItemPriceSum > emotionLimitArray[i].limitAmount) {
+						Ti.API.info('you are over the limit');
+					}
 				}
 			}
 		}
