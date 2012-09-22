@@ -189,13 +189,18 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText, u
 	var emotionLimitArray = [],
 		categoryLimitArray = [];
 		
+	var now = new Date().getTime()/1000.0;
+	
 	for(var i=0; i<=limits.length-1; i++) {
-		if(limits[i].limitType === 'categories') {
-			categoryLimitArray.push(limits[i]);
-		}
-		if(limits[i].limitType === 'emotions') {
-			emotionLimitArray.push(limits[i]);
-		}
+		//check date 
+		if(limits[i].endDate > now) {
+			if(limits[i].limitType === 'categories') {
+				categoryLimitArray.push(limits[i]);
+			}
+			if(limits[i].limitType === 'emotions') {
+				emotionLimitArray.push(limits[i]);
+			}
+		}	
 	}	
 	//Ti.API.info('emotion limit array length: ' + emotionLimitArray.length);
 	//Ti.API.info('limit length: ' + limits.length);
