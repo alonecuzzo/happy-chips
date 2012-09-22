@@ -207,7 +207,7 @@ VALUES
 	'No indifferent spending',
 	60, --should be an actual date
 	450,
-	1,
+	'emotions',
 	4,
 	'false'
 );

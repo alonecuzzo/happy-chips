@@ -186,6 +186,20 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText, u
 	//1. return all limits
 	var limits = require('db').selectLimits();
 	//2. put emotions limits in an emotions array and category limits in category array
+	var emotionLimitArray = [],
+		categoryLimitArray = [];
+		
+	for(var i=0; i<=limits.length-1; i++) {
+		if(limits[i].limitType === 'categories') {
+			categoryLimitArray.push(limits[i]);
+		}
+		if(limits[i].limitType === 'emotions') {
+			emotionLimitArray.push(limits[i]);
+		}
+	}
+			
+	Ti.API.info('emotion limit array length: ' + emotionLimitArray.length);
+	//Ti.API.info('limit length: ' + limits.length);
 	//3. identify which emotion and category are attached to this item
 	//4. find current sum for each match
 	//5. add this sum and compare
