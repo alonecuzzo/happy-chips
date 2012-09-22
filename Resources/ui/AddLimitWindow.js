@@ -11,6 +11,7 @@ exports.AddLimitWindow = function(args) {
 		limitObject.end_date = limiterDate;
 		limitObject.limit_type = self.limiterType;
 		limitObject.limit_constraint = self.limiterId;
+		limitObject.limit_amount = amountTextField.value;
 		limitObject.completed = 'false';
 		//insert limit
 		require('db').addLimit(limitObject);
@@ -141,6 +142,11 @@ exports.AddLimitWindow = function(args) {
 		self.evaluateFields();
 	});
 	
+	amountTextField.addEventListener('focus', function(){
+		picker_view.animate(slide_out);
+		limitNameTextField.blur();
+	});
+	
 	limitNameTextField.addEventListener('focus', function(){
 		picker_view.animate(slide_out);
 		amountTextField.blur();
@@ -169,6 +175,8 @@ exports.AddLimitWindow = function(args) {
 			amountTextField.blur();
 			picker_view.animate(slide_in);
 		} else if(e.row.id === 1) {
+			limitNameTextField.blur();
+			amountTextField.blur();
 			var LimitTypeListView = require('ui/LimitTypeListView').LimitTypeListView;
 			var limitTypeListView = new LimitTypeListView({
 				backgroundColor:'#FFF',

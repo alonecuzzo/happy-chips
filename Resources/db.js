@@ -272,7 +272,10 @@ exports.selectFromTable = function(table) {
 };
 
 exports.addLimit = function(limitObject) {
-	
+	var mydb = Ti.Database.open(DATABASE_NAME);
+	mydb.execute('insert into limits (name, end_date, limit_amount, limit_type, limit_constraint, completed) values (?,?,?,?,?,?)', 
+			limitObject.name, limitObject.end_date, limitObject.limit_amount, limitObject.limit_type, limitObject.limit_constraint, limitObject.completed);
+	mydb.close();
 }
 
 exports.selectLimitTypes = function() {
