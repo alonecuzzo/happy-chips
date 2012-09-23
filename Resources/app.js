@@ -43,9 +43,11 @@ if (Ti.version < 1.8 ) {
 		ProfileWindow = require('ui/ProfileWindow').ProfileWindow;
  
 	var purchasesWindow = new PurchaseListWindow({
-	    backgroundColor: '#FFF', 
-	    title : 'Purchases' 
+	    backgroundColor: '#FFF'//,
+	    //title:'Purchases'
 	});
+	
+	purchasesWindow.barImage = 'iphone/navBackground.png';
 	
 	var chartWindow = new PurchaseChartWindow({
 		backgroundColor: '#FFF',
@@ -62,7 +64,11 @@ if (Ti.version < 1.8 ) {
 		title:'Profile'
 	});
 	 
-	var purchaseWindowAddButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.COMPOSE }); 
+	var purchaseWindowAddButton = Titanium.UI.createButton({ 
+		height:'30dp',
+		width:'30dp',
+		backgroundImage:'iphone/edit.png' 
+	}); 
 	purchasesWindow.setRightNavButton(purchaseWindowAddButton);
 	var AddWindow = require('ui/AddWindow').AddWindow;
 	

@@ -22,8 +22,18 @@ exports.PurchaseListWindow = function(args) {
 		tableView.setData(getTableData());
 	});
 	
+	var logoButton = Ti.UI.createButton({
+		backgroundImage: 'iphone/logo.png',
+		width: '151dp',
+		height: '30dp',
+		touchEnabled: false
+	});
+	
+	self.setLeftNavButton(logoButton);
+	
 	return self;
 };
+
 
 var getTableData = function() {
 	var db = require('db');
