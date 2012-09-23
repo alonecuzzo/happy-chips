@@ -4,8 +4,29 @@ exports.LimitDetailView = function(args) {
 		top:50
 	});
 	
+	var rightChartAmt = 50;
+	var leftChartAmt = 15;
 	
-	htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.bar-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.hbarchart(10, 10, 300, 220, [[55, 20, 13, 32, 5, 1, 2, 10], [10, 2, 1, 5, 32, 13, 20, 55]], {stacked: true});} </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+	if(args.limitObject.limitType === 'emotions') {
+		var emotionalSums = require('db').getEmotionalSums();
+		var sumOfInterest = {};
+		for(var i=0; i<=emotionalSums.length-1; i++) {
+			if(emotionalSums[i].id === args.limitObject.limitConstraint) {
+				if(emotionalSums[i].sum > args.limitObject.limitAmount) {
+					rightChartAmt = emotionalSums[i].sum;
+					leftChartAmt = args.limitObject.limitAmount;
+				} else {
+					rightChartAmt = args.limitObject.limitAmount;
+					leftChartAmt = emotionalSums[i].sum;
+				}
+			}
+		}
+	}
+	
+	Ti.API.info('left chart value: ' + leftChartAmt);
+	Ti.API.info('right chart value: ' + rightChartAmt);
+	
+	htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.bar-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.hbarchart(10, 10, 200, 80, [[' + rightChartAmt + '], [' + leftChartAmt + ']], {stacked: true});} </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 	webView.html = htmlString;
 	
 	self.add(webView);

@@ -26,7 +26,8 @@ exports.LimitListView = function(args) {
 		var limitDetailView = new LimitDetailView({
 			backgroundColor: '#FFF',
 			title: 'Detail',
-			rowID: e.row.id
+			rowID: e.row.id,
+			limitObject: e.row.limitObject
 		});
 		self.containingTab.open(limitDetailView,{animated:true});
 	});
@@ -41,6 +42,7 @@ exports.LimitListView = function(args) {
 			row = Ti.UI.createTableViewRow({
 				id: limits[i].id,
 				title: limits[i].name,
+				limitObject: limits[i],
 				//need to add cost too
 				color: '#000',
 				font: {
