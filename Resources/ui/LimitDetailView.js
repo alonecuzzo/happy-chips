@@ -22,11 +22,10 @@ exports.LimitDetailView = function(args) {
 			}
 		}
 	}
-	
 	Ti.API.info('left chart value: ' + leftChartAmt);
 	Ti.API.info('right chart value: ' + rightChartAmt);
 	
-	htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.bar-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.hbarchart(10, 10, 200, 80, [[' + rightChartAmt + '], [' + leftChartAmt + ']], {stacked: true});} </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+	htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.bar-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.hbarchart(10, 10, 250, 50, [[' + leftChartAmt + '], [' + rightChartAmt + ']], {stacked: false});} </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 	webView.html = htmlString;
 	
 	self.add(webView);
