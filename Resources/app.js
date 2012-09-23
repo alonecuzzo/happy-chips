@@ -122,6 +122,7 @@ if (Ti.version < 1.8 ) {
 	tabGroup.addTab(settingsTab);
 	tabGroup.open();
 	
+	// tutorial found here http://netsells.co.uk/blog/tutorial-custom-iphone-tabbar-using-appcelerator-titanium/
 	Ti.include("customTabBar/customTabBar.js");
  
 	var myCustomTabBar = new CustomTabBar({
@@ -130,10 +131,10 @@ if (Ti.version < 1.8 ) {
 		width: 80,
 		height: 45,
 		items: [
-		{ image: 'tabButtonBackground.png', selected: 'tabButtonBackground.png' },
-		{ image: 'tabButtonBackground.png', selected: 'tabButtonBackground.png' },
-		{ image: 'tabButtonBackground.png', selected: 'tabButtonBackground.png' },
-		{ image: 'tabButtonBackground.png', selected: 'tabButtonBackground.png' }
+		{ image: 'purchasesButtonBackground.png', selected: 'purchasesButtonBackgroundSelected.png' },
+		{ image: 'chartButtonBackground.png', selected: 'chartButtonBackgroundSelected.png' },
+		{ image: 'profileButtonBackground.png', selected: 'profileButtonBackgroundSelected.png' },
+		{ image: 'settingsButtonBackground.png', selected: 'settingsButtonBackgroundSelected.png' }
 		]
 	});
 })();
