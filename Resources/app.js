@@ -36,14 +36,15 @@ if (Ti.version < 1.8 ) {
 	//yourself what you consider a tablet form factor for android
 	var isTablet = osname === 'ipad' || (osname === 'android' && (width > 899 || height > 899));
 	
-	var tabGroup = Ti.UI.createTabGroup(),
+	var tabGroup = Ti.UI.createTabGroup({}),
 		PurchaseListWindow = require('ui/PurchaseListWindow').PurchaseListWindow,
 		PurchaseChartWindow = require('ui/PurchaseChartWindow').PurchaseChartWindow,
 		SettingsWindow = require('ui/SettingsWindow').SettingsWindow,
 		ProfileWindow = require('ui/ProfileWindow').ProfileWindow;
  
 	var purchasesWindow = new PurchaseListWindow({
-	    backgroundColor: '#FFF'//,
+	    backgroundColor: '#FFF',
+	    tabBarHidden: true//,
 	    //title:'Purchases'
 	});
 	
@@ -51,17 +52,21 @@ if (Ti.version < 1.8 ) {
 	
 	var chartWindow = new PurchaseChartWindow({
 		backgroundColor: '#FFF',
-		title : 'Charts'
+		title : 'Charts',
+	    tabBarHidden: true
 	});
 	
 	var settingsWindow = new SettingsWindow({
 		backgroundColor:'#FFF',
-		title:'Settings'
+		title:'Settings',
+		backgroundImage:'iphone/tabButtonBackground.png',
+	    tabBarHidden: true
 	});
 	
 	var profileWindow = new ProfileWindow({
 		backgroundColor:'#FFF',
-		title:'Profile'
+		title:'Profile',
+	    tabBarHidden: true
 	});
 	 
 	var purchaseWindowAddButton = Titanium.UI.createButton({ 
@@ -88,7 +93,7 @@ if (Ti.version < 1.8 ) {
 	purchaseWindowAddButton.addEventListener("click", showAddWindow);
 	
 	var tab = Ti.UI.createTab({ 
-	    title :"Purchases",
+		title: 'Purchases',
 	    window: purchasesWindow
 	});
 	purchasesWindow.containingTab = tab;
@@ -116,4 +121,19 @@ if (Ti.version < 1.8 ) {
 	tabGroup.addTab(profileTab);
 	tabGroup.addTab(settingsTab);
 	tabGroup.open();
+	
+	Ti.include("customTabBar/customTabBar.js");
+ 
+	var myCustomTabBar = new CustomTabBar({
+		tabBar: tabGroup,
+		imagePath: 'iphone/',
+		width: 80,
+		height: 45,
+		items: [
+		{ image: 'tabButtonBackground.png', selected: 'tabButtonBackground.png' },
+		{ image: 'tabButtonBackground.png', selected: 'tabButtonBackground.png' },
+		{ image: 'tabButtonBackground.png', selected: 'tabButtonBackground.png' },
+		{ image: 'tabButtonBackground.png', selected: 'tabButtonBackground.png' }
+		]
+	});
 })();
