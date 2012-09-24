@@ -2,7 +2,7 @@ exports.PurchaseListWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	var tableView = Ti.UI.createTableView({
 		separatorStyle: Ti.UI.iPhone.TableViewSeparatorStyle.NONE,
-		backgroundColor: '#cfcfcf',
+		backgroundColor: '#9e9e9e',
 		selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 	});
 	
@@ -51,17 +51,11 @@ var getTableData = function() {
 			width:305,
 			height:60,
 			itemName:purchaseItems[i].item_name,
+			itemPrice:purchaseItems[i].item_price,
 			id:purchaseItems[i].id
 		});
 		row = Ti.UI.createTableViewRow({
-			//id: purchaseItems[i].id,
-			//title: purchaseItems[i].item_name,
-			//need to add cost too
-			//color: '#000',
-			// font: {
-				// fontWeight: 'bold'	
-			// }
-			top:20,
+			top:15,
 			rowView:rowView
 		});
 		row.add(rowView);
