@@ -2,7 +2,8 @@ exports.PurchaseListWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	var tableView = Ti.UI.createTableView({
 		separatorStyle: Ti.UI.iPhone.TableViewSeparatorStyle.NONE,
-		backgroundColor: '#cfcfcf'
+		backgroundColor: '#cfcfcf',
+		selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 	});
 	
 	tableView.setData(getTableData());
@@ -19,7 +20,6 @@ exports.PurchaseListWindow = function(args) {
 		});
 		self.containingTab.open(detailWindow,{animated:true});
 	});
-	
 	
 	Ti.App.addEventListener('app:updateTables', function() {
 		tableView.setData(getTableData());
