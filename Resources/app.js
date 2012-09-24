@@ -43,7 +43,7 @@ if (Ti.version < 1.8 ) {
 		ProfileWindow = require('ui/ProfileWindow').ProfileWindow;
  
 	var purchasesWindow = new PurchaseListWindow({
-	    backgroundColor: '#FFF',
+	    backgroundColor: '#cfcfcf',
 	    tabBarHidden: true//,
 	    //title:'Purchases'
 	});

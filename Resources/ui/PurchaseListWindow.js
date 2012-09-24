@@ -1,6 +1,9 @@
 exports.PurchaseListWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
-	var tableView = Ti.UI.createTableView();
+	var tableView = Ti.UI.createTableView({
+		separatorStyle: Ti.UI.iPhone.TableViewSeparatorStyle.NONE,
+		backgroundColor: '#cfcfcf'
+	});
 	
 	tableView.setData(getTableData());
 	self.add(tableView);
@@ -12,7 +15,7 @@ exports.PurchaseListWindow = function(args) {
 		var detailWindow = new PurchaseDetailWindow({
 			backgroundColor: '#FFF',
 			title: 'Detail',
-			rowID: e.row.id
+			rowID: e.row.rowView.id
 		});
 		self.containingTab.open(detailWindow,{animated:true});
 	});
@@ -39,18 +42,29 @@ var getTableData = function() {
 	var db = require('db');
 	var data = [];
 	var row = null;
+	var rowView = null;
+	var FeedViewTableRow = require('ui/FeedViewTableRow').FeedViewTableRow;
 	var purchaseItems = db.selectItems();
 	
 	for (var i = 0; i < purchaseItems.length; i++) {
-		row = Ti.UI.createTableViewRow({
-			id: purchaseItems[i].id,
-			title: purchaseItems[i].item_name,
-			//need to add cost too
-			color: '#000',
-			font: {
-				fontWeight: 'bold'	
-			}
+		rowView = new FeedViewTableRow({
+			width:305,
+			height:60,
+			itemName:purchaseItems[i].item_name,
+			id:purchaseItems[i].id
 		});
+		row = Ti.UI.createTableViewRow({
+			//id: purchaseItems[i].id,
+			//title: purchaseItems[i].item_name,
+			//need to add cost too
+			//color: '#000',
+			// font: {
+				// fontWeight: 'bold'	
+			// }
+			top:20,
+			rowView:rowView
+		});
+		row.add(rowView);
 		data.push(row);
 	}
 	return data;
