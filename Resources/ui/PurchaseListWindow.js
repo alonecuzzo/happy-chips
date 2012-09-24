@@ -14,7 +14,7 @@ exports.PurchaseListWindow = function(args) {
 		Ti.API.info("you clicked: " + e.row.id);
 		var PurchaseDetailWindow = require('ui/PurchaseDetailWindow').PurchaseDetailWindow;
 		var detailWindow = new PurchaseDetailWindow({
-			backgroundColor: '#FFF',
+			backgroundColor: '#f7f7f7',
 			title: 'Detail',
 			rowID: e.row.rowView.id
 		});

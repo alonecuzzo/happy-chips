@@ -38,24 +38,34 @@ exports.PurchaseDetailWindow = function(args) {
 	
 	self.setTitleControl(titleLabel);
 	
+	var photoPlaceHolder = Ti.UI.createView({
+		backgroundImage: 'iphone/purchaseDetailPhotoPlaceholder.png',
+		height: 60,
+		width: 60,
+		top: 10,
+		left: 10
+	});
+	
 	var purchaseNameLabel = Ti.UI.createLabel({
-	  color: '#000',
-	  font: {fontSize:12},
+	  color: '#111',
+	  font: {fontSize:18, fontWeight:'bold'},
 	  text: item.item_name,
 	  top: 10,
+	  left: 80,
 	  width: 'auto', height: 'auto'
 	});
 	
 	//TODO: need to make sure returned price rounds to the second decimal point
 	//  	i entered 69.99 for borderlands 2 and got back 69.9899999999!!!!
 	var priceLabel = Ti.UI.createLabel({
-	  color: '#000',
-	  font: {fontSize:12},
-	  text: item.item_price,
-	  top: 30,
+	  color: '#111',
+	  font: {fontSize:13},
+	  text: '$' + item.item_price,
+	  top: 37,
+	  left: 80,
 	  width: 'auto', height: 'auto'
 	});
-	
+	self.add(photoPlaceHolder);
 	self.add(purchaseNameLabel);
 	self.add(priceLabel);
 	
