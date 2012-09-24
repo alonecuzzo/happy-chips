@@ -1,5 +1,6 @@
 exports.PurchaseDetailWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
+	self.barImage = 'iphone/navBackground.png';
 	//Ti.API.info("row id: " + args.rowID);
 	var db = require('db');
 	var item = db.selectItem(args.rowID)[0];
@@ -15,16 +16,29 @@ exports.PurchaseDetailWindow = function(args) {
 	var month = date.getMonth() + 1;
 	var formattedTime = year + ', ' + month + ', ' + day + ', ' + hours + ':' + minutes;
 	
-	Ti.API.info("item date_time: " + formattedTime);
-	Ti.API.info("item lat: " + item.location_latitude);
-	Ti.API.info("item lon: " + item.location_longitude);
-	Ti.API.info("item note: " + item.note);
-	Ti.API.info("categories: " + item.categoryNames);
-	Ti.API.info("emotion: " + item.question_1_emotion);
-	Ti.API.info("emotion name: " + item.question_1_emotion_name);
+	// Ti.API.info("item date_time: " + formattedTime);
+	// Ti.API.info("item lat: " + item.location_latitude);
+	// Ti.API.info("item lon: " + item.location_longitude);
+	// Ti.API.info("item note: " + item.note);
+	// Ti.API.info("categories: " + item.categoryNames);
+	// Ti.API.info("emotion: " + item.question_1_emotion);
+	// Ti.API.info("emotion name: " + item.question_1_emotion_name);
 	
+	// create the label
+	var titleLabel = Titanium.UI.createLabel({
+	    color:'#111',
+	    height:'auto',
+	    width:'auto',
+	    top:10,
+	    text:'Purchase',
+	    textAlign:'center',
+	    font:{fontSize:20,fontWeight:'bold'},
+	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+	});
 	
-	var titleLabel = Ti.UI.createLabel({
+	self.setTitleControl(titleLabel);
+	
+	var purchaseNameLabel = Ti.UI.createLabel({
 	  color: '#000',
 	  font: {fontSize:12},
 	  text: item.item_name,
@@ -42,7 +56,7 @@ exports.PurchaseDetailWindow = function(args) {
 	  width: 'auto', height: 'auto'
 	});
 	
-	self.add(titleLabel);
+	self.add(purchaseNameLabel);
 	self.add(priceLabel);
 	
 	return self;

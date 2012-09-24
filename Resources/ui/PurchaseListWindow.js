@@ -11,7 +11,7 @@ exports.PurchaseListWindow = function(args) {
 	
 	tableView.addEventListener('click', function(e) {
 		//createConfirmDialog(e.row.id, e.row.title, isDone).show();
-		//Ti.API.info("you clicked: " + e.row.title);
+		Ti.API.info("you clicked: " + e.row.id);
 		var PurchaseDetailWindow = require('ui/PurchaseDetailWindow').PurchaseDetailWindow;
 		var detailWindow = new PurchaseDetailWindow({
 			backgroundColor: '#FFF',
@@ -56,7 +56,8 @@ var getTableData = function() {
 		});
 		row = Ti.UI.createTableViewRow({
 			top:15,
-			rowView:rowView
+			rowView:rowView,
+			id:purchaseItems[i].id
 		});
 		row.add(rowView);
 		data.push(row);

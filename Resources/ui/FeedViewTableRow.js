@@ -4,7 +4,7 @@ exports.FeedViewTableRow = function(args) {
 	self.setBackgroundImage('iphone/feedRowBackground.png');
 	
 	var purchaseNameLabel = Ti.UI.createLabel({
-	  color: '#191919',
+	  color: '#111',
 	  font: {fontSize:17, textAlign:'left', fontFamily:'Arial'},
 	  text: args.itemName,
 	  top: 10,
@@ -13,7 +13,7 @@ exports.FeedViewTableRow = function(args) {
 	});
 	
 	var priceLabel = Ti.UI.createLabel({
-	  color: '#a3a2a2',
+	  color: '#191919',
 	  font: {fontSize:15, textAlign:'left', fontFamily:'Arial'},
 	  text: '$' + args.itemPrice,
 	  top: 12,
@@ -22,7 +22,7 @@ exports.FeedViewTableRow = function(args) {
 	});
 	
 	var dateLabel = Ti.UI.createLabel({
-	  color: '#a3a2a2',
+	  color: '#666',
 	  font: {fontSize:12, textAlign:'left', fontFamily:'Arial'},
 	  text: '2 hours ago',
 	  top: 38,
