@@ -44,7 +44,9 @@ if (Ti.version < 1.8 ) {
  
 	var purchasesWindow = new PurchaseListWindow({
 	    backgroundColor: '#cfcfcf',
-	    tabBarHidden: true//,
+	    tabBarHidden: true,
+	    height:380,
+	    top:0//,
 	    //title:'Purchases'
 	});
 	
@@ -53,20 +55,26 @@ if (Ti.version < 1.8 ) {
 	var chartWindow = new PurchaseChartWindow({
 		backgroundColor: '#FFF',
 		title : 'Charts',
-	    tabBarHidden: true
+	    tabBarHidden: true,
+	    height:380,
+	    top:0
 	});
 	
 	var settingsWindow = new SettingsWindow({
 		backgroundColor:'#FFF',
 		title:'Settings',
 		backgroundImage:'iphone/tabButtonBackground.png',
-	    tabBarHidden: true
+	    tabBarHidden: true,
+	    height:380,
+	    top:0
 	});
 	
 	var profileWindow = new ProfileWindow({
 		backgroundColor:'#FFF',
 		title:'Profile',
-	    tabBarHidden: true
+	    tabBarHidden: true,
+	    height:380,
+	    top:0
 	});
 	 
 	var purchaseWindowAddButton = Titanium.UI.createButton({ 
