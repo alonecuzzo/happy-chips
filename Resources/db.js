@@ -91,7 +91,7 @@ exports.selectCategories = function() {
 	var db = Ti.Database.open(DATABASE_NAME);
 	var rows = db.execute('select ROWID, * from categories order by category_name asc');
 	while (rows.isValidRow()) {
-		retData.push({category_name:rows.fieldByName('category_name'), id:rows.fieldByName('ROWID')});
+		retData.push({category_name:rows.fieldByName('category_name'), iconName:rows.fieldByName('icon_name'), id:rows.fieldByName('ROWID')});
 		rows.next();
 	}
 	db.close();
@@ -214,7 +214,7 @@ exports.getEmotionalSumByCategory = function(emotionId) {
 
 exports.addCategory = function(category_name) {
 	var mydb = Ti.Database.open(DATABASE_NAME);
-	mydb.execute('insert into categories values (?)', category_name);
+	mydb.execute('insert into categories (category_name) values (?)', category_name);
 	mydb.close();
 }
 

@@ -24,7 +24,8 @@ CREATE TABLE purchase_categories
 
 CREATE TABLE categories
 (
-	category_name				VARCHAR(30)
+	category_name				VARCHAR(30),
+	icon_name					VARCHAR(60)
 );
 
 CREATE TABLE emotions

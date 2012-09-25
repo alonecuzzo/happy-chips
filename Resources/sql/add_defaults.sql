@@ -48,49 +48,80 @@ VALUES
 
 INSERT INTO categories
 (
-	category_name
+	category_name,
+	icon_name
 )
 VALUES
 (
-	'Entertainment'
+	'Drinks',
+	'glyphicons_274_beer.png'
 );
 
 INSERT INTO categories
 (
-	category_name
+	category_name,
+	icon_name
 )
 VALUES
 (
-	'Clothing'
+	'Food',
+	'glyphicons_276_cutlery.png'
 );
 
 INSERT INTO categories
 (
-	category_name
+	category_name,
+	icon_name
 )
 VALUES
 (
-	'Leisure'
+	'Clothing',
+	'glyphicons_283_t-shirt.png'
 );
 
 INSERT INTO categories
 (
-	category_name
+	category_name,
+	icon_name
 )
 VALUES
 (
-	'Travel'
+	'Sports',
+	'glyphicons_312_rugby.png'
 );
 
 INSERT INTO categories
 (
-	category_name
+	category_name,
+	icon_name
 )
 VALUES
 (
-	'Video Games'
+	'Travel',
+	'glyphicons_038_airplane.png'
 );
 
+INSERT INTO categories
+(
+	category_name,
+	icon_name
+)
+VALUES
+(
+	'Video Games',
+	'glyphicons_321_gamepad.png'
+);
+
+INSERT INTO categories
+(
+	category_name,
+	icon_name
+)
+VALUES
+(
+	'Business',
+	'glyphicons_341_briefcase.png'
+);
 ------------------------------------------------------------------
 ------------------------------------------------------------------
 --Give items categories

@@ -45,6 +45,10 @@ exports.CategoryListViewWindow = function(args) {
 				}
 			});
 			
+			//if(categories[i].id.iconName != '') {
+				row.setLeftImage('iphone/' + categories[i].iconName);
+			//}
+			
 			if(self.catsAreSelectable == true) {
 
 			} else {
