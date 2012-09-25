@@ -14,7 +14,7 @@ exports.PurchaseDetailWindow = function(args) {
 	var day = date.getDate();
 	var year = date.getFullYear();
 	var month = date.getMonth() + 1;
-	var formattedTime = year + ', ' + month + ', ' + day + ', ' + hours + ':' + minutes;
+	var formattedTime =  date.getMonthNameShort() + ' ' + day + ', ' + year;
 	
 	// Ti.API.info("item date_time: " + formattedTime);
 	// Ti.API.info("item lat: " + item.location_latitude);
@@ -23,6 +23,18 @@ exports.PurchaseDetailWindow = function(args) {
 	// Ti.API.info("categories: " + item.categoryNames);
 	// Ti.API.info("emotion: " + item.question_1_emotion);
 	// Ti.API.info("emotion name: " + item.question_1_emotion_name);
+	
+	//back button
+	var backbutton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/backArrow.png',
+		width:20,
+		height:18
+	});
+	backbutton.addEventListener('click', function() {
+		self.close();
+	});
+	self.leftNavButton = backbutton;
 	
 	// create the label
 	var titleLabel = Titanium.UI.createLabel({
@@ -61,10 +73,21 @@ exports.PurchaseDetailWindow = function(args) {
 	  color: '#111',
 	  font: {fontSize:13},
 	  text: '$' + item.item_price,
-	  top: 37,
+	  top: 35,
 	  left: 80,
 	  width: 'auto', height: 'auto'
 	});
+	
+	var dateLabel = Ti.UI.createLabel({
+	  color: '#111',
+	  font: {fontSize:13},
+	  text: formattedTime,
+	  top: 50,
+	  left: 80,
+	  width: 'auto', height: 'auto'
+	});
+	
+	self.add(dateLabel);
 	self.add(photoPlaceHolder);
 	self.add(purchaseNameLabel);
 	self.add(priceLabel);

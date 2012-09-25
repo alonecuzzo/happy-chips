@@ -30,6 +30,23 @@ if (Ti.version < 1.8 ) {
 	    return this[property] !== undefined;
 	};
 	
+	Date.prototype.getMonthName = function(lang) {
+    	lang = lang && (lang in Date.locale) ? lang : 'en';
+    	return Date.locale[lang].month_names[this.getMonth()];
+	};
+	
+	Date.prototype.getMonthNameShort = function(lang) {
+	    lang = lang && (lang in Date.locale) ? lang : 'en';
+	    return Date.locale[lang].month_names_short[this.getMonth()];
+	};
+	
+	Date.locale = {
+	    en: {
+	       month_names: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+	       month_names_short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+	    }
+	};
+	
 	Ti.Geolocation.purpose = "Recieve User Location";
 	
 	//considering tablet to have one dimension over 900px - this is imperfect, so you should feel free to decide
@@ -101,7 +118,7 @@ if (Ti.version < 1.8 ) {
 	purchaseWindowAddButton.addEventListener("click", showAddWindow);
 	
 	var tab = Ti.UI.createTab({ 
-		title: 'Purchases',
+		//title: 'Purchases',
 	    window: purchasesWindow
 	});
 	purchasesWindow.containingTab = tab;
