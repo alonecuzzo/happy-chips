@@ -55,7 +55,7 @@ var getTableData = function() {
 			id:purchaseItems[i].id
 		});
 		row = Ti.UI.createTableViewRow({
-			top:15,
+			top:10,
 			rowView:rowView,
 			id:purchaseItems[i].id
 		});

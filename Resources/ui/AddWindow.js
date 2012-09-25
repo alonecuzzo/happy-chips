@@ -10,17 +10,20 @@ exports.AddWindow = function(args) {
 		backgroundColor: '#FFF',
 		parentWindow: self
 	});
+	questionWindow.barImage = 'iphone/navBackground.png';
 	
 	var addPurchaseContentWindow = new AddPurchaseContentWindow({
 		title: 'Add Item',
 		backgroundColor: '#fff',
 		parentWindow: self
 	});
+	addPurchaseContentWindow.barImage = 'iphone/navBackground.png';
 	
 	var categoryListView = new CategoryListViewWindow({
 		backgroundColor: '#FFF',
 		title: 'Categories'
 	});
+	categoryListView.barImage = 'iphone/navBackground.png';
 	categoryListView.catsAreSelectable = true;
 	addPurchaseContentWindow.categoryListView = categoryListView;
 	
