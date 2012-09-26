@@ -31,6 +31,7 @@ exports.AddWindow = function(args) {
 		window:addPurchaseContentWindow
 	});
 	categoryListView.navGroup = navGroup;
+	questionWindow.navGroup = navGroup;
 	addPurchaseContentWindow.navGroup = navGroup;
 	addPurchaseContentWindow.categoryWindow = categoryListView;
 	addPurchaseContentWindow.questionWindow = questionWindow;

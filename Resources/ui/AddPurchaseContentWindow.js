@@ -8,7 +8,7 @@ exports.AddPurchaseContentWindow = function(args) {
 		userLon = 0;
 		
 	var titleLabel = Titanium.UI.createLabel({
-	    color:'#111',
+	    color:'#525252',
 	    height:'auto',
 	    width:'auto',
 	    top:10,

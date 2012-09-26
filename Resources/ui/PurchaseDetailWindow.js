@@ -38,7 +38,7 @@ exports.PurchaseDetailWindow = function(args) {
 	
 	// create the label
 	var titleLabel = Titanium.UI.createLabel({
-	    color:'#111',
+	    color:'#525252',
 	    height:'auto',
 	    width:'auto',
 	    top:10,

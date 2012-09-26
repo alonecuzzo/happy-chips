@@ -1,7 +1,7 @@
 exports.QuestionWindow = function(args) {
-	self = Ti.UI.createWindow(args);
+	var self = Ti.UI.createWindow(args);
 	self.answerId = -1;
-	var answerSection = Ti.UI.createTableViewSection({headerTitle:'Answers'});
+	var answerSection = Ti.UI.createTableViewSection();
 	var setTableData = function(section) {
 		var db = require('db');
 		var row = null;
@@ -21,10 +21,36 @@ exports.QuestionWindow = function(args) {
 	}
 	setTableData(answerSection);
 	
+	var titleLabel = Titanium.UI.createLabel({
+	    color:'#525252',
+	    height:'auto',
+	    width:'auto',
+	    top:10,
+	    text:'Emotion',
+	    textAlign:'center',
+	    font:{fontSize:20,fontWeight:'bold'},
+	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+	});
+	
+	self.setTitleControl(titleLabel);
+	
 	var table = Ti.UI.createTableView({
-	  data: [answerSection]
+	  data: [answerSection],
+	  backgroundColor:'#f7f7f7',
+	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 	});
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
+	
+	var backbutton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/backArrow.png',
+		width:20,
+		height:18
+	});
+	backbutton.addEventListener('click', function() {
+		self.navGroup.close(self);
+	});
+	self.leftNavButton = backbutton;
 	
 	var collectCheckMark = function(rowTitle) {
 		var rows = answerSection.getRows();
