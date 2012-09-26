@@ -6,6 +6,19 @@ exports.AddPurchaseContentWindow = function(args) {
 	var self = Ti.UI.createWindow(args),
 		userLat = 0,
 		userLon = 0;
+		
+	var titleLabel = Titanium.UI.createLabel({
+	    color:'#111',
+	    height:'auto',
+	    width:'auto',
+	    top:10,
+	    text:'Add Purchase',
+	    textAlign:'center',
+	    font:{fontSize:20,fontWeight:'bold'},
+	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+	});
+	
+	self.setTitleControl(titleLabel);
 	
 	//TODO: need to fix scrolling view, will probably have to write own function using the scrollTo functionality
 	//in the scrollview class: http://docs.appcelerator.com/titanium/2.1/index.html#!/api/Titanium.UI.ScrollView

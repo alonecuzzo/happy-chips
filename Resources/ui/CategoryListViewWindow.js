@@ -2,6 +2,19 @@ exports.CategoryListViewWindow = function(args) {
 	self = Ti.UI.createWindow(args);
 	self.checkCategoryIds = [];
 	
+	var titleLabel = Titanium.UI.createLabel({
+	    color:'#525252',
+	    height:'auto',
+	    width:'auto',
+	    top:10,
+	    text:'Categories',
+	    textAlign:'center',
+	    font:{fontSize:20,fontWeight:'bold'},
+	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+	});
+	
+	self.setTitleControl(titleLabel);
+	
 	var addRow = Ti.UI.createTableViewRow();
 	
 	var addItemTextField = Ti.UI.createTextField({
@@ -13,7 +26,22 @@ exports.CategoryListViewWindow = function(args) {
 		returnKeyType: Ti.UI.RETURNKEY_DONE
 	});
 	
-	var addButton = Titanium.UI.createButton({systemButton: Titanium.UI.iPhone.SystemButton.ADD}); 
+	var backbutton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/backArrow.png',
+		width:20,
+		height:18
+	});
+	backbutton.addEventListener('click', function() {
+		self.navGroup.close(self);
+	});
+	self.leftNavButton = backbutton;
+	
+	var addButton = Titanium.UI.createButton({ 
+		height:20,
+		width:20,
+		backgroundImage:'iphone/addIcon.png' 
+	}); 
 	self.setRightNavButton(addButton);
 	
 	addButton.addEventListener('click', function(){
@@ -30,7 +58,7 @@ exports.CategoryListViewWindow = function(args) {
 	});
 	
 	addRow.add(addItemTextField);
-	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:'Categories' });
+	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:'' });
 	var setTableData = function(section) {
 		var db = require('db');
 		var row = null;
@@ -79,7 +107,9 @@ exports.CategoryListViewWindow = function(args) {
 	}
 	
 	var table = Ti.UI.createTableView({
-	  data: [sectionCategory]
+	  data: [sectionCategory],
+	  backgroundColor:'#f7f7f7',
+	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 	});
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	

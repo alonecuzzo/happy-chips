@@ -13,15 +13,15 @@ exports.AddWindow = function(args) {
 	questionWindow.barImage = 'iphone/navBackground.png';
 	
 	var addPurchaseContentWindow = new AddPurchaseContentWindow({
-		title: 'Add Item',
+		//title: 'Add Item',
 		backgroundColor: '#fff',
 		parentWindow: self
 	});
 	addPurchaseContentWindow.barImage = 'iphone/navBackground.png';
 	
 	var categoryListView = new CategoryListViewWindow({
-		backgroundColor: '#FFF',
-		title: 'Categories'
+		backgroundColor: '#FFF'//,
+		//title: 'Categories'
 	});
 	categoryListView.barImage = 'iphone/navBackground.png';
 	categoryListView.catsAreSelectable = true;
@@ -30,7 +30,7 @@ exports.AddWindow = function(args) {
 	var navGroup = Ti.UI.iPhone.createNavigationGroup({
 		window:addPurchaseContentWindow
 	});
-	
+	categoryListView.navGroup = navGroup;
 	addPurchaseContentWindow.navGroup = navGroup;
 	addPurchaseContentWindow.categoryWindow = categoryListView;
 	addPurchaseContentWindow.questionWindow = questionWindow;
