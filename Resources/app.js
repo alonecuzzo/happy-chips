@@ -102,7 +102,11 @@ if (Ti.version < 1.8 ) {
 	purchasesWindow.setRightNavButton(purchaseWindowAddButton);
 	var AddWindow = require('ui/AddWindow').AddWindow;
 	
-	var chartWindowAddButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.COMPOSE }); 
+	var chartWindowAddButton = Titanium.UI.createButton({ 
+		height:'30dp',
+		width:'30dp',
+		backgroundImage:'iphone/edit.png' 
+	}); 
 	chartWindow.setRightNavButton(chartWindowAddButton);
 	
 	function showAddWindow() {

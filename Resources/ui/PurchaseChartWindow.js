@@ -1,8 +1,25 @@
 exports.PurchaseChartWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	var webView = Ti.UI.createWebView({
-		top:50
+		top:50,
+		touchEnabled:false
 	});
+	
+	self.barImage = 'iphone/navBackground.png';
+	
+	var titleLabel = Titanium.UI.createLabel({
+	    color:'#525252',
+	    height:'auto',
+	    width:'auto',
+	    top:10,
+	    text:'Charts',
+	    textAlign:'center',
+	    font:{fontSize:20,fontWeight:'bold'},
+	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+	});
+	
+	self.setTitleControl(titleLabel);
+
 	
 	var chart1Button = Ti.UI.createButton({
 		title: 'Chart 1',
@@ -42,6 +59,8 @@ exports.PurchaseChartWindow = function(args) {
 	self.add(webView);
 	
 	var htmlString = '';
+	
+	var colors = '["#932453", "#bf5280", "#928189", "#65565c", "#e2ced7", "#d6abbd"]';
 	
 	populateHTML();
 	
@@ -96,7 +115,7 @@ exports.PurchaseChartWindow = function(args) {
 			}
 		}
 		
-		htmlString = '<html><head>' + fireEventString + '<script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.text(145, 20, "dope ass chart").attr({ font: "16px sans-serif" }); r.piechart(150, 140, 100, ' + sumsString + ', { legend: ' + legendString + ', legendpos: "south", href: '+ urlString +'}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+		htmlString = '<html><head>' + fireEventString + '<script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 100, 90, ' + sumsString + ', { colors: ' + colors + ', href: '+ urlString +'}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 		webView.html = htmlString;
 		Ti.API.info('sum string: ' + sumsString);
 		Ti.API.info('legend string: ' + legendString);

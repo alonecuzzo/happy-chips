@@ -15,7 +15,9 @@ exports.CategoryListViewWindow = function(args) {
 	
 	self.setTitleControl(titleLabel);
 	
-	var addRow = Ti.UI.createTableViewRow();
+	var addRow = Ti.UI.createTableViewRow({
+		backgroundColor:'#FFF'
+	});
 	
 	var addItemTextField = Ti.UI.createTextField({
 		width: '300dp',
