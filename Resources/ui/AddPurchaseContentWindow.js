@@ -47,7 +47,9 @@ exports.AddPurchaseContentWindow = function(args) {
 	});
 
 	var addItemSection = Ti.UI.createTableViewSection();
-	var itemNameRow = Ti.UI.createTableViewRow();
+	var itemNameRow = Ti.UI.createTableViewRow({
+		backgroundColor:'#FFF'
+	});
 
 	var itemNameTextField = Ti.UI.createTextField({
 		width: 250,
@@ -71,21 +73,25 @@ exports.AddPurchaseContentWindow = function(args) {
 		keyboardType: Titanium.UI.KEYBOARD_DECIMAL_PAD
 	});
 	
-	var priceRow = Ti.UI.createTableViewRow();
+	var priceRow = Ti.UI.createTableViewRow({
+		backgroundColor:'#FFF'
+	});
 	priceRow.add(priceTextField);
 	addItemSection.add(priceRow);
 	
 	var happinessQuestionOneRow = Ti.UI.createTableViewRow({
 		hasChild:true,
 		title:'Happiness Level',
-		id:0
+		id:0,
+		backgroundColor:'#FFF'
 	});
 	addItemSection.add(happinessQuestionOneRow);
 
 	var categoryRow = Ti.UI.createTableViewRow({
 		hasChild:true,
 		title:'Category',
-		id:1
+		id:1,
+		backgroundColor:'#FFF'
 	});
 	addItemSection.add(categoryRow);
 
@@ -126,7 +132,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	  top:0,
 	  width: 292, height: 73,
 	  borderWidth:0,
-	  backgroundColor:'#f7f7f7',
+	  backgroundColor:'#FFF',
 	  font:{fontSize:18},
 	  color:'#bdbdbd'
 	});
@@ -145,7 +151,8 @@ exports.AddPurchaseContentWindow = function(args) {
 	});
 	
 	var noteRow = Ti.UI.createTableViewRow({
-		height:90
+		height:90,
+		backgroundColor:'#FFF'
 	});
 	noteRow.add(noteTextArea);
 	addItemSection.add(noteRow);
@@ -153,7 +160,7 @@ exports.AddPurchaseContentWindow = function(args) {
 
 	var table = Ti.UI.createTableView({
 	  data: [addItemSection],
-	  backgroundColor:'#f7f7f7',
+	  backgroundColor:'#dfdfdf',
 	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 	});
 	

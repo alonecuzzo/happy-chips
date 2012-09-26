@@ -11,6 +11,7 @@ exports.QuestionWindow = function(args) {
 				id: emotions[i].id,
 				title: emotions[i].emotion,
 				color: '#000',
+				backgroundColor:'#FFF',
 				font: {
 					fontWeight: 'bold'	
 				}
@@ -36,8 +37,8 @@ exports.QuestionWindow = function(args) {
 	
 	var table = Ti.UI.createTableView({
 	  data: [answerSection],
-	  backgroundColor:'#f7f7f7',
-	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
+	  backgroundColor:'#dfdfdf',
+	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
 	});
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	

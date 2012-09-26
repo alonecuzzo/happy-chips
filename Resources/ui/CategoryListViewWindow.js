@@ -67,6 +67,7 @@ exports.CategoryListViewWindow = function(args) {
 			row = Ti.UI.createTableViewRow({
 				id: categories[i].id,
 				title: categories[i].category_name,
+				backgroundColor:'#FFF',
 				color: '#000',
 				font: {
 					fontWeight: 'bold'	
@@ -108,7 +109,7 @@ exports.CategoryListViewWindow = function(args) {
 	
 	var table = Ti.UI.createTableView({
 	  data: [sectionCategory],
-	  backgroundColor:'#f7f7f7',
+	  backgroundColor:'#dfdfdf',
 	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 	});
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;

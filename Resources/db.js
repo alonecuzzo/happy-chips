@@ -7,7 +7,7 @@ exports.createDb = function() {
 exports.selectItems = function() {
 	var retData = [];
 	var db = Ti.Database.open(DATABASE_NAME);
-	var rows = db.execute('select ROWID, * from purchases');
+	var rows = db.execute('select ROWID, * from purchases order by date_time desc');
 	while (rows.isValidRow()) {
 		retData.push({item_name:rows.fieldByName('item_name'), 
 			id:rows.fieldByName('ROWID'), item_price:rows.fieldByName('item_price'), item_price:rows.fieldByName('item_price')});
