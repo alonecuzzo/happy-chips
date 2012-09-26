@@ -20,17 +20,6 @@ exports.AddPurchaseContentWindow = function(args) {
 	
 	self.setTitleControl(titleLabel);
 	
-	//TODO: need to fix scrolling view, will probably have to write own function using the scrollTo functionality
-	//in the scrollview class: http://docs.appcelerator.com/titanium/2.1/index.html#!/api/Titanium.UI.ScrollView
-	//it pops into place when clicking above and when clicking textfield below animates down too far
-	var scrollview = Ti.UI.createScrollView({
-		contentWidth:'auto',
-		contentHeight:'auto',
-		top:0,
-		showVerticalScrollIndicator:true,
-		showHorizontalScrollIndicator:false
-	});
-	
 	//top buttons etc
 	var cancelButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.CANCEL}); 
 	self.setLeftNavButton(cancelButton);
@@ -47,35 +36,49 @@ exports.AddPurchaseContentWindow = function(args) {
 			noteTextArea.value, userLat, userLon, self.questionWindow);
 	});
 
+	var addItemSection = Ti.UI.createTableViewSection();
+	var itemNameRow = Ti.UI.createTableViewRow();
+
 	var itemNameTextField = Ti.UI.createTextField({
-		width: '300dp',
+		width: 250,
 		height: '45dp',
-		top: '20dp',
-		hintText: 'New Item',
-		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+		left: '10dp',
+		hintText: 'Purchase Name',
+		borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 		returnKeyType: Ti.UI.RETURNKEY_DONE
 	});
-	// itemNameTextField.addEventListener('return', function(e) {
-		// addPurchase(itemNameTextField.value, self);
-	// });
 	
+	itemNameRow.add(itemNameTextField);
+	addItemSection.add(itemNameRow);
 	
 	var priceTextField = Ti.UI.createTextField({
-		width: '300dp',
+		width: 250,
 		height: '45dp',
-		top: '80dp',
-		hintText: 'Item Price',
-		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+		left: 10,
+		hintText: 'Purchase Price',
+		borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 		returnKeyType: Ti.UI.RETURNKEY_DEFAULT,
 		keyboardType: Titanium.UI.KEYBOARD_DECIMAL_PAD
 	});
 	
-	// var locationButton = Ti.UI.createButton({
-		// title: 'Location',
-		// top: '130dp',
-		// width: '300dp',
-		// height: '40dp'
-	// });
+	var priceRow = Ti.UI.createTableViewRow();
+	priceRow.add(priceTextField);
+	addItemSection.add(priceRow);
+	
+	var happinessQuestionOneRow = Ti.UI.createTableViewRow({
+		hasChild:true,
+		title:'Happiness Level',
+		id:0
+	});
+	addItemSection.add(happinessQuestionOneRow);
+
+	var categoryRow = Ti.UI.createTableViewRow({
+		hasChild:true,
+		title:'Category',
+		id:1
+	});
+	addItemSection.add(categoryRow);
+
 
 		Titanium.Geolocation.getCurrentPosition(function(e) {
 			if (e.error) {
@@ -105,56 +108,60 @@ exports.AddPurchaseContentWindow = function(args) {
 		Ti.API.info("ispriceTextFieldValid: " + ispriceTextFieldValid);
 	});
 	
-	var happinessButton = Ti.UI.createButton({
-		title: 'Happiness Level',
-		top: '180dp',
-		width: '300dp',
-		height: '40dp'
-	});
-	
-	happinessButton.addEventListener('click', function(){
-		blurTextFields();
-		self.navGroup.open(self.questionWindow, {animated:true});
-	});
-	
-	var categoryButton = Ti.UI.createButton({
-		title: 'Categories',
-		top: '230dp',
-		width: '300dp',
-		height: '40dp'
-	});
-	
-	categoryButton.addEventListener('click', function(){
-		blurTextFields();
-		self.navGroup.open(self.categoryWindow, {animated:true});
-	});
-	
-	var photoButton = Ti.UI.createButton({
-		title: 'Add Photo',
-		top: '280dp',
-		width: '300dp',
-		height: '40dp'
-	});
-	
 	var noteTextArea = Ti.UI.createTextArea({
-	  borderWidth: 2,
-	  borderColor: '#bbb',
-	  returnKeyType: Ti.UI.RETURNKEY_GO,
+	  returnKeyType: Ti.UI.RETURNKEY_DONE,
 	  textAlign: 'left',
-	  hintText: 'Note',
-	  top: '330dp',
-	  width: '300dp', height: '70dp'
+	  value: 'Purchase Note',
+	  left:5,
+	  top:0,
+	  width: 292, height: 73,
+	  borderWidth:0,
+	  backgroundColor:'#f7f7f7',
+	  font:{fontSize:18},
+	  color:'#bdbdbd'
 	});
 	
-	scrollview.add(itemNameTextField);
-	scrollview.add(happinessButton);
-	scrollview.add(photoButton);
-	//scrollview.add(locationButton);
-	scrollview.add(categoryButton);
-	scrollview.add(priceTextField);
-	scrollview.add(noteTextArea);
+	noteTextArea._hintText = noteTextArea.value;
+ 
+	noteTextArea.addEventListener('focus',function(e){
+	    if(e.source.value == e.source._hintText){
+	        e.source.value = "";
+	    }
+	});
+	noteTextArea.addEventListener('blur',function(e){
+	    if(e.source.value==""){
+	        e.source.value = e.source._hintText;
+	    }
+	});
 	
-	self.add(scrollview);
+	var noteRow = Ti.UI.createTableViewRow({
+		height:90
+	});
+	noteRow.add(noteTextArea);
+	addItemSection.add(noteRow);
+	
+
+	var table = Ti.UI.createTableView({
+	  data: [addItemSection],
+	  backgroundColor:'#f7f7f7',
+	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
+	});
+	
+	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
+	
+	self.add(table);
+	
+	table.addEventListener('click', function(e){
+		if(e.row.id === 0){
+			blurTextFields();
+			self.navGroup.open(self.questionWindow, {animated:true});
+		} else if(e.row.id === 1) {
+			blurTextFields();
+			self.navGroup.open(self.categoryWindow, {animated:true});
+		} else {
+			blurTextFields();
+		}
+	});
 	
 	self.addEventListener("click", blurTextFields);
 	
