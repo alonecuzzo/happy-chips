@@ -20,11 +20,21 @@ exports.AddPurchaseContentWindow = function(args) {
 	
 	self.setTitleControl(titleLabel);
 	
-	//top buttons etc
-	var cancelButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.CANCEL}); 
-	self.setLeftNavButton(cancelButton);
-	var doneButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.DONE}); 
+	var doneButton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/doneButton.png',
+		width:60,
+		height:35
+	});
 	self.setRightNavButton(doneButton);
+	
+	var cancelButton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/cancelButton.png',
+		width:60,
+		height:35
+	});
+	self.setLeftNavButton(cancelButton); 
 	
 	cancelButton.addEventListener('click', function(e) {
 		args.parentWindow.close();
