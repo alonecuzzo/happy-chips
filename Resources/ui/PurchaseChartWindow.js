@@ -61,6 +61,7 @@ exports.PurchaseChartWindow = function(args) {
 	var htmlString = '';
 	
 	var colors = '["#932453", "#bf5280", "#928189", "#65565c", "#e2ced7", "#d6abbd"]';
+	var colorsArray = ['#932453', '#bf5280', '#928189', '#65565c', '#e2ced7', '#d6abbd'];
 	var buttonHolderView;
 	
 	populateHTML();
@@ -106,19 +107,42 @@ exports.PurchaseChartWindow = function(args) {
 		buttonHolderView = Ti.UI.createView({
 			height:'auto',
 			width:300,
-			top:100
+			top:170,
+			left:50
 		});
 		
 		//ok we need to scroll through the sums array and create buttons that link to the detail page of each emotion
 		for(var i=0; i<=sums.length-1; i++) {
-			var xPos = i*75;
-			var button = Ti.UI.createButton({
-				title: sums[i].emotion + ' - $' + sums[i].sum,
-				width: 75,
-				height: '40dp',
-				left: xPos
+			var xPos = (i % 2)*120;
+			var yPos = 0;
+			var lineHeight = 50;
+			
+			if(2 % i === 0 && (i > 0)) {
+				yPos += lineHeight;
+			}
+			
+			var legendView = Ti.UI.createView({
+				left:xPos,
+				top:yPos
 			});
-			buttonHolderView.add(button);
+			var legendChip = Titanium.UI.createView({
+							  backgroundColor:colorsArray[i],
+							  height:10,
+							  width:10,
+							  left:0
+							});
+			legendView.add(legendChip);
+			var roundedSum = Math.round(100*sums[i].sum)/100;
+			var titleLabel = Titanium.UI.createLabel({
+			    color:'#111111',
+			    height:'auto',
+			    width:'auto',
+			    left:15,
+			    text:'$' + roundedSum + ': ' + sums[i].emotion ,
+			    font:{fontSize:10,fontWeight:'bold'}
+			});
+			legendView.add(titleLabel);
+			buttonHolderView.add(legendView);
 		}
 		
 		self.add(buttonHolderView);
