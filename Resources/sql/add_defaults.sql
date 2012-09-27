@@ -187,38 +187,46 @@ VALUES
 
 INSERT INTO emotions
 (
-	emotion
+	emotion,
+	icon_name
 )
 VALUES
 (
-	'Angry'
+	'Angry',
+	'emotionMehIcon.png'
 );
 
 INSERT INTO emotions
 (
-	emotion
+	emotion,
+	icon_name
 )
 VALUES
 (
-	'Happy'
+	'Happy',
+	'emotionSmileyIcon.png'
 );
 
 INSERT INTO emotions
 (
-	emotion
+	emotion,
+	icon_name
 )
 VALUES
 (
-	'Sad'
+	'Sad',
+	'emotionSadIcon.png'
 );
 
 INSERT INTO emotions
 (
-	emotion
+	emotion,
+	icon_name
 )
 VALUES
 (
-	'Indifferent'
+	'Indifferent',
+	'emotionIndifferentIcon.png'
 );
 
 ------------------------------------------------------------------

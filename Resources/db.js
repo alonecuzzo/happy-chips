@@ -103,7 +103,7 @@ exports.selectEmotions = function() {
 	var db = Ti.Database.open(DATABASE_NAME);
 	var rows = db.execute('select ROWID, * from emotions order by emotion asc');
 	while (rows.isValidRow()) {
-		retData.push({emotion:rows.fieldByName('emotion'), id:rows.fieldByName('ROWID')});
+		retData.push({emotion:rows.fieldByName('emotion'), id:rows.fieldByName('ROWID'), iconName:rows.fieldByName('icon_name')});
 		rows.next();
 	}
 	db.close();

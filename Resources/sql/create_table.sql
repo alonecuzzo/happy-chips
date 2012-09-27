@@ -30,7 +30,8 @@ CREATE TABLE categories
 
 CREATE TABLE emotions
 (
-	emotion						VARCHAR(30)
+	emotion						VARCHAR(30),
+	icon_name					VARCHAR(60)
 );
 
 CREATE TABLE users

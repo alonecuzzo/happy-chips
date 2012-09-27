@@ -16,7 +16,7 @@ exports.QuestionWindow = function(args) {
 					fontWeight: 'bold'	
 				}
 			});
-			
+			row.setLeftImage('iphone/' + emotions[i].iconName);
 			section.add(row);
 		}
 	}
