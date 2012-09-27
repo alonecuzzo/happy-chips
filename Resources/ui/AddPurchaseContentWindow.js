@@ -18,6 +18,14 @@ exports.AddPurchaseContentWindow = function(args) {
 	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
 	});
 	
+	var photoImageView = Titanium.UI.createImageView({
+		height:60,
+		width:60,
+		top:15,
+		left:20,
+		backgroundColor:'#999'
+	});
+	
 	self.setTitleControl(titleLabel);
 	
 	var doneButton = Titanium.UI.createButton({
@@ -105,7 +113,38 @@ exports.AddPurchaseContentWindow = function(args) {
 			});
 		} else if(e.index === 1){
 			//photo gallery
-			Ti.Media.openPhotoGallery();
+			Ti.Media.openPhotoGallery({
+				success:function(event)
+				{
+					var cropRect = event.cropRect;
+					var image = event.media;
+			
+					// set image view
+					Ti.API.debug('Our type was: '+event.mediaType);
+					if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO)
+					{
+						photoImageView.image = image;
+						self.add(photoImageView);
+						self.remove(photoButton);
+					}
+					else
+					{
+						// is this necessary?
+					}
+			
+					Titanium.API.info('PHOTO GALLERY SUCCESS cropRect.x ' + cropRect.x + ' cropRect.y ' + cropRect.y  + ' cropRect.height ' + cropRect.height + ' cropRect.width ' + cropRect.width);
+			
+				},
+				cancel:function()
+				{
+			
+				},
+				error:function(error)
+				{
+				},
+				allowEditing:true,
+				mediaTypes:[Ti.Media.MEDIA_TYPE_VIDEO,Ti.Media.MEDIA_TYPE_PHOTO]
+			});
 		}
 	});
 	
