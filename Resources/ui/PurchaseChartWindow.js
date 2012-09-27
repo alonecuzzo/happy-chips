@@ -2,7 +2,7 @@ exports.PurchaseChartWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	var webView = Ti.UI.createWebView({
 		top:50,
-		touchEnabled:false
+		touchEnabled:true
 	});
 	
 	self.barImage = 'iphone/navBackground.png';
@@ -62,7 +62,12 @@ exports.PurchaseChartWindow = function(args) {
 	
 	var colors = '["#932453", "#bf5280", "#928189", "#65565c", "#e2ced7", "#d6abbd"]';
 	var colorsArray = ['#932453', '#bf5280', '#928189', '#65565c', '#e2ced7', '#d6abbd'];
-	var buttonHolderView;
+	var buttonHolderView = Ti.UI.createView({
+			height:'auto',
+			width:300,
+			top:170,
+			left:50
+		});
 	
 	populateHTML();
 	
@@ -71,7 +76,7 @@ exports.PurchaseChartWindow = function(args) {
 	});
 	
 	Titanium.App.addEventListener('fromwebview', function(e) {
-		//Ti.API.info('got it: ' + e.id);
+		Ti.API.info('got it: ' + e.id);
 		var ChartDetailWindow = require('ui/ChartDetailWindow').ChartDetailWindow;
 		var chartDetailWindow = new ChartDetailWindow({
 			title: 'Chart Detail',
@@ -124,11 +129,11 @@ exports.PurchaseChartWindow = function(args) {
 			var legendView = Ti.UI.createView({
 				left:xPos,
 				top:yPos,
-				id:i
+				id:sums[i].id
 			});
 			legendView.addEventListener('click', function(e){
 				Ti.App.fireEvent('fromwebview',{id:this.id});
-				//Ti.API.info('sending id: ' + this.id);
+				Ti.API.info('sending id: ' + this.id);
 			});
 			var legendChip = Titanium.UI.createView({
 							  backgroundColor:colorsArray[i],
@@ -171,8 +176,8 @@ exports.PurchaseChartWindow = function(args) {
 		
 		htmlString = '<html><head>' + fireEventString + '<script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 100, 90, ' + sumsString + ', { colors: ' + colors + ', href: '+ urlString +'}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 		webView.html = htmlString;
-		Ti.API.info('sum string: ' + sumsString);
-		Ti.API.info('legend string: ' + legendString);
+		//Ti.API.info('sum string: ' + sumsString);
+		//Ti.API.info('legend string: ' + legendString);
 	}
 	return self;
 }
