@@ -8,7 +8,7 @@ exports.FeedViewTableRow = function(args) {
 	var item = db.selectItem(args.id)[0];
 	
 	var purchaseNameLabel = Ti.UI.createLabel({
-	  color: '#111',
+	  color: '#000',
 	  font: {fontSize:17, textAlign:'left', fontFamily:'Arial'},
 	  text: args.itemName,
 	  top: 30,

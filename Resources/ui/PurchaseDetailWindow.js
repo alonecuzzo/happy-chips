@@ -86,9 +86,26 @@ exports.PurchaseDetailWindow = function(args) {
 	  font: {fontSize:13},
 	  text: '$' + item.item_price,
 	  top: 35,
-	  left: 80,
+	  right: 30,
 	  width: 'auto', height: 'auto'
 	});
+	
+	var iconView;
+	
+	//Ti.API.info(item.itemName + ': ' + item.categoryIconNames.length);
+	
+	if(item.categoryIconNames !== undefined) {
+		iconView = require('util').buildArrayOfIconsView(item.categoryIconNames, 19, -335, 75);
+	} else {
+		Ti.API.info('hey!!');
+		iconView = Ti.UI.createView({
+			 backgroundImage:'iphone/bagicon.png',
+			 width:22,
+			 height:22,
+			 left:77,
+			 top:30
+		 });
+	}
 	
 	var dateLabel = Ti.UI.createLabel({
 	  color: '#111',
@@ -132,6 +149,7 @@ exports.PurchaseDetailWindow = function(args) {
 	
 	self.add(mapBackgroundView);
 	self.add(mapview);
+	self.add(iconView);
 	self.add(dateLabel);
 	self.add(photoPlaceHolder);
 	self.add(purchaseNameLabel);
