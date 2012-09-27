@@ -1,6 +1,21 @@
 exports.ProfileWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	
+	// create the label
+	var titleLabel = Titanium.UI.createLabel({
+	    color:'#525252',
+	    height:'auto',
+	    width:'auto',
+	    top:10,
+	    text:'Profile',
+	    textAlign:'center',
+	    font:{fontSize:20,fontWeight:'bold'},
+	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+	});
+	
+	self.setTitleControl(titleLabel);
+	self.barImage = 'iphone/navBackground.png';
+	
 	//we want totals per emotion too, use emotion sum function from db.js
 	var profileObject = require('db').getProfileStats();
 	
@@ -13,11 +28,34 @@ exports.ProfileWindow = function(args) {
 	Ti.API.info('challenges_completed: ' + profileObject.userObject.challengesCompleted);
 	
 	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:'' });
-	sectionCategory.add(Ti.UI.createTableViewRow({title:'Manage Goals', hasChild:true}));
-	sectionCategory.add(Ti.UI.createTableViewRow({title:'Manage Challenges', hasChild:true}));
+	sectionCategory.add(Ti.UI.createTableViewRow({title:'Manage Goals', hasChild:true, backgroundColor:'#FFF'}));
+	sectionCategory.add(Ti.UI.createTableViewRow({title:'Manage Challenges', hasChild:true, backgroundColor:'#FFF'}));
 	
 	var table = Ti.UI.createTableView({
-	  data: [sectionCategory]
+	  data: [sectionCategory],
+	  backgroundColor:'#dfdfdf',
+	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
+	  top:70
+	});
+	
+	var avatarImageView = Titanium.UI.createImageView({
+		height:60,
+		width:60,
+		top:10,
+		left:10,
+		borderColor:'#b7b7b7',
+		borderWidth:1,
+		backgroundColor:'#fff',
+		image:'iphone/avatar.png'
+	});
+	
+	var nameLabel = Ti.UI.createLabel({
+	  color: '#111',
+	  font: {fontSize:18, fontWeight:'bold'},
+	  text: profileObject.userObject.firstName + ' ' + profileObject.userObject.lastName,
+	  top: 10,
+	  left: 80,
+	  width: 'auto', height: 'auto'
 	});
 	
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
@@ -42,6 +80,9 @@ exports.ProfileWindow = function(args) {
 	});
 	
 	self.add(table);
+	self.add(avatarImageView);
+	self.add(nameLabel);
+	
 	
 	return self;
 }

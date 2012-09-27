@@ -78,7 +78,7 @@ if (Ti.version < 1.8 ) {
 	});
 	
 	var settingsWindow = new SettingsWindow({
-		backgroundColor:'#FFF',
+		backgroundColor:'#dfdfdf',
 		title:'Settings',
 		backgroundImage:'iphone/tabButtonBackground.png',
 	    tabBarHidden: true,
@@ -87,7 +87,7 @@ if (Ti.version < 1.8 ) {
 	});
 	
 	var profileWindow = new ProfileWindow({
-		backgroundColor:'#FFF',
+		backgroundColor:'#dfdfdf',
 		title:'Profile',
 	    tabBarHidden: true,
 	    height:380,

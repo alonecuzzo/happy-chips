@@ -302,7 +302,8 @@ INSERT INTO users
 	first_name,
 	last_name,
 	points,
-	challenges_completed
+	challenges_completed,
+	avatar
 )
 VALUES
 (
@@ -312,6 +313,7 @@ VALUES
 	'Jabari',
 	'Bell',
 	23,
-	4
+	4,
+	'avatar.png'
 );
 

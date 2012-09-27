@@ -42,7 +42,8 @@ CREATE TABLE users
 	first_name					VARCHAR(30),
 	last_name					VARCHAR(30),
 	points						INTEGER,
-	challenges_completed		INTEGER
+	challenges_completed		INTEGER,
+	avatar_url					VARCHAR(30)
 );
 
 CREATE TABLE limits

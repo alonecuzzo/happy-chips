@@ -82,11 +82,11 @@ exports.PurchaseDetailWindow = function(args) {
 	//TODO: need to make sure returned price rounds to the second decimal point
 	//  	i entered 69.99 for borderlands 2 and got back 69.9899999999!!!!
 	var priceLabel = Ti.UI.createLabel({
-	  color: '#111',
-	  font: {fontSize:13},
+	  color: '#4c4c4c',
+	  font: {fontSize:20, fontWeight:'bold'},
 	  text: '$' + item.item_price,
-	  top: 35,
-	  right: 30,
+	  top: 45,
+	  right: 10,
 	  width: 'auto', height: 'auto'
 	});
 	
@@ -148,12 +148,12 @@ exports.PurchaseDetailWindow = function(args) {
 	});
 	
 	self.add(mapBackgroundView);
-	self.add(mapview);
 	self.add(iconView);
 	self.add(dateLabel);
 	self.add(photoPlaceHolder);
 	self.add(purchaseNameLabel);
 	self.add(priceLabel);
+	self.add(mapview);
 	
 	if(item.photo) {
 		photoImageView.image = item.photo;

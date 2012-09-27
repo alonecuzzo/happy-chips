@@ -214,7 +214,7 @@ exports.AddPurchaseContentWindow = function(args) {
 
 	var categoryRow = Ti.UI.createTableViewRow({
 		hasChild:true,
-		title:'Category',
+		title:'Categories',
 		id:1,
 		backgroundColor:'#FFF'
 	});
