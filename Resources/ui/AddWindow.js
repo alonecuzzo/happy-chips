@@ -14,7 +14,7 @@ exports.AddWindow = function(args) {
 	
 	var addPurchaseContentWindow = new AddPurchaseContentWindow({
 		//title: 'Add Item',
-		backgroundColor: '#fff',
+		backgroundColor: '#dfdfdf',
 		parentWindow: self
 	});
 	addPurchaseContentWindow.barImage = 'iphone/navBackground.png';

@@ -50,6 +50,70 @@ exports.AddPurchaseContentWindow = function(args) {
 	var itemNameRow = Ti.UI.createTableViewRow({
 		backgroundColor:'#FFF'
 	});
+	
+	var photoButton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/addImageIcon.png',
+		width:70,
+		height:70,
+		top:5,
+		left:10
+	});
+	
+	var opts = {
+	  cancel: 2,
+	  options: ['Camera', 'Photo Gallery', 'Cancel'],
+	  selectedIndex: 2,
+	  destructive: 2,
+	  title: 'Add a Photo'
+	};
+	
+	var dialog = Ti.UI.createOptionDialog(opts);
+	
+	dialog.addEventListener('click', function(e) {
+		if(e.index === 0) {
+			//camera
+			Ti.Media.showCamera({
+				success:function(event)
+				{
+					Titanium.UI.createAlertDialog({title:'Camera', message:'Check your Photo Gallery'}).show();
+				},
+				cancel:function()
+				{
+			
+				},
+				error:function(error)
+				{
+					// create alert
+					var a = Titanium.UI.createAlertDialog({title:'Camera'});
+			
+					// set message
+					if (error.code == Titanium.Media.NO_CAMERA)
+					{
+						a.setMessage('Device does not have camera capabilities');
+					}
+					else
+					{
+						a.setMessage('Unexpected error: ' + error.code);
+					}
+			
+					// show alert
+					a.show();
+				},
+				saveToPhotoGallery:true,
+				allowEditing:true
+			});
+		} else if(e.index === 1){
+			//photo gallery
+			Ti.Media.openPhotoGallery();
+		}
+	});
+	
+	photoButton.addEventListener('click', function(){
+		dialog.show();
+	});
+	
+	self.add(photoButton);
 
 	var itemNameTextField = Ti.UI.createTextField({
 		width: 250,
@@ -161,7 +225,8 @@ exports.AddPurchaseContentWindow = function(args) {
 	var table = Ti.UI.createTableView({
 	  data: [addItemSection],
 	  backgroundColor:'#dfdfdf',
-	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
+	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
+	  top:70
 	});
 	
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;

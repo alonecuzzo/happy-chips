@@ -61,6 +61,7 @@ exports.PurchaseChartWindow = function(args) {
 	var htmlString = '';
 	
 	var colors = '["#932453", "#bf5280", "#928189", "#65565c", "#e2ced7", "#d6abbd"]';
+	var buttonHolderView;
 	
 	populateHTML();
 	
@@ -97,6 +98,30 @@ exports.PurchaseChartWindow = function(args) {
 		}
 		
 		sums = atsa;
+		
+		if(buttonHolderView){
+			self.remove(buttonHolderView);
+		}
+		
+		buttonHolderView = Ti.UI.createView({
+			height:'auto',
+			width:300,
+			top:100
+		});
+		
+		//ok we need to scroll through the sums array and create buttons that link to the detail page of each emotion
+		for(var i=0; i<=sums.length-1; i++) {
+			var xPos = i*75;
+			var button = Ti.UI.createButton({
+				title: sums[i].emotion + ' - $' + sums[i].sum,
+				width: 75,
+				height: '40dp',
+				left: xPos
+			});
+			buttonHolderView.add(button);
+		}
+		
+		self.add(buttonHolderView);
 		
 		var sumsString = '[';
 		var legendString = '[';
