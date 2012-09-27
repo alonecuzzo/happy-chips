@@ -35,7 +35,8 @@ exports.selectItem = function(rowID) {
 	}
 	//Ti.API.info('category ids: ' + categoryIds);
 	var categoryNames = [];
-	var categoryNameQuery = 'select category_name from categories where ROWID in (';
+	var categoryIconNames = [];
+	var categoryNameQuery = 'select * from categories where ROWID in (';
 	if(categoryIds.length > 0) {
 		for(var i=0; i<=categoryIds.length-1; i++) {
 			if((i == (categoryIds.length-1))){
@@ -48,9 +49,11 @@ exports.selectItem = function(rowID) {
 		var categoryName = db.execute(categoryNameQuery, categoryIds);
 		while(categoryName.isValidRow()) {
 			categoryNames.push(categoryName.fieldByName('category_name'));
+			categoryIconNames.push(categoryName.fieldByName('icon_name'));
 			categoryName.next();
 		}
 		retData[0].categoryNames = categoryNames;
+		retData[0].categoryIconNames = categoryIconNames;
 	}
 	
 	//emotion name
