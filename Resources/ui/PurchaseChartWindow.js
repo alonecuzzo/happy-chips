@@ -123,7 +123,12 @@ exports.PurchaseChartWindow = function(args) {
 			
 			var legendView = Ti.UI.createView({
 				left:xPos,
-				top:yPos
+				top:yPos,
+				id:i
+			});
+			legendView.addEventListener('click', function(e){
+				Ti.App.fireEvent('fromwebview',{id:this.id});
+				//Ti.API.info('sending id: ' + this.id);
 			});
 			var legendChip = Titanium.UI.createView({
 							  backgroundColor:colorsArray[i],
