@@ -4,7 +4,7 @@ CREATE TABLE purchases
 	item_price					REAL,
 	location_latitude 			NUMERIC,
 	location_longitude			NUMERIC,
-	photo_url					VARCHAR(30),
+	photo_url					BLOB,
 	question_1_due_date			NUMERIC,
 	question_2_due_date			NUMERIC,
 	question_3_due_date			NUMERIC,

@@ -51,7 +51,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	doneButton.addEventListener('click', function() {
 		blurTextFields();
 		addPurchase(itemNameTextField.value, priceTextField.value, args.parentWindow, self.categoryListView,
-			noteTextArea.value, userLat, userLon, self.questionWindow);
+			noteTextArea.value, userLat, userLon, self.questionWindow, photo);
 	});
 
 	var addItemSection = Ti.UI.createTableViewSection();
@@ -77,6 +77,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	};
 	
 	var dialog = Ti.UI.createOptionDialog(opts);
+	var photo;
 	
 	dialog.addEventListener('click', function(e) {
 		if(e.index === 0) {
@@ -118,6 +119,11 @@ exports.AddPurchaseContentWindow = function(args) {
 				{
 					var cropRect = event.cropRect;
 					var image = event.media;
+					var filename = "pic1.png";
+        			Titanium.App.Properties.setString("filename", filename);
+        			var f2 = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, filename);
+    				f2.write(image);
+
 			
 					// set image view
 					Ti.API.debug('Our type was: '+event.mediaType);
@@ -126,6 +132,16 @@ exports.AddPurchaseContentWindow = function(args) {
 						photoImageView.image = image;
 						self.add(photoImageView);
 						self.remove(photoButton);
+						
+						 if (Titanium.App.Properties.getString("filename") != null) {
+						        // we have the file, so show it
+						        var filename = Titanium.App.Properties.getString("filename");
+						 		Ti.API.info('file name: ' + filename);
+						        var imageFile = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, filename);
+						        photo = imageFile.read();
+						       // db.execute('INSERT OR REPLACE INTO images (id,path) VALUES(?,?)','1',f2);
+						 
+						}
 					}
 					else
 					{
@@ -295,7 +311,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	return self;
 }
 
-var addPurchase = function(item_name, item_price, win, categoryView, noteText, userLat, userLon, questionWindow) {
+var addPurchase = function(item_name, item_price, win, categoryView, noteText, userLat, userLon, questionWindow, photo) {
 
 	if (item_name === '') {
 		alert('Please enter a item name first');
@@ -305,9 +321,15 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText, u
 	if (item_price === '') {
 		alert('Please enter a price first');
 		return;	
-	}	
+	}
+	
 	
 	var optionalFields = {};
+	
+	
+	if(photo) {
+		optionalFields.photo = photo;
+	}
 	
 	if(categoryView.getSelectedCategories().length > 0){
 		optionalFields.categoryIds = categoryView.getSelectedCategories();

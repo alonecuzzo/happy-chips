@@ -69,8 +69,8 @@ exports.addItem = function(item_name, item_price, optional_args) {
 	
 	//Ti.API.info("lat: " + optional_args.userLat + ' lon: ' + optional_args.userLon);
 	 
-	mydb.execute('insert into purchases (item_name, item_price, note, location_latitude, location_longitude, question_1_emotion) values (?,?,?,?,?,?)', 
-			item_name, item_price,optional_args.note, optional_args.userLat, optional_args.userLon, optional_args.question_1_emotion);
+	mydb.execute('insert into purchases (item_name, item_price, note, location_latitude, location_longitude, question_1_emotion, photo_url) values (?,?,?,?,?,?,?)', 
+			item_name, item_price,optional_args.note, optional_args.userLat, optional_args.userLon, optional_args.question_1_emotion, optional_args.photo);
 	
 	if(optional_args.hasOwnProperty('categoryIds')) {
 		if(optional_args.categoryIds.length > 0) {
