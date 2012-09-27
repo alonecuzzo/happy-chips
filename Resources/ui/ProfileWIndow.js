@@ -58,6 +58,44 @@ exports.ProfileWindow = function(args) {
 	  width: 'auto', height: 'auto'
 	});
 	
+	var totalSpentLabel = Ti.UI.createLabel({
+	  color: '#444',
+	  font: {fontSize:10, fontWeight:'bold'},
+	  text: 'spent',
+	  top: 55,
+	  right: 15,
+	  width: 'auto', height: 'auto'
+	});
+	
+	var totalSpent = Ti.UI.createLabel({
+	  color: '#111',
+	  font: {fontSize:18, fontWeight:'bold'},
+	  text: '$' + profileObject.totalSpent,
+	  top: 35,
+	  right: 15,
+	  width: 'auto', height: 'auto'
+	});
+	
+	var totalItemsBoughtLabel = Ti.UI.createLabel({
+	  color: '#444',
+	  font: {fontSize:10, fontWeight:'bold'},
+	  text: 'purchases',
+	  top: 55,
+	  left: 80,
+	  width: 'auto', height: 'auto'
+	});
+	
+	var totalItemsBought = Ti.UI.createLabel({
+	  color: '#333',
+	  font: {fontSize:18, fontWeight:'bold'},
+	  text: profileObject.purchaseCount,
+	  top: 35,
+	  left: 96,
+	  textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	  width: 'auto', height: 'auto'
+	});
+	
+	
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	
 	table.addEventListener('click', function(e){
@@ -82,6 +120,10 @@ exports.ProfileWindow = function(args) {
 	self.add(table);
 	self.add(avatarImageView);
 	self.add(nameLabel);
+	self.add(totalSpent);
+	self.add(totalSpentLabel);
+	self.add(totalItemsBought);
+	self.add(totalItemsBoughtLabel);
 	
 	
 	return self;
