@@ -49,7 +49,7 @@ var getTableData = function() {
 	for (var i = 0; i < purchaseItems.length; i++) {
 		rowView = new FeedViewTableRow({
 			width:305,
-			height:100,
+			height:85,
 			itemName:purchaseItems[i].item_name,
 			itemPrice:purchaseItems[i].item_price,
 			id:purchaseItems[i].id,

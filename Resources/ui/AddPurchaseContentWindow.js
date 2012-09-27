@@ -23,7 +23,8 @@ exports.AddPurchaseContentWindow = function(args) {
 		width:60,
 		top:15,
 		left:20,
-		backgroundColor:'#999'
+		borderColor:'#b7b7b7',
+		borderWidth:1
 	});
 	
 	self.setTitleControl(titleLabel);
@@ -181,20 +182,23 @@ exports.AddPurchaseContentWindow = function(args) {
 	addItemSection.add(itemNameRow);
 	
 	var priceTextField = Ti.UI.createTextField({
-		width: 250,
+		width: 220,
 		height: '45dp',
-		left: 10,
+		right: 10,
+		top: 25,
 		hintText: 'Purchase Price',
-		borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
+		borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
 		returnKeyType: Ti.UI.RETURNKEY_DEFAULT,
 		keyboardType: Titanium.UI.KEYBOARD_DECIMAL_PAD
 	});
 	
-	var priceRow = Ti.UI.createTableViewRow({
-		backgroundColor:'#FFF'
-	});
-	priceRow.add(priceTextField);
-	addItemSection.add(priceRow);
+	self.add(priceTextField);
+	
+	// var priceRow = Ti.UI.createTableViewRow({
+		// backgroundColor:'#FFF'
+	// });
+	// priceRow.add(priceTextField);
+	// addItemSection.add(priceRow);
 	
 	var happinessQuestionOneRow = Ti.UI.createTableViewRow({
 		hasChild:true,

@@ -8,7 +8,7 @@ exports.FeedViewTableRow = function(args) {
 	  color: '#111',
 	  font: {fontSize:17, textAlign:'left', fontFamily:'Arial'},
 	  text: args.itemName,
-	  top: 45,
+	  top: 30,
 	  left: 55,
 	  width: 'auto', height: 'auto'
 	});
@@ -17,7 +17,7 @@ exports.FeedViewTableRow = function(args) {
 	  color: '#191919',
 	  font: {fontSize:15, textAlign:'left', fontFamily:'Arial'},
 	  text: '$' + args.itemPrice,
-	  top: 47,
+	  top: 32,
 	  right: 10,
 	  width: 'auto', height: 'auto'
 	});
@@ -26,7 +26,7 @@ exports.FeedViewTableRow = function(args) {
 	  color: '#666',
 	  font: {fontSize:12, textAlign:'left', fontFamily:'Arial'},
 	  text: '2 hours ago',
-	  top: 73,
+	  top: 61,
 	  left: 12,
 	  width: 'auto', height: 'auto'
 	});
@@ -36,13 +36,13 @@ exports.FeedViewTableRow = function(args) {
 		width:22,
 		height:22,
 		right:9,
-		top:25
+		top:10
 	});
 	
 	var photoImageView = Titanium.UI.createImageView({
 		height:40,
 		width:40,
-		top:25,
+		top:10,
 		left:10,
 		borderColor:'#b7b7b7',
 		borderWidth:1
