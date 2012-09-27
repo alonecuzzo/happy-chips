@@ -43,7 +43,9 @@ exports.FeedViewTableRow = function(args) {
 		height:40,
 		width:40,
 		top:25,
-		left:10
+		left:10,
+		borderColor:'#b7b7b7',
+		borderWidth:1
 	});
 	
 	photoImageView.image = 'iphone/purchaseDetailPhotoPlaceholder.png';

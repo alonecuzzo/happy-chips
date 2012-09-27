@@ -55,7 +55,9 @@ exports.PurchaseDetailWindow = function(args) {
 		height: 60,
 		width: 60,
 		top: 10,
-		left: 10
+		left: 10,
+		borderColor:'#b7b7b7',
+		borderWidth:1
 	});
 	
 	var photoImageView = Titanium.UI.createImageView({
@@ -63,7 +65,9 @@ exports.PurchaseDetailWindow = function(args) {
 		width:60,
 		top:10,
 		left:10,
-		backgroundColor:'#999'
+		backgroundColor:'#999',
+		borderColor:'#b7b7b7',
+		borderWidth:1
 	});
 	
 	var purchaseNameLabel = Ti.UI.createLabel({
