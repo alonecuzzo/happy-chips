@@ -49,11 +49,13 @@ var getTableData = function() {
 	for (var i = 0; i < purchaseItems.length; i++) {
 		rowView = new FeedViewTableRow({
 			width:305,
-			height:60,
+			height:100,
 			itemName:purchaseItems[i].item_name,
 			itemPrice:purchaseItems[i].item_price,
-			id:purchaseItems[i].id
+			id:purchaseItems[i].id,
+			photo:purchaseItems[i].photo
 		});
+		Ti.API.info('photo: ' + purchaseItems[i].photo);
 		row = Ti.UI.createTableViewRow({
 			top:10,
 			rowView:rowView,

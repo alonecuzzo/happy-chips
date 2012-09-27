@@ -1,14 +1,15 @@
 exports.FeedViewTableRow = function(args) {
 	var self = Ti.UI.createView(args);
 	self.id = args.id;
+	self.photo = args.photo;
 	self.setBackgroundImage('iphone/feedRowBackground.png');
 	
 	var purchaseNameLabel = Ti.UI.createLabel({
 	  color: '#111',
 	  font: {fontSize:17, textAlign:'left', fontFamily:'Arial'},
 	  text: args.itemName,
-	  top: 10,
-	  left: 26,
+	  top: 45,
+	  left: 55,
 	  width: 'auto', height: 'auto'
 	});
 	
@@ -16,7 +17,7 @@ exports.FeedViewTableRow = function(args) {
 	  color: '#191919',
 	  font: {fontSize:15, textAlign:'left', fontFamily:'Arial'},
 	  text: '$' + args.itemPrice,
-	  top: 12,
+	  top: 47,
 	  right: 10,
 	  width: 'auto', height: 'auto'
 	});
@@ -25,8 +26,8 @@ exports.FeedViewTableRow = function(args) {
 	  color: '#666',
 	  font: {fontSize:12, textAlign:'left', fontFamily:'Arial'},
 	  text: '2 hours ago',
-	  top: 38,
-	  left: 8,
+	  top: 73,
+	  left: 12,
 	  width: 'auto', height: 'auto'
 	});
 	
@@ -34,10 +35,28 @@ exports.FeedViewTableRow = function(args) {
 		backgroundImage:'iphone/bagicon.png',
 		width:22,
 		height:22,
-		left:5,
-		top:9
+		right:9,
+		top:25
 	});
 	
+	var photoImageView = Titanium.UI.createImageView({
+		height:40,
+		width:40,
+		top:25,
+		left:10
+	});
+	
+	photoImageView.image = 'iphone/purchaseDetailPhotoPlaceholder.png';
+	
+	var db = require('db');
+	var item = db.selectItem(args.id)[0];
+	
+	if(item.photo){
+		photoImageView.image = item.photo;
+		Ti.API.info('phootto');
+	}
+	
+	self.add(photoImageView);
 	self.add(iconView);
 	self.add(dateLabel);
 	self.add(priceLabel);
