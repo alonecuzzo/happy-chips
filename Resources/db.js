@@ -24,7 +24,7 @@ exports.selectItem = function(rowID) {
 	while (rows.isValidRow()) {
 		retData.push({item_name:rows.fieldByName('item_name'), id:rows.fieldByName('ROWID'), item_price:rows.fieldByName('item_price'),
 					note:rows.fieldByName('note'), location_latitude:rows.fieldByName('location_latitude'), location_longitude:rows.fieldByName('location_longitude'),
-					date_time:rows.fieldByName('date_time'), question_1_emotion:rows.fieldByName('question_1_emotion')});
+					date_time:rows.fieldByName('date_time'), question_1_emotion:rows.fieldByName('question_1_emotion'), photo:rows.fieldByName('photo_url')});
 		rows.next();
 	}
 	var categories = db.execute('select ROWID, * from purchase_categories where purchase_id=?', rowID);

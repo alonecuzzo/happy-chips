@@ -58,6 +58,14 @@ exports.PurchaseDetailWindow = function(args) {
 		left: 10
 	});
 	
+	var photoImageView = Titanium.UI.createImageView({
+		height:60,
+		width:60,
+		top:10,
+		left:10,
+		backgroundColor:'#999'
+	});
+	
 	var purchaseNameLabel = Ti.UI.createLabel({
 	  color: '#111',
 	  font: {fontSize:18, fontWeight:'bold'},
@@ -124,6 +132,13 @@ var mapBackgroundView = Ti.UI.createView({
 	self.add(photoPlaceHolder);
 	self.add(purchaseNameLabel);
 	self.add(priceLabel);
+	
+	
+	if(item.photo) {
+		photoImageView.image = item.photo;
+		self.add(photoImageView);
+		self.remove(photoPlaceHolder);
+	}
 	
 	return self;
 }

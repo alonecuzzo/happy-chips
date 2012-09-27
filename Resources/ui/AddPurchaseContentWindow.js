@@ -119,12 +119,11 @@ exports.AddPurchaseContentWindow = function(args) {
 				{
 					var cropRect = event.cropRect;
 					var image = event.media;
-					var filename = "pic1.png";
+					var filename = 'image' + Math.random() + '.png';
         			Titanium.App.Properties.setString("filename", filename);
         			var f2 = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, filename);
     				f2.write(image);
 
-			
 					// set image view
 					Ti.API.debug('Our type was: '+event.mediaType);
 					if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO)
@@ -140,7 +139,6 @@ exports.AddPurchaseContentWindow = function(args) {
 						        var imageFile = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, filename);
 						        photo = imageFile.read();
 						       // db.execute('INSERT OR REPLACE INTO images (id,path) VALUES(?,?)','1',f2);
-						 
 						}
 					}
 					else
