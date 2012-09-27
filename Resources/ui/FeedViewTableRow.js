@@ -34,15 +34,22 @@ exports.FeedViewTableRow = function(args) {
 	  width: 'auto', height: 'auto'
 	});
 	
-	// var iconView = Ti.UI.createView({
-		// backgroundImage:'iphone/bagicon.png',
-		// width:22,
-		// height:22,
-		// right:9,
-		// top:10
-	// });
+	var iconView;
 	
-	var iconView = require('util').buildArrayOfIconsView(item.categoryIconNames, 9, 10);
+	//Ti.API.info(item.itemName + ': ' + item.categoryIconNames.length);
+	
+	if(item.categoryIconNames !== undefined) {
+		iconView = require('util').buildArrayOfIconsView(item.categoryIconNames, 16, -40, 50);
+	} else {
+		Ti.API.info('hey!!');
+		iconView = Ti.UI.createView({
+			 backgroundImage:'iphone/bagicon.png',
+			 width:20,
+			 height:20,
+			 left:52,
+			 top:14
+		 });
+	}
 	
 	var photoImageView = Titanium.UI.createImageView({
 		height:40,

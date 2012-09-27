@@ -10,11 +10,11 @@ exports.removeArrayDuplicates = function unique(a){
      return a;
 } 
 
-exports.buildArrayOfIconsView = function buildArrayIcons(icons, right, top) {
-	var iconWidth = 16;
+exports.buildArrayOfIconsView = function buildArrayIcons(icons, icon_width, _top, _left) {
+	var iconWidth = icon_width;
 	var returnView = Ti.UI.createView({
-		top:-40,
-		left:50,
+		top:_top,
+		left:_left,
 		height:'auto',
 		width:'auto'
 	});
