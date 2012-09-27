@@ -32,6 +32,7 @@ exports.AddWindow = function(args) {
 	});
 	categoryListView.navGroup = navGroup;
 	questionWindow.navGroup = navGroup;
+	questionWindow.questionOneRow = addPurchaseContentWindow.getQuestionOneRow();
 	addPurchaseContentWindow.navGroup = navGroup;
 	addPurchaseContentWindow.categoryWindow = categoryListView;
 	addPurchaseContentWindow.questionWindow = questionWindow;

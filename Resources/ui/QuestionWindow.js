@@ -1,6 +1,7 @@
 exports.QuestionWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	self.answerId = -1;
+	self.iconName = '';
 	var answerSection = Ti.UI.createTableViewSection();
 	var setTableData = function(section) {
 		var db = require('db');
@@ -10,6 +11,7 @@ exports.QuestionWindow = function(args) {
 			row = Ti.UI.createTableViewRow({
 				id: emotions[i].id,
 				title: emotions[i].emotion,
+				iconName:emotions[i].iconName,
 				color: '#000',
 				backgroundColor:'#FFF',
 				font: {
@@ -49,6 +51,9 @@ exports.QuestionWindow = function(args) {
 		height:18
 	});
 	backbutton.addEventListener('click', function() {
+		if(self.iconName != ''){
+			self.questionOneRow.setRightImage('iphone/' + self.iconName);	
+		}
 		self.navGroup.close(self);
 	});
 	self.leftNavButton = backbutton;
@@ -73,6 +78,7 @@ exports.QuestionWindow = function(args) {
 	table.addEventListener('click', function(e){
 		e.row.hasCheck = !e.row.hasCheck;
 		self.answerId = collectCheckMark(e.row.title);
+		self.iconName = e.row.iconName;
 	});
 	
 	self.getAnswerId = function() {

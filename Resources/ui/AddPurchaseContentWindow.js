@@ -207,6 +207,10 @@ exports.AddPurchaseContentWindow = function(args) {
 		backgroundColor:'#FFF'
 	});
 	addItemSection.add(happinessQuestionOneRow);
+	
+	self.getQuestionOneRow = function() {
+		return happinessQuestionOneRow;
+	}
 
 	var categoryRow = Ti.UI.createTableViewRow({
 		hasChild:true,
