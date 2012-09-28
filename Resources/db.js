@@ -36,6 +36,7 @@ exports.selectItem = function(rowID) {
 	//Ti.API.info('category ids: ' + categoryIds);
 	var categoryNames = [];
 	var categoryIconNames = [];
+	var categoryWhiteIconNames = [];
 	var categoryNameQuery = 'select * from categories where ROWID in (';
 	if(categoryIds.length > 0) {
 		for(var i=0; i<=categoryIds.length-1; i++) {
@@ -50,10 +51,12 @@ exports.selectItem = function(rowID) {
 		while(categoryName.isValidRow()) {
 			categoryNames.push(categoryName.fieldByName('category_name'));
 			categoryIconNames.push(categoryName.fieldByName('icon_name'));
+			categoryWhiteIconNames.push(categoryName.fieldByName('white_icon_name'));
 			categoryName.next();
 		}
 		retData[0].categoryNames = categoryNames;
 		retData[0].categoryIconNames = categoryIconNames;
+		retData[0].categoryWhiteIconNames = categoryWhiteIconNames;
 	}
 	
 	//emotion name
@@ -94,7 +97,8 @@ exports.selectCategories = function() {
 	var db = Ti.Database.open(DATABASE_NAME);
 	var rows = db.execute('select ROWID, * from categories order by category_name asc');
 	while (rows.isValidRow()) {
-		retData.push({category_name:rows.fieldByName('category_name'), iconName:rows.fieldByName('icon_name'), id:rows.fieldByName('ROWID')});
+		retData.push({category_name:rows.fieldByName('category_name'), whiteIconName:rows.fieldByName('white_icon_name'),
+				 iconName:rows.fieldByName('icon_name'), id:rows.fieldByName('ROWID')});
 		rows.next();
 	}
 	db.close();

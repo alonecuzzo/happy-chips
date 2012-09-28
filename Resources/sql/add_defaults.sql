@@ -49,78 +49,92 @@ VALUES
 INSERT INTO categories
 (
 	category_name,
-	icon_name
+	icon_name,
+	white_icon_name
 )
 VALUES
 (
 	'Drinks',
-	'glyphicons_274_beer.png'
+	'glyphicons_274_beer.png',
+	'glyphicons_274_beer_white.png'
 );
 
 INSERT INTO categories
 (
 	category_name,
-	icon_name
+	icon_name,
+	white_icon_name
 )
 VALUES
 (
 	'Food',
-	'glyphicons_276_cutlery.png'
+	'glyphicons_276_cutlery.png',
+	'glyphicons_276_cutlery_white.png'
 );
 
 INSERT INTO categories
 (
 	category_name,
-	icon_name
+	icon_name,
+	white_icon_name
 )
 VALUES
 (
 	'Clothing',
-	'glyphicons_283_t-shirt.png'
+	'glyphicons_283_t-shirt.png',
+	'glyphicons_283_t-shirt_white.png'
 );
 
 INSERT INTO categories
 (
 	category_name,
-	icon_name
+	icon_name,
+	white_icon_name
 )
 VALUES
 (
 	'Sports',
-	'glyphicons_312_rugby.png'
+	'glyphicons_312_rugby.png',
+	'glyphicons_312_rugby_white.png'
 );
 
 INSERT INTO categories
 (
 	category_name,
-	icon_name
+	icon_name,
+	white_icon_name
 )
 VALUES
 (
 	'Travel',
-	'glyphicons_038_airplane.png'
+	'glyphicons_038_airplane.png',
+	'glyphicons_038_airplane_white.png'
 );
 
 INSERT INTO categories
 (
 	category_name,
-	icon_name
+	icon_name,
+	white_icon_name
 )
 VALUES
 (
 	'Video Games',
-	'glyphicons_321_gamepad.png'
+	'glyphicons_321_gamepad.png',
+	'glyphicons_321_gamepad_white.png'
 );
 
 INSERT INTO categories
 (
 	category_name,
-	icon_name
+	icon_name,
+	white_icon_name
 )
 VALUES
 (
 	'Business',
-	'glyphicons_341_briefcase.png'
+	'glyphicons_341_briefcase.png',
+	'glyphicons_341_briefcase_white.png'
 );
 ------------------------------------------------------------------
 ------------------------------------------------------------------
@@ -303,7 +317,7 @@ INSERT INTO users
 	last_name,
 	points,
 	challenges_completed,
-	avatar
+	avatar_url
 )
 VALUES
 (

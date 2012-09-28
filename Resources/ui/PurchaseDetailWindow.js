@@ -16,6 +16,14 @@ exports.PurchaseDetailWindow = function(args) {
 	var month = date.getMonth() + 1;
 	var formattedTime =  date.getMonthNameShort() + ' ' + day + ', ' + year;
 	
+	var topBackgroundColor = Titanium.UI.createView({
+						backgroundColor:'#444',
+						height:100,
+				  	    width:350,
+						left:0,
+						top:0
+					});
+	
 	// Ti.API.info("item date_time: " + formattedTime);
 	// Ti.API.info("item lat: " + item.location_latitude);
 	// Ti.API.info("item lon: " + item.location_longitude);
@@ -71,7 +79,7 @@ exports.PurchaseDetailWindow = function(args) {
 	});
 	
 	var purchaseNameLabel = Ti.UI.createLabel({
-	  color: '#111',
+	  color: '#f7f7f7',
 	  font: {fontSize:18, fontWeight:'bold'},
 	  text: item.item_name,
 	  top: 10,
@@ -82,7 +90,7 @@ exports.PurchaseDetailWindow = function(args) {
 	//TODO: need to make sure returned price rounds to the second decimal point
 	//  	i entered 69.99 for borderlands 2 and got back 69.9899999999!!!!
 	var priceLabel = Ti.UI.createLabel({
-	  color: '#4c4c4c',
+	  color: '#bbb',
 	  font: {fontSize:20, fontWeight:'bold'},
 	  text: '$' + item.item_price,
 	  top: 45,
@@ -95,11 +103,11 @@ exports.PurchaseDetailWindow = function(args) {
 	//Ti.API.info(item.itemName + ': ' + item.categoryIconNames.length);
 	
 	if(item.categoryIconNames !== undefined) {
-		iconView = require('util').buildArrayOfIconsView(item.categoryIconNames, 19, -335, 75);
+		iconView = require('util').buildArrayOfIconsView(item.categoryWhiteIconNames, 19, -330, 75);
 	} else {
 		Ti.API.info('hey!!');
 		iconView = Ti.UI.createView({
-			 backgroundImage:'iphone/bagicon.png',
+			 backgroundImage:'iphone/bagicon_white.png',
 			 width:22,
 			 height:22,
 			 left:77,
@@ -108,10 +116,10 @@ exports.PurchaseDetailWindow = function(args) {
 	}
 	
 	var dateLabel = Ti.UI.createLabel({
-	  color: '#111',
+	  color: '#f7f7f7',
 	  font: {fontSize:13},
 	  text: formattedTime,
-	  top: 50,
+	  top: 55,
 	  left: 80,
 	  width: 'auto', height: 'auto'
 	});
@@ -147,6 +155,7 @@ exports.PurchaseDetailWindow = function(args) {
 		top:75
 	});
 	
+	self.add(topBackgroundColor);
 	self.add(mapBackgroundView);
 	self.add(iconView);
 	self.add(dateLabel);
