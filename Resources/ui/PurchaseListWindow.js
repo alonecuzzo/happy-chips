@@ -2,7 +2,7 @@ exports.PurchaseListWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	var tableView = Ti.UI.createTableView({
 		separatorStyle: Ti.UI.iPhone.TableViewSeparatorStyle.NONE,
-		backgroundColor: '#d9d9d9',
+		backgroundColor: '#444',
 		selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 	});
 	

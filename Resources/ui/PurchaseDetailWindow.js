@@ -46,7 +46,7 @@ exports.PurchaseDetailWindow = function(args) {
 	
 	// create the label
 	var titleLabel = Titanium.UI.createLabel({
-	    color:'#525252',
+	    color:'#444',
 	    height:'auto',
 	    width:'auto',
 	    top:10,
@@ -125,19 +125,18 @@ exports.PurchaseDetailWindow = function(args) {
 	});
 	
 	var mountainView = Titanium.Map.createAnnotation({
-	    latitude:37.390749,
-	    longitude:-122.081651,
-	    title:"Appcelerator Headquarters",
-	    subtitle:'Mountain View, CA',
-	    pincolor:Titanium.Map.ANNOTATION_RED,
-	    animate:true,
-	    leftButton: Titanium.UI.iPhone.SystemButton.INFO_LIGHT,
-	    myid:1 // Custom property to uniquely identify this annotation.
+	   latitude:item.location_latitude,
+			longitude:item.location_longitude,
+			title:'Purchased: ' + item.item_name,
+			subtitle:'',
+			animate:true,
+			leftButton:'/images/backButton.png',
+			myid:3 
 	});
 	
 	var mapview = Titanium.Map.createView({
 	    mapType: Titanium.Map.STANDARD_TYPE,
-	    region: {latitude:33.74511, longitude:-84.38993, 
+	    region: {latitude:item.location_latitude, longitude:item.location_longitude, 
 	            latitudeDelta:0.01, longitudeDelta:0.01},
 	    animate:true,
 	    regionFit:true,
