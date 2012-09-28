@@ -194,7 +194,16 @@ exports.PurchaseDetailWindow = function(args) {
 		left: 37
 	});
 	
+	var editButton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/editIcon.png',
+		width:25,
+		height:25,
+		left: 137
+	});
+	
 	shareButtonBarBackground.add(shareButton);
+	shareButtonBarBackground.add(editButton);
 	shareButtonBarBackground.add(trashButton);
 	shareButtonBarBackground.add(verticalDivider);
 	shareButtonBarBackground.add(verticalDivider2);
