@@ -59,13 +59,15 @@ exports.PurchaseChartWindow = function(args) {
 	});
 	
 	chart1Button.addEventListener('click', function(){
+		populateHTML();
 		chart3Button.setBackgroundImage('iphone/chartButtonEmotionalSpending.png');
 		chart2Button.setBackgroundImage('iphone/chartButtonEmotionalSpending.png');
 		chart1Button.setBackgroundImage('iphone/chartButtonEmotionalSpendingSelected.png');
 	});
 	
 	chart2Button.addEventListener('click', function(){
-		webView.html = htmlString;
+		//webView.html = htmlString;
+		populateHTMLSatisfaction();
 		chart1Button.setBackgroundImage('iphone/chartButtonEmotionalSpending.png');
 		chart3Button.setBackgroundImage('iphone/chartButtonEmotionalSpending.png');
 		chart2Button.setBackgroundImage('iphone/chartButtonEmotionalSpendingSelected.png');
@@ -106,6 +108,65 @@ exports.PurchaseChartWindow = function(args) {
 		self.containingTab.open(chartDetailWindow,{animated:true});
 	});
 	
+	function populateHTMLSatisfaction() {
+		var sumsString = '[300, 200, 500]';
+		var sums = [{id:0, sum:300, emotion:'Satisfied'}, {id:1, sum:200, emotion:'Very Satisfied'}, {id:2, sum:500, emotion:'Not Satisfied'}];
+		
+		if(buttonHolderView){
+			self.remove(buttonHolderView);
+		}
+		
+		buttonHolderView = Ti.UI.createView({
+			height:300,
+			width:300,
+			top:150,
+			left:50
+		});
+		
+		//ok we need to scroll through the sums array and create buttons that link to the detail page of each emotion
+		for(var i=0; i<=sums.length-1; i++) {
+			var xPos = (i % 2)*120;
+			var yPos = 0;
+			var lineHeight = 50;
+			
+			if(2 % i === 0 && (i > 0)) {
+				yPos += lineHeight;
+			}
+			
+			var legendView = Ti.UI.createView({
+				left:xPos,
+				top:yPos,
+				id:sums[i].id
+			});
+		
+			var legendChip = Titanium.UI.createView({
+							  backgroundColor:colorsArray[i],
+							  height:10,
+							  width:10,
+							  left:0
+							});
+			legendView.add(legendChip);
+			var roundedSum = Math.round(100*sums[i].sum)/100;
+			var titleLabel = Titanium.UI.createLabel({
+			    color:'#111111',
+			    height:'auto',
+			    width:'auto',
+			    left:15,
+			    text:'$' + roundedSum + ': ' + sums[i].emotion ,
+			    font:{fontSize:10,fontWeight:'bold'}
+			});
+			legendView.add(titleLabel);
+			buttonHolderView.add(legendView);
+		}
+		
+		chartTitle.text = "Satisfaction vs. Money Spent";
+		
+		self.add(buttonHolderView);
+		
+		htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 120, 90, ' + sumsString + ', { colors: ' + colors + '}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+		webView.html = htmlString;
+	}
+	
 	function populateHTML() {
 		var sums = require('db').getEmotionalSums();
 		//need to sort
@@ -123,6 +184,8 @@ exports.PurchaseChartWindow = function(args) {
 			}
 		}
 		
+		// text:'Emotion vs. Money Spent',
+		chartTitle.text = "Emotion vs. Money Spent";
 		sums = atsa;
 		
 		if(buttonHolderView){
