@@ -19,6 +19,9 @@ exports.ChartDetailWindow = function(args) {
 	
 	self.setTitleControl(titleLabel);
 	
+	var colors = '["#932453", "#bf5280", "#928189", "#65565c", "#e2ced7", "#d6abbd"]';
+	var colorsArray = ['#932453', '#bf5280', '#928189', '#65565c', '#e2ced7', '#d6abbd'];
+	
 	//back button
 	var backbutton = Titanium.UI.createButton({
 		title:'', 
@@ -71,7 +74,7 @@ exports.ChartDetailWindow = function(args) {
 			}
 		}
 		
-		htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 140, 100, ' + sumsString + ', { legend: ' + legendString + ', legendpos: "south"}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+		htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 140, 100, ' + sumsString + ', { legend: ' + legendString + ', legendpos: "south", colors: ' + colors + '}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 		webView.html = htmlString;
 		Ti.API.info('sum string: ' + sumsString);
 		Ti.API.info('legend string: ' + legendString);

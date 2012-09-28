@@ -70,7 +70,7 @@ if (Ti.version < 1.8 ) {
 	purchasesWindow.barImage = 'iphone/navBackground.png';
 	
 	var chartWindow = new PurchaseChartWindow({
-		backgroundColor: '#FFF',
+		backgroundColor: '#dfdfdf',
 		title : 'Charts',
 	    tabBarHidden: true,
 	    height:380,

@@ -1,8 +1,9 @@
 exports.PurchaseChartWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	var webView = Ti.UI.createWebView({
-		top:50,
-		touchEnabled:true
+		top:60,
+		touchEnabled:true,
+		height:290
 	});
 	
 	self.barImage = 'iphone/navBackground.png';
@@ -19,56 +20,75 @@ exports.PurchaseChartWindow = function(args) {
 	});
 	
 	self.setTitleControl(titleLabel);
-
+	
+	var chartTitle = Titanium.UI.createLabel({
+	    color:'#525252',
+	    height:'auto',
+	    width:'auto',
+	    top:67,
+	    text:'Emotion vs. Money Spent',
+	    textAlign:'center',
+	    font:{fontSize:17,fontWeight:'bold'}
+	});
 	
 	var chart1Button = Ti.UI.createButton({
-		title: 'Chart 1',
-		top: '10dp',
-		width: '100dp',
-		height: '40dp',
-		left: '5dp'
+		title:'', 
+		backgroundImage:'iphone/chartButtonEmotionalSpendingSelected.png',
+		width:100,
+		height:50,
+		left:18,
+		top:10
 	});
 	
 	var chart2Button = Ti.UI.createButton({
-		title: 'Chart 2',
-		top: '10dp',
-		width: '100dp',
-		height: '40dp',
-		left: '110dp'
+		title:'', 
+		backgroundImage:'iphone/chartButtonEmotionalSpending.png',
+		width:100,
+		height:50,
+		left:110,
+		top:10
 	});
 	
 	var chart3Button = Ti.UI.createButton({
-		title: 'Chart 3',
-		top: '10dp',
-		width: '100dp',
-		height: '40dp',
-		left: '215dp'
+		title:'', 
+		backgroundImage:'iphone/chartButtonEmotionalSpending.png',
+		width:100,
+		height:50,
+		left:202,
+		top:10
+	});
+	
+	chart1Button.addEventListener('click', function(){
+		chart3Button.setBackgroundImage('iphone/chartButtonEmotionalSpending.png');
+		chart2Button.setBackgroundImage('iphone/chartButtonEmotionalSpending.png');
+		chart1Button.setBackgroundImage('iphone/chartButtonEmotionalSpendingSelected.png');
 	});
 	
 	chart2Button.addEventListener('click', function(){
 		webView.html = htmlString;
+		chart1Button.setBackgroundImage('iphone/chartButtonEmotionalSpending.png');
+		chart3Button.setBackgroundImage('iphone/chartButtonEmotionalSpending.png');
+		chart2Button.setBackgroundImage('iphone/chartButtonEmotionalSpendingSelected.png');
 	});
 	
 	chart3Button.addEventListener('click', function(){
 		webView.html = '<html>LULZ</html>';
+		chart1Button.setBackgroundImage('iphone/chartButtonEmotionalSpending.png');
+		chart2Button.setBackgroundImage('iphone/chartButtonEmotionalSpending.png');
+		chart3Button.setBackgroundImage('iphone/chartButtonEmotionalSpendingSelected.png');
 	});
 	
 	self.add(chart1Button);
 	self.add(chart2Button);
 	self.add(chart3Button);
 	self.add(webView);
+	self.add(chartTitle);
 	
 	var htmlString = '';
 	
 	var colors = '["#932453", "#bf5280", "#928189", "#65565c", "#e2ced7", "#d6abbd"]';
 	var colorsArray = ['#932453', '#bf5280', '#928189', '#65565c', '#e2ced7', '#d6abbd'];
-	var buttonHolderView = Ti.UI.createView({
-			height:'auto',
-			width:300,
-			top:170,
-			left:50
-		});
-	
+	var buttonHolderView;
 	populateHTML();
 	
 	Ti.App.addEventListener('app:updateTables', function() {
@@ -110,9 +130,9 @@ exports.PurchaseChartWindow = function(args) {
 		}
 		
 		buttonHolderView = Ti.UI.createView({
-			height:'auto',
+			height:300,
 			width:300,
-			top:170,
+			top:150,
 			left:50
 		});
 		
@@ -174,7 +194,7 @@ exports.PurchaseChartWindow = function(args) {
 			}
 		}
 		
-		htmlString = '<html><head>' + fireEventString + '<script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 100, 90, ' + sumsString + ', { colors: ' + colors + ', href: '+ urlString +'}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+		htmlString = '<html><head>' + fireEventString + '<script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 120, 90, ' + sumsString + ', { colors: ' + colors + ', href: '+ urlString +'}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 		webView.html = htmlString;
 		//Ti.API.info('sum string: ' + sumsString);
 		//Ti.API.info('legend string: ' + legendString);
