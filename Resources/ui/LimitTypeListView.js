@@ -1,7 +1,33 @@
 exports.LimitTypeListView = function(args) {
 	var self = Ti.UI.createWindow(args);
+	//back button
+	var backbutton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/backArrow.png',
+		width:20,
+		height:18
+	});
+	backbutton.addEventListener('click', function() {
+		self.navGroup.close(self);
+	});
+	self.leftNavButton = backbutton;
+	self.barImage = 'iphone/navBackground.png';
 	
-	var limitTypeSection = Ti.UI.createTableViewSection({headerTitle:'Limit Types'});
+	
+	// create the label
+	var titleLabel = Titanium.UI.createLabel({
+	    color:'#444',
+	    height:'auto',
+	    width:'auto',
+	    top:10,
+	    text:'Goal Types',
+	    textAlign:'center',
+	    font:{fontSize:20,fontWeight:'bold'},
+	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+	});
+	
+	self.setTitleControl(titleLabel);
+	var limitTypeSection = Ti.UI.createTableViewSection({headerTitle:''});
 	
 	var setTableData = function(section) {
 		var db = require('db');
@@ -13,6 +39,7 @@ exports.LimitTypeListView = function(args) {
 				hasChild: true,
 				title: limitTypes[i].limit_type,
 				color: '#000',
+				backgroundColor:'#fff',
 				font: {
 					fontWeight: 'bold'	
 				}
@@ -24,9 +51,11 @@ exports.LimitTypeListView = function(args) {
 	setTableData(limitTypeSection);
 	
 	var table = Ti.UI.createTableView({
-	  data: [limitTypeSection]
+	  data: [limitTypeSection],
+	  style: Ti.UI.iPhone.TableViewStyle.GROUPED,
+	  backgroundColor:'#dfdfdf',
+	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 	});
-	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	
 	table.addEventListener('click', function(e) {
 		var dbTableName = '';
@@ -43,6 +72,7 @@ exports.LimitTypeListView = function(args) {
 			dbTableName: dbTableName,
 			addView: args.addView
 		});
+		limitTypeLimiterListWindow.navGroup = self.navGroup;
 		self.navGroup.open(limitTypeLimiterListWindow,{animated:true});
 		//will implement once questions are done
 		// } else if(e.row.title === 'Satisfaction Level') {

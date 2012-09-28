@@ -268,7 +268,7 @@ exports.selectFromTable = function(table) {
 	var rows = db.execute('select ROWID, * from ' + table);
 	while (rows.isValidRow()) {
 		if(table === 'emotions'){
-			retData.push({id:rows.fieldByName('ROWID'), emotion:rows.fieldByName('emotion')});
+			retData.push({id:rows.fieldByName('ROWID'), emotion:rows.fieldByName('emotion'), iconName:rows.fieldByName('icon_name')});
 		} else if(table === 'categories') {
 			retData.push({id:rows.fieldByName('ROWID'), category_name:rows.fieldByName('category_name')});
 		}

@@ -1,12 +1,35 @@
 exports.AddLimitWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
+	// create the label
+	var titleLabel = Titanium.UI.createLabel({
+	    color:'#444',
+	    height:'auto',
+	    width:'auto',
+	    top:10,
+	    text:'Add Goal',
+	    textAlign:'center',
+	    font:{fontSize:20,fontWeight:'bold'},
+	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+	});
 	
-	var doneButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.DONE}); 
-	doneButton.enabled = false;
+	self.setTitleControl(titleLabel);
+	self.barImage = 'iphone/navBackground.png';
+	var doneButton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/doneButton.png',
+		width:60,
+		height:35
+	});
 	self.setRightNavButton(doneButton);
+	doneButton.enabled = false;
 	
-	var cancelButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.CANCEL}); 
-	self.setLeftNavButton(cancelButton);
+	var cancelButton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/cancelButton.png',
+		width:60,
+		height:35
+	});
+	self.setLeftNavButton(cancelButton); 
 	
 	cancelButton.addEventListener('click', function(){
 		self.parentWindow.close();
@@ -71,8 +94,12 @@ exports.AddLimitWindow = function(args) {
 		}
 	}
 	
-	var limitNameRow = Ti.UI.createTableViewRow();
-	var amountRow = Ti.UI.createTableViewRow();
+	var limitNameRow = Ti.UI.createTableViewRow({
+		backgroundColor:'#fff'
+	});
+	var amountRow = Ti.UI.createTableViewRow({
+		backgroundColor:'#fff'
+	});
 	var date = new Date();
 	var myLimitDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 	var picker = Ti.UI.createPicker({
@@ -129,7 +156,7 @@ exports.AddLimitWindow = function(args) {
 		width: '300dp',
 		height: '45dp',
 		left:'10dp',
-		hintText: 'Limit Name',
+		hintText: 'Goal Name',
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 		returnKeyType: Ti.UI.RETURNKEY_DONE
 	});
@@ -138,7 +165,7 @@ exports.AddLimitWindow = function(args) {
 		width: '300dp',
 		height: '45dp',
 		left: '10dp',
-		hintText: 'Limit Amount',
+		hintText: 'Amount',
 		borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE,
 		returnKeyType: Ti.UI.RETURNKEY_DEFAULT,
 		keyboardType: Titanium.UI.KEYBOARD_DECIMAL_PAD
@@ -165,16 +192,18 @@ exports.AddLimitWindow = function(args) {
 	limitNameRow.add(limitNameTextField);
 	amountRow.add(amountTextField);
 	
-	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:'Limit Information'});
+	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:''});
 	sectionCategory.add(limitNameRow);
 	sectionCategory.add(amountRow);
-	var dateRow = Ti.UI.createTableViewRow({title:'Limited Until', hasChild:true, id:0});
+	var dateRow = Ti.UI.createTableViewRow({title:'Limited Until', hasChild:true, id:0, backgroundColor:'#fff'});
 	sectionCategory.add(dateRow);
-	var limiterRow = Ti.UI.createTableViewRow({title:'Limit Type', hasChild:true, id:1});
+	var limiterRow = Ti.UI.createTableViewRow({title:'Limit Type', hasChild:true, id:1, backgroundColor:'#fff'});
 	sectionCategory.add(limiterRow);
 	
 	var table = Ti.UI.createTableView({
-	  data: [sectionCategory]
+	  data: [sectionCategory],
+	  backgroundColor:'#dfdfdf',
+	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 	});
 	
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
