@@ -186,6 +186,15 @@ exports.PurchaseDetailWindow = function(args) {
 		left: 238
 	});
 	
+	var shareButton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/shareIcon.png',
+		width:25,
+		height:25,
+		left: 37
+	});
+	
+	shareButtonBarBackground.add(shareButton);
 	shareButtonBarBackground.add(trashButton);
 	shareButtonBarBackground.add(verticalDivider);
 	shareButtonBarBackground.add(verticalDivider2);
