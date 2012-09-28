@@ -178,6 +178,15 @@ exports.PurchaseDetailWindow = function(args) {
 		top:5
 	});
 	
+	var trashButton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/trashIcon.png',
+		width:25,
+		height:25,
+		left: 238
+	});
+	
+	shareButtonBarBackground.add(trashButton);
 	shareButtonBarBackground.add(verticalDivider);
 	shareButtonBarBackground.add(verticalDivider2);
 	
