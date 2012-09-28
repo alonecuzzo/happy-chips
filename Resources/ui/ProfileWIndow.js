@@ -63,7 +63,7 @@ exports.ProfileWindow = function(args) {
 	  font: {fontSize:18, fontWeight:'bold'},
 	  text: profileObject.userObject.firstName + ' ' + profileObject.userObject.lastName,
 	  top: 50,
-	  left: 75,
+	  left: 77,
 	  width: 'auto', height: 'auto'
 	});
 	

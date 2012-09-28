@@ -1,7 +1,38 @@
 exports.LimitListView = function(args) {
 	var self = Ti.UI.createWindow(args);
 	
-	var addButton = Titanium.UI.createButton({ systemButton : Titanium.UI.iPhone.SystemButton.ADD}); 
+	// create the label
+	var titleLabel = Titanium.UI.createLabel({
+	    color:'#444',
+	    height:'auto',
+	    width:'auto',
+	    top:10,
+	    text:'Goals',
+	    textAlign:'center',
+	    font:{fontSize:20,fontWeight:'bold'},
+	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+	});
+	
+	self.setTitleControl(titleLabel);
+	self.barImage = 'iphone/navBackground.png';
+	
+	//back button
+	var backbutton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/backArrow.png',
+		width:20,
+		height:18
+	});
+	backbutton.addEventListener('click', function() {
+		self.close();
+	});
+	self.leftNavButton = backbutton;
+	
+	var addButton = Titanium.UI.createButton({ 
+		height:20,
+		width:20,
+		backgroundImage:'iphone/addIcon.png' 
+	}); 
 	self.setRightNavButton(addButton);
 	
 	addButton.addEventListener('click', function(){
