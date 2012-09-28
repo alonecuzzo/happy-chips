@@ -90,7 +90,7 @@ exports.PurchaseDetailWindow = function(args) {
 	//TODO: need to make sure returned price rounds to the second decimal point
 	//  	i entered 69.99 for borderlands 2 and got back 69.9899999999!!!!
 	var priceLabel = Ti.UI.createLabel({
-	  color: '#bbb',
+	  color: '#ddd',
 	  font: {fontSize:20, fontWeight:'bold'},
 	  text: '$' + item.item_price,
 	  top: 45,
@@ -143,7 +143,7 @@ exports.PurchaseDetailWindow = function(args) {
 	    regionFit:true,
 	    userLocation:true,
 	    annotations:[mountainView],
-	    top:85,
+	    top:90,
 	    width:290,
 	    height:100
 	});
@@ -152,8 +152,34 @@ exports.PurchaseDetailWindow = function(args) {
 		backgroundImage:'iphone/feedRowBackground.png',
 		width:305,
 		height:120,
-		top:75
+		top:80
 	});
+	
+	var shareButtonBarBackground = Ti.UI.createView({
+		backgroundImage:'iphone/shareButtonBarBackground.png',
+		width:310,
+		height:50,
+		top:205
+	});
+
+	var verticalDivider = Ti.UI.createView({
+		backgroundColor:'#ccc',
+		width:1,
+		height:40,
+		left:100,
+		top:5
+	});
+	
+	var verticalDivider2 = Ti.UI.createView({
+		backgroundColor:'#ccc',
+		width:1,
+		height:40,
+		left:200,
+		top:5
+	});
+	
+	shareButtonBarBackground.add(verticalDivider);
+	shareButtonBarBackground.add(verticalDivider2);
 	
 	self.add(topBackgroundColor);
 	self.add(mapBackgroundView);
@@ -162,6 +188,7 @@ exports.PurchaseDetailWindow = function(args) {
 	self.add(photoPlaceHolder);
 	self.add(purchaseNameLabel);
 	self.add(priceLabel);
+	self.add(shareButtonBarBackground);
 	self.add(mapview);
 	
 	if(item.photo) {
