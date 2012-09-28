@@ -2,6 +2,8 @@ exports.CategoryListViewWindow = function(args) {
 	self = Ti.UI.createWindow(args);
 	self.checkCategoryIds = [];
 	
+	self.barImage = 'iphone/navBackground.png';
+	
 	var titleLabel = Titanium.UI.createLabel({
 	    color:'#525252',
 	    height:'auto',
@@ -35,7 +37,11 @@ exports.CategoryListViewWindow = function(args) {
 		height:18
 	});
 	backbutton.addEventListener('click', function() {
-		self.navGroup.close(self);
+		if(self.catsAreSelectable == true) {
+				self.navGroup.close(self);
+			} else {
+				self.close();
+			}
 	});
 	self.leftNavButton = backbutton;
 	

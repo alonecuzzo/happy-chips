@@ -1,11 +1,28 @@
 exports.SettingsWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	
-	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:'Settings' });
-	sectionCategory.add(Ti.UI.createTableViewRow({title:'Manage Categories', hasChild:true}));
+	self.barImage = 'iphone/navBackground.png';
+	
+	var titleLabel = Titanium.UI.createLabel({
+	    color:'#525252',
+	    height:'auto',
+	    width:'auto',
+	    top:10,
+	    text:'Settings',
+	    textAlign:'center',
+	    font:{fontSize:20,fontWeight:'bold'},
+	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
+	});
+	
+	self.setTitleControl(titleLabel);
+	
+	var sectionCategory = Ti.UI.createTableViewSection({ headerTitle:'' });
+	sectionCategory.add(Ti.UI.createTableViewRow({title:'Manage Categories', hasChild:true, backgroundColor:'#FFF'}));
 	
 	var table = Ti.UI.createTableView({
-	  data: [sectionCategory]
+	  data: [sectionCategory],
+	  backgroundColor:'#dfdfdf',
+	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
 	});
 	
 	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
