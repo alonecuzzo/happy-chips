@@ -43,7 +43,8 @@ exports.ProfileWindow = function(args) {
 	  data: [sectionCategory],
 	  backgroundColor:'#dfdfdf',
 	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
-	  top:120
+	  top:120,
+	  style: Ti.UI.iPhone.TableViewStyle.GROUPED
 	});
 	
 	var avatarImageView = Titanium.UI.createImageView({
@@ -61,8 +62,8 @@ exports.ProfileWindow = function(args) {
 	  color: '#f7f7f7',
 	  font: {fontSize:18, fontWeight:'bold'},
 	  text: profileObject.userObject.firstName + ' ' + profileObject.userObject.lastName,
-	  top: 10,
-	  left: 80,
+	  top: 50,
+	  left: 75,
 	  width: 'auto', height: 'auto'
 	});
 	
@@ -89,7 +90,7 @@ exports.ProfileWindow = function(args) {
 	  font: {fontSize:10, fontWeight:'bold'},
 	  text: 'points',
 	  top: 105,
-	  left: 135,
+	  left: 136,
 	  width: 'auto', height: 'auto'
 	});
 	
@@ -148,7 +149,7 @@ exports.ProfileWindow = function(args) {
 	shareButtonBarBackground.add(verticalDivider2);
 	
 	
-	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
+	//table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	
 	table.addEventListener('click', function(e){
 		if(e.row.title === 'Manage Goals') {
