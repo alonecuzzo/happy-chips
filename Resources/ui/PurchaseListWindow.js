@@ -16,7 +16,9 @@ exports.PurchaseListWindow = function(args) {
 		var detailWindow = new PurchaseDetailWindow({
 			backgroundColor: '#f7f7f7',
 			title: 'Detail',
-			rowID: e.row.rowView.id
+			rowID: e.row.rowView.id,
+			isQuestionThree: e.row.rowView.isQuestionThree,
+			isQuestionTwo: e.row.rowView.isQuestionTwo
 		});
 		self.containingTab.open(detailWindow,{animated:true});
 	});
@@ -55,7 +57,7 @@ var getTableData = function() {
 			id:purchaseItems[i].id,
 			photo:purchaseItems[i].photo
 		});
-		Ti.API.info('photo: ' + purchaseItems[i].photo);
+		//Ti.API.info('photo: ' + purchaseItems[i].photo);
 		row = Ti.UI.createTableViewRow({
 			top:10,
 			rowView:rowView,

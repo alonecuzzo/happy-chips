@@ -3,6 +3,8 @@ exports.FeedViewTableRow = function(args) {
 	self.id = args.id;
 	self.photo = args.photo;
 	self.setBackgroundImage('iphone/feedRowBackground.png');
+	self.isQuestionTwo = false;
+	self.isQuestionThree = false;
 	
 	var db = require('db');
 	var item = db.selectItem(args.id)[0];
@@ -83,6 +85,14 @@ exports.FeedViewTableRow = function(args) {
 	if(item.question2Deadline || item.question3Deadline) {
 		if((item.question2Deadline < (now.getTime()/1000)) || (item.question3Deadline < (now.getTime()/1000))) {
 			exclamationIcon.visible = true;
+			if((item.question2Deadline < (now.getTime()/1000))){
+				//it's question 2
+				self.isQuestionTwo = true;
+			}
+			if((item.question3Deadline < (now.getTime()/1000))){
+				//it's question 3
+				self.isQuestionThree = true;
+			}
 		}	
 	}
 

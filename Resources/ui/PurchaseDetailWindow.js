@@ -6,6 +6,8 @@ exports.PurchaseDetailWindow = function(args) {
 	var item = db.selectItem(args.rowID)[0];
 	
 	Ti.API.info("item price: " + item.item_price);
+	Ti.API.info("we got question 2! " + args.isQuestionTwo);
+	Ti.API.info("we got question 3! " + args.isQuestionThree);
 	
 	var opts = {
 	  cancel: 2,
