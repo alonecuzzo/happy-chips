@@ -27,8 +27,8 @@ exports.PurchaseListWindow = function(args) {
 	
 	var logoButton = Ti.UI.createButton({
 		backgroundImage: 'iphone/logo.png',
-		width: '151dp',
-		height: '30dp',
+		width: 151,
+		height: 30,
 		touchEnabled: false
 	});
 	

@@ -48,7 +48,9 @@ exports.LimitListView = function(args) {
 		tableView.setData(getTableData());
 	});
 	
-	var tableView = Ti.UI.createTableView();
+	var tableView = Ti.UI.createTableView({
+		 selectionStyle:Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
+	});
 	tableView.setData(getTableData());
 	self.add(tableView);
 	
@@ -76,6 +78,7 @@ exports.LimitListView = function(args) {
 				limitObject: limits[i],
 				//need to add cost too
 				color: '#000',
+				hasChild:true,
 				font: {
 					fontWeight: 'bold'	
 				}
