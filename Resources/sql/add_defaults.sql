@@ -6,39 +6,51 @@ INSERT INTO purchases
 (
 	item_name,
 	item_price,
-	question_1_emotion
+	question_1_emotion,
+	question_2_due_date,
+	question_3_due_date
 )
 VALUES
 (
 	'wii u',
 	249.99,
-	1
+	1,
+	1348781278,
+	1380317278
 );
 
 INSERT INTO purchases
 (
 	item_name,
 	item_price,
-	question_1_emotion
+	question_1_emotion,
+	question_2_due_date,
+	question_3_due_date
 )
 VALUES
 (
 	'gameboy',
 	49.99,
-	2
+	2,
+	1380317278,
+	1348781278
 );
 
 INSERT INTO purchases
 (
 	item_name,
 	item_price,
-	question_1_emotion
+	question_1_emotion,
+	question_2_due_date,
+	question_3_due_date
 )
 VALUES
 (
 	'playstation 3',
 	299.99,
-	1
+	1,
+	1380317278,
+	1380317278
 );
 
 ------------------------------------------------------------------

@@ -7,7 +7,7 @@ exports.createDb = function() {
 exports.selectItems = function() {
 	var retData = [];
 	var db = Ti.Database.open(DATABASE_NAME);
-	var rows = db.execute('select ROWID, * from purchases order by date_time desc');
+	var rows = db.execute('select ROWID, * from purchases order by question_2_due_date asc, question_3_due_date asc, date_time desc');
 	while (rows.isValidRow()) {
 		retData.push({item_name:rows.fieldByName('item_name'), 
 			id:rows.fieldByName('ROWID'), item_price:rows.fieldByName('item_price'), item_price:rows.fieldByName('item_price')});
@@ -24,7 +24,8 @@ exports.selectItem = function(rowID) {
 	while (rows.isValidRow()) {
 		retData.push({item_name:rows.fieldByName('item_name'), id:rows.fieldByName('ROWID'), item_price:rows.fieldByName('item_price'),
 					note:rows.fieldByName('note'), location_latitude:rows.fieldByName('location_latitude'), location_longitude:rows.fieldByName('location_longitude'),
-					date_time:rows.fieldByName('date_time'), question_1_emotion:rows.fieldByName('question_1_emotion'), photo:rows.fieldByName('photo_url')});
+					date_time:rows.fieldByName('date_time'), question_1_emotion:rows.fieldByName('question_1_emotion'), 
+					question2Deadline:rows.fieldByName('question_2_due_date'), question3Deadline:rows.fieldByName('question_3_due_date'), photo:rows.fieldByName('photo_url')});
 		rows.next();
 	}
 	var categories = db.execute('select ROWID, * from purchase_categories where purchase_id=?', rowID);
@@ -77,8 +78,8 @@ exports.addItem = function(item_name, item_price, optional_args) {
 	
 	//Ti.API.info("lat: " + optional_args.userLat + ' lon: ' + optional_args.userLon);
 	 
-	mydb.execute('insert into purchases (item_name, item_price, note, location_latitude, location_longitude, question_1_emotion, photo_url) values (?,?,?,?,?,?,?)', 
-			item_name, item_price,optional_args.note, optional_args.userLat, optional_args.userLon, optional_args.question_1_emotion, optional_args.photo);
+	mydb.execute('insert into purchases (item_name, item_price, note, location_latitude, location_longitude, question_1_emotion, photo_url, question_2_due_date, question_3_due_date) values (?,?,?,?,?,?,?,?,?)', 
+			item_name, item_price,optional_args.note, optional_args.userLat, optional_args.userLon, optional_args.question_1_emotion, optional_args.photo, 1380317278, 1380317278);
 	
 	if(optional_args.hasOwnProperty('categoryIds')) {
 		if(optional_args.categoryIds.length > 0) {

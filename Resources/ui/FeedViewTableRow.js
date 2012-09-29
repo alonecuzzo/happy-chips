@@ -69,6 +69,23 @@ exports.FeedViewTableRow = function(args) {
 	
 	photoImageView.image = 'iphone/purchaseDetailPhotoPlaceholder.png';
 	
+	var exclamationIcon = Titanium.UI.createImageView({
+		height:20,
+		width:20,
+		top:10,
+		right:10,
+		image: 'iphone/exclamationIcon.png'
+	});
+	
+	exclamationIcon.visible = false;
+	var now = new Date();
+
+	if(item.question2Deadline || item.question3Deadline) {
+		if((item.question2Deadline < (now.getTime()/1000)) || (item.question3Deadline < (now.getTime()/1000))) {
+			exclamationIcon.visible = true;
+		}	
+	}
+
 	if(item.photo){
 		photoImageView.image = item.photo;
 		Ti.API.info('phootto');
@@ -79,6 +96,7 @@ exports.FeedViewTableRow = function(args) {
 	self.add(dateLabel);
 	self.add(priceLabel);
 	self.add(purchaseNameLabel);
+	self.add(exclamationIcon);
 	
 	return self;
 }
