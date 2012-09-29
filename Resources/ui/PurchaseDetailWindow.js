@@ -7,6 +7,16 @@ exports.PurchaseDetailWindow = function(args) {
 	
 	Ti.API.info("item price: " + item.item_price);
 	
+	var opts = {
+	  cancel: 2,
+	  options: ['Twitter', 'Facebook', 'Cancel'],
+	  selectedIndex: 2,
+	  destructive: 2,
+	  title: 'Share'
+	};
+	
+	var dialog = Ti.UI.createOptionDialog(opts);
+	
 	var date = new Date(item.date_time*1000);
 	var hours = date.getHours();
 	var minutes = date.getMinutes();
@@ -46,7 +56,7 @@ exports.PurchaseDetailWindow = function(args) {
 	
 	// create the label
 	var titleLabel = Titanium.UI.createLabel({
-	    color:'#444',
+	    color:'#000',
 	    height:'auto',
 	    width:'auto',
 	    top:10,
@@ -200,6 +210,10 @@ exports.PurchaseDetailWindow = function(args) {
 		height:25,
 		left: 137
 	});
+	
+	shareButton.addEventListener('click', function(){
+		dialog.show();
+	})
 	
 	shareButtonBarBackground.add(shareButton);
 	shareButtonBarBackground.add(editButton);
