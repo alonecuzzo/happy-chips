@@ -117,6 +117,18 @@ exports.selectEmotions = function() {
 	return retData;
 }
 
+exports.selectEmotionById = function(_id) {
+	var retData = [];
+	var db = Ti.Database.open(DATABASE_NAME);
+	var rows = db.execute('select ROWID, * from emotions where ROWID=?', _id);
+	while (rows.isValidRow()) {
+		retData.push({emotion:rows.fieldByName('emotion'), id:rows.fieldByName('ROWID'), iconName:rows.fieldByName('icon_name')});
+		rows.next();
+	}
+	db.close();
+	return retData;
+}
+
 exports.getEmotionalSums = function() {
 	var retData = [];
 	var db = Ti.Database.open(DATABASE_NAME);

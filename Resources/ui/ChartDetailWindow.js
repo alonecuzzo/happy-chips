@@ -2,6 +2,8 @@ exports.ChartDetailWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	
 	var webView = Ti.UI.createWebView({
+		height:320,
+		top:40
 	});
 	
 	self.barImage = 'iphone/navBackground.png';
@@ -18,6 +20,19 @@ exports.ChartDetailWindow = function(args) {
 	});
 	
 	self.setTitleControl(titleLabel);
+	
+	var emotionString = require('db').selectEmotionById(args.emotionId);
+	var chartTitleString = 'Money spent while ' + emotionString[0].emotion;
+	
+	var chartTitle = Titanium.UI.createLabel({
+	    color:'#eee',
+	    height:'auto',
+	    width:'auto',
+	    top:8,
+	    text:chartTitleString,
+	    textAlign:'center',
+	    font:{fontSize:17,fontWeight:'bold'}
+	});
 	
 	var colors = '["#932453", "#bf5280", "#928189", "#65565c", "#e2ced7", "#d6abbd"]';
 	var colorsArray = ['#932453', '#bf5280', '#928189', '#65565c', '#e2ced7', '#d6abbd'];
@@ -74,13 +89,14 @@ exports.ChartDetailWindow = function(args) {
 			}
 		}
 		
-		htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 140, 100, ' + sumsString + ', { legend: ' + legendString + ', legendpos: "south", colors: ' + colors + '}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+		htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 110, 100, ' + sumsString + ', { legend: ' + legendString + ', legendpos: "south", colors: ' + colors + '}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 		webView.html = htmlString;
 		Ti.API.info('sum string: ' + sumsString);
 		Ti.API.info('legend string: ' + legendString);
 	}
 	
 	self.add(webView);
+	self.add(chartTitle);
 	
 	return self;
 }

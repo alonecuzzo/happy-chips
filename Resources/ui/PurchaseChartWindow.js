@@ -129,7 +129,7 @@ exports.PurchaseChartWindow = function(args) {
 		var ChartDetailWindow = require('ui/ChartDetailWindow').ChartDetailWindow;
 		var chartDetailWindow = new ChartDetailWindow({
 			title: 'Chart Detail',
-			backgroundColor: '#FFF',
+			backgroundColor: '#444',
 			emotionId:e.id
 		});
 		self.containingTab.open(chartDetailWindow,{animated:true});
@@ -280,9 +280,9 @@ exports.PurchaseChartWindow = function(args) {
 		}
 		
 		buttonHolderView = Ti.UI.createView({
-			height:300,
+			height:100,
 			width:300,
-			top:160,
+			top:305,
 			left:50
 		});
 		
@@ -290,7 +290,7 @@ exports.PurchaseChartWindow = function(args) {
 		for(var i=0; i<=sums.length-1; i++) {
 			var xPos = (i % 2)*120;
 			var yPos = 0;
-			var lineHeight = 50;
+			var lineHeight = 20;
 			
 			if(2 % i === 0 && (i > 0)) {
 				yPos += lineHeight;
@@ -301,15 +301,11 @@ exports.PurchaseChartWindow = function(args) {
 				top:yPos,
 				id:sums[i].id
 			});
-			legendView.addEventListener('click', function(e){
-				Ti.App.fireEvent('fromwebview',{id:this.id});
-				Ti.API.info('sending id: ' + this.id);
-			});
 			var legendChip = Titanium.UI.createView({
 							  backgroundColor:colorsArray[i],
 							  height:10,
 							  width:10,
-							  left:0
+							  left:0, top:0
 							});
 			legendView.add(legendChip);
 			var roundedSum = Math.round(100*sums[i].sum)/100;
@@ -319,7 +315,8 @@ exports.PurchaseChartWindow = function(args) {
 			    width:'auto',
 			    left:15,
 			    text:'$' + roundedSum + ': ' + sums[i].emotion ,
-			    font:{fontSize:10,fontWeight:'bold'}
+			    font:{fontSize:10,fontWeight:'bold'},
+			    top:0
 			});
 			legendView.add(titleLabel);
 			buttonHolderView.add(legendView);
@@ -331,9 +328,10 @@ exports.PurchaseChartWindow = function(args) {
 		var legendString = '[';
 		var urlString = '[';
 		var fireEventString = '<script type="text/JavaScript">function fireEvent(msg){Ti.App.fireEvent(\'fromwebview\',{id:msg});}</script>';
-		//Ti.API.info('sums length: ' + sums.length);
+		//fireEventString = '';
+		Ti.API.info('sums length: ' + sums.length);
 		for(var i=0; i<=sums.length-1; i++) {
-			if(i == (sums.length-1)){
+			if(i === (sums.length-1)){
 				sumsString += sums[i].sum + ']';
 				legendString += '"' + sums[i].emotion + ' - $' + sums[i].sum + '"]';
 				urlString += '"javascript:fireEvent(' + sums[i].id + ')"]';
@@ -343,7 +341,7 @@ exports.PurchaseChartWindow = function(args) {
 				urlString += '"javascript:fireEvent(' + sums[i].id + ')",';
 			}
 		}
-		
+		Ti.API.info('urlString string: ' + urlString);
 		htmlString = '<html><head>' + fireEventString + '<script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 140, 90, ' + sumsString + ', { colors: ' + colors + ', href: '+ urlString +'}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 		webView.html = htmlString;
 		//Ti.API.info('sum string: ' + sumsString);
