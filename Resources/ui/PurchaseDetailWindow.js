@@ -18,11 +18,36 @@ exports.PurchaseDetailWindow = function(args) {
 	  	style:Ti.UI.iPhone.TableViewStyle.GROUPED
 	});
 	
+	
+	
 	if(args.isQuestionTwo || args.isQuestionThree) {
+		var questionString = 'a question?';
+		var questionTitle = '';
+		if(args.isQuestionTwo) {
+			questionString = 'question 2';
+			questionTitle = 'Question 2';
+		}
+		if(args.isQuestionThree) {
+			questionString = 'question 3';
+			questionTitle = 'Question 3';
+		}
+		
+		extraQuestionTable.addEventListener('click', function() {
+			var DummyQuestionWindow = require('ui/DummyQuestionWindow').DummyQuestionWindow;
+			var dummyQuestionWindow = new DummyQuestionWindow({
+				title: 'BIG DUMMY!',
+				backgroundColor: '#FFF',
+				parentWindow: self,
+				questionTitle: questionTitle
+			});
+			dummyQuestionWindow.barImage = 'iphone/navBackground.png';
+			self.containingTab.open(dummyQuestionWindow,{animated:true});
+		});
+
 		//get this question shit poppin
-		questionSection.add(Ti.UI.createTableViewRow({leftImage:'iphone/exclamationIcon.png', title:'Question', hasChild:true, backgroundColor:'#FFF'}));
+		questionSection.add(Ti.UI.createTableViewRow({leftImage:'iphone/exclamationIcon.png', title:questionString, hasChild:true, backgroundColor:'#FFF'}));
 		extraQuestionTable.data = [questionSection];
-		self.add(extraQuestionTable);
+		//self.add(extraQuestionTable);
 	}
 	
 	var opts = {
@@ -262,6 +287,10 @@ exports.PurchaseDetailWindow = function(args) {
 		photoImageView.image = item.photo;
 		self.add(photoImageView);
 		self.remove(photoPlaceHolder);
+	}
+	
+	if(args.isQuestionTwo || args.isQuestionThree) {
+		self.add(extraQuestionTable);
 	}
 	
 	return self;

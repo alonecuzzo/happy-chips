@@ -20,6 +20,7 @@ exports.PurchaseListWindow = function(args) {
 			isQuestionThree: e.row.rowView.isQuestionThree,
 			isQuestionTwo: e.row.rowView.isQuestionTwo
 		});
+		detailWindow.containingTab = self.containingTab;
 		self.containingTab.open(detailWindow,{animated:true});
 	});
 	
