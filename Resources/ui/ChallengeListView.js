@@ -26,5 +26,18 @@ exports.ChallengeListView = function(args) {
 		self.close();
 	});
 	self.leftNavButton = backbutton;
+	
+	var rows = [];
+	rows.push(Ti.UI.createTableViewRow({title:'Create and complete a goal.', font:{fontWeight: 'bold'}}));
+	rows.push(Ti.UI.createTableViewRow({title:'Share a goal on a social media network.', font:{fontWeight: 'bold'}}));
+	rows.push(Ti.UI.createTableViewRow({title:'Earn 300 points.', font:{fontWeight: 'bold'}}));
+	
+	
+	var table = Ti.UI.createTableView({
+		data: rows,
+		selectionStyle:Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
+	});
+	
+	self.add(table);
 	return self;
 }
