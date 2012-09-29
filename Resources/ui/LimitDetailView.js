@@ -13,6 +13,16 @@ exports.LimitDetailView = function(args) {
 	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
 	});
 	
+	var opts = {
+	  cancel: 2,
+	  options: ['Twitter', 'Facebook', 'Cancel'],
+	  selectedIndex: 2,
+	  destructive: 2,
+	  title: 'Share'
+	};
+	
+	var dialog = Ti.UI.createOptionDialog(opts);
+	
 	var now = new Date();
 	var differenceEpoch = args.limitObject.endDate;
 	var one_day=1000*60*60*24;
@@ -46,8 +56,15 @@ exports.LimitDetailView = function(args) {
 					});
 	
 	var webView = Ti.UI.createWebView({
-		top:150
+		top:130,
+		height:100,
+		width:290,
+		borderColor:'#b7b7b7',
+		borderWidth:1
 	});
+	
+	var colors = '["#932453", "#65565C"]';
+	var colorsArray = ['#932453', '#65565C'];
 	
 	var daysLeftLabel = Ti.UI.createLabel({
 	  color: '#444',
@@ -78,13 +95,31 @@ exports.LimitDetailView = function(args) {
 	});
 	
 	var photoPlaceHolder = Ti.UI.createView({
-		backgroundImage: 'iphone/purchaseDetailPhotoPlaceholder.png',
+		backgroundImage: 'iphone/limitPlaceHolder.png',
 		height: 50,
 		width: 50,
 		top: 10,
 		left: 10,
 		borderColor:'#b7b7b7',
 		borderWidth:1
+	});
+	
+	var date = new Date(args.limitObject.endDate*1000);
+	var hours = date.getHours();
+	var minutes = date.getMinutes();
+	var seconds = date.getSeconds();
+	var day = date.getDate();
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var formattedTime =  date.getMonthNameShort() + ' ' + day + ', ' + year;
+	
+	var dateLabel = Ti.UI.createLabel({
+	  color: '#f7f7f7',
+	  font: {fontSize:13},
+	  text: 'Ends: ' + formattedTime,
+	  top: 35,
+	  left: 65,
+	  width: 'auto', height: 'auto'
 	});
 	
 	var rightChartAmt = 50;
@@ -108,7 +143,59 @@ exports.LimitDetailView = function(args) {
 	Ti.API.info('left chart value: ' + leftChartAmt);
 	Ti.API.info('right chart value: ' + rightChartAmt);
 	
-	htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.bar-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.hbarchart(10, 10, 250, 50, [[' + leftChartAmt + '], [' + rightChartAmt + ']], {stacked: false});} </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+	
+	var legendViewHolder = Ti.UI.createView({
+			height:300,
+			width:300,
+			top:60,
+			left:33
+		});
+	
+	var legendView1 = Ti.UI.createView({
+				left:0		
+			});
+	var legendView2 = Ti.UI.createView({
+				left:100		
+			});
+		
+	var legendChip1 = Titanium.UI.createView({
+							  backgroundColor:colorsArray[0],
+							  height:10,
+							  width:10,
+							  left:0
+							});
+	var legendChip2 = Titanium.UI.createView({
+							  backgroundColor:colorsArray[1],
+							  height:10,
+							  width:10,
+							  left:0
+							});
+	legendView1.add(legendChip1);
+	legendView2.add(legendChip2);
+	var roundedSum = Math.round(100*leftChartAmt)/100;
+	var roundedSum1 = Math.round(100*rightChartAmt)/100;
+	var titleLabel = Titanium.UI.createLabel({
+			    color:'#111111',
+			    height:'auto',
+			    width:'auto',
+			    left:15,
+			    text:'$' + roundedSum + ': Spent' ,
+			    font:{fontSize:10,fontWeight:'bold'}
+			});
+	var titleLabel1 = Titanium.UI.createLabel({
+			    color:'#111111',
+			    height:'auto',
+			    width:'auto',
+			    left:15,
+			    text:'$' + roundedSum1 + ': Total Limit' ,
+			    font:{fontSize:10,fontWeight:'bold'}
+			});
+	legendView2.add(titleLabel1);
+	legendView1.add(titleLabel);
+	legendViewHolder.add(legendView1);
+	legendViewHolder.add(legendView2);
+	
+	htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.bar-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.hbarchart(10, 10, 250, 50, [[' + leftChartAmt + '], [' + rightChartAmt + ']], {stacked: false, colors: ' + colors + '});} </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 	webView.html = htmlString;
 	
 	var percentCompleteAmt = Math.ceil((leftChartAmt / rightChartAmt) * 100);
@@ -150,14 +237,14 @@ exports.LimitDetailView = function(args) {
 	  width: 'auto', height: 'auto'
 	});
 	
-	var shareButtonBarBackground = Ti.UI.createView({
+	var statsBackground = Ti.UI.createView({
 		backgroundImage:'iphone/shareButtonBarBackground.png',
 		width:350,
 		height:60,
 		top:60
 	});
 	
-	var verticalDivider = Ti.UI.createView({
+	var verticalDivider3 = Ti.UI.createView({
 		backgroundColor:'#ccc',
 		width:1,
 		height:50,
@@ -165,7 +252,7 @@ exports.LimitDetailView = function(args) {
 		top:5
 	});
 	
-	var verticalDivider2 = Ti.UI.createView({
+	var verticalDivider4 = Ti.UI.createView({
 		backgroundColor:'#ccc',
 		width:1,
 		height:50,
@@ -173,9 +260,67 @@ exports.LimitDetailView = function(args) {
 		top:5
 	});
 	
+	statsBackground.add(verticalDivider3);
+	statsBackground.add(verticalDivider4);
+	
+	var shareButtonBarBackground = Ti.UI.createView({
+		backgroundImage:'iphone/shareButtonBarBackground.png',
+		width:310,
+		height:50,
+		top:243
+	});
+
+	var verticalDivider = Ti.UI.createView({
+		backgroundColor:'#ccc',
+		width:1,
+		height:40,
+		left:100,
+		top:5
+	});
+	
+	var verticalDivider2 = Ti.UI.createView({
+		backgroundColor:'#ccc',
+		width:1,
+		height:40,
+		left:200,
+		top:5
+	});
+	
+	var trashButton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/trashIcon.png',
+		width:25,
+		height:25,
+		left: 238
+	});
+	
+	var shareButton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/shareIcon.png',
+		width:25,
+		height:25,
+		left: 37
+	});
+	
+	var editButton = Titanium.UI.createButton({
+		title:'', 
+		backgroundImage:'iphone/editIcon.png',
+		width:25,
+		height:25,
+		left: 137
+	});
+	
+	shareButton.addEventListener('click', function(){
+		dialog.show();
+	})
+	
+	shareButtonBarBackground.add(shareButton);
+	shareButtonBarBackground.add(editButton);
+	shareButtonBarBackground.add(trashButton);
 	shareButtonBarBackground.add(verticalDivider);
 	shareButtonBarBackground.add(verticalDivider2);
-	self.add(shareButtonBarBackground);
+	//self.add(chartBackground);
+	self.add(statsBackground);
 	self.add(topBackgroundColor);
 	self.add(limitNameLabel);
 	self.add(webView);
@@ -187,5 +332,8 @@ exports.LimitDetailView = function(args) {
 	self.add(percentComplete);
 	self.add(points);
 	self.add(pointsLabel);
+	self.add(dateLabel);
+	self.add(legendViewHolder);
+	self.add(shareButtonBarBackground);
 	return self;
 }

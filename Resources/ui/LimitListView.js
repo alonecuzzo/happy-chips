@@ -57,7 +57,7 @@ exports.LimitListView = function(args) {
 	tableView.addEventListener('click', function(e) {
 		var LimitDetailView = require('ui/LimitDetailView').LimitDetailView;
 		var limitDetailView = new LimitDetailView({
-			backgroundColor: '#FFF',
+			backgroundColor: '#ddd',
 			title: 'Detail',
 			rowID: e.row.id,
 			limitObject: e.row.limitObject
