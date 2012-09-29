@@ -1,9 +1,9 @@
 exports.PurchaseChartWindow = function(args) {
 	var self = Ti.UI.createWindow(args);
 	var webView = Ti.UI.createWebView({
-		top:60,
+		top:45,
 		touchEnabled:true,
-		height:290
+		height:310
 	});
 	
 	self.barImage = 'iphone/navBackground.png';
@@ -25,7 +25,7 @@ exports.PurchaseChartWindow = function(args) {
 	    color:'#525252',
 	    height:'auto',
 	    width:'auto',
-	    top:67,
+	    top:63,
 	    text:'Emotion vs. Money Spent',
 	    textAlign:'center',
 	    font:{fontSize:17,fontWeight:'bold'}
@@ -80,9 +80,36 @@ exports.PurchaseChartWindow = function(args) {
 		chart3Button.setBackgroundImage('iphone/chartButtonEmotionalSpendingSelected.png');
 	});
 	
-	self.add(chart1Button);
-	self.add(chart2Button);
-	self.add(chart3Button);
+	var bb1 = Titanium.UI.createButtonBar({
+		labels:['Emotions', 'Satisfaction', 'Impulse'],
+		backgroundColor:'#444',
+		top:10,
+		style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
+		height:25,
+		width:300
+	});
+	self.add(bb1);
+	
+	bb1.addEventListener('click', function(e)
+	{
+		switch(e.index) {
+			case 0:
+				populateHTML();
+				break;
+			
+			case 1:
+				populateHTMLSatisfaction();
+				break;
+			
+			case 2:
+				populateHTMLImpulse();
+				break;
+		}
+	});
+	
+	// self.add(chart1Button);
+	// self.add(chart2Button);
+	// self.add(chart3Button);
 	self.add(webView);
 	self.add(chartTitle);
 	
@@ -119,8 +146,8 @@ exports.PurchaseChartWindow = function(args) {
 		buttonHolderView = Ti.UI.createView({
 			height:300,
 			width:300,
-			top:150,
-			left:50
+			top:160,
+			left:93
 		});
 		
 		//ok we need to scroll through the sums array and create buttons that link to the detail page of each emotion
@@ -164,7 +191,7 @@ exports.PurchaseChartWindow = function(args) {
 		
 		self.add(buttonHolderView);
 		
-		htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 120, 90, ' + sumsString + ', { colors: ' + colors + '}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+		htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 140, 90, ' + sumsString + ', { colors: ' + colors + '}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 		webView.html = htmlString;
 	}
 	
@@ -179,7 +206,7 @@ exports.PurchaseChartWindow = function(args) {
 		buttonHolderView = Ti.UI.createView({
 			height:300,
 			width:300,
-			top:150,
+			top:160,
 			left:50
 		});
 		
@@ -223,7 +250,7 @@ exports.PurchaseChartWindow = function(args) {
 		
 		self.add(buttonHolderView);
 		
-		htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 120, 90, ' + sumsString + ', { colors: ' + colors + '}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+		htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 140, 90, ' + sumsString + ', { colors: ' + colors + '}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 		webView.html = htmlString;
 	}
 	
@@ -255,7 +282,7 @@ exports.PurchaseChartWindow = function(args) {
 		buttonHolderView = Ti.UI.createView({
 			height:300,
 			width:300,
-			top:150,
+			top:160,
 			left:50
 		});
 		
@@ -317,7 +344,7 @@ exports.PurchaseChartWindow = function(args) {
 			}
 		}
 		
-		htmlString = '<html><head>' + fireEventString + '<script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 120, 90, ' + sumsString + ', { colors: ' + colors + ', href: '+ urlString +'}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
+		htmlString = '<html><head>' + fireEventString + '<script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.pie-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.piechart(150, 140, 90, ' + sumsString + ', { colors: ' + colors + ', href: '+ urlString +'}); }; </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 		webView.html = htmlString;
 		//Ti.API.info('sum string: ' + sumsString);
 		//Ti.API.info('legend string: ' + legendString);
