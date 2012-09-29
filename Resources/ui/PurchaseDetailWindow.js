@@ -9,6 +9,22 @@ exports.PurchaseDetailWindow = function(args) {
 	Ti.API.info("we got question 2! " + args.isQuestionTwo);
 	Ti.API.info("we got question 3! " + args.isQuestionThree);
 	
+	var questionSection = Ti.UI.createTableViewSection({ headerTitle:'' });
+	
+	var extraQuestionTable = Ti.UI.createTableView({
+		top:270,
+		backgroundColor:'#444',
+		selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
+	  	style:Ti.UI.iPhone.TableViewStyle.GROUPED
+	});
+	
+	if(args.isQuestionTwo || args.isQuestionThree) {
+		//get this question shit poppin
+		questionSection.add(Ti.UI.createTableViewRow({leftImage:'iphone/exclamationIcon.png', title:'Question', hasChild:true, backgroundColor:'#FFF'}));
+		extraQuestionTable.data = [questionSection];
+		self.add(extraQuestionTable);
+	}
+	
 	var opts = {
 	  cancel: 2,
 	  options: ['Twitter', 'Facebook', 'Cancel'],
