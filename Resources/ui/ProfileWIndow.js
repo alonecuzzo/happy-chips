@@ -3,7 +3,7 @@ exports.ProfileWindow = function(args) {
 	
 	// create the label
 	var titleLabel = Titanium.UI.createLabel({
-	    color:'#444',
+	    color:'#000',
 	    height:'auto',
 	    width:'auto',
 	    top:10,

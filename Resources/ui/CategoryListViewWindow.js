@@ -5,7 +5,7 @@ exports.CategoryListViewWindow = function(args) {
 	self.barImage = 'iphone/navBackground.png';
 	
 	var titleLabel = Titanium.UI.createLabel({
-	    color:'#525252',
+	    color:'#000',
 	    height:'auto',
 	    width:'auto',
 	    top:10,
