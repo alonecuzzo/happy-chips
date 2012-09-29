@@ -287,10 +287,9 @@ exports.AddPurchaseContentWindow = function(args) {
 	  data: [addItemSection],
 	  backgroundColor:'#dfdfdf',
 	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
-	  top:70
+	  top:70,
+	  style:Ti.UI.iPhone.TableViewStyle.GROUPED
 	});
-	
-	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	
 	self.add(table);
 	

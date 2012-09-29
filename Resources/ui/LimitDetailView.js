@@ -13,6 +13,15 @@ exports.LimitDetailView = function(args) {
 	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
 	});
 	
+	var now = new Date();
+	var differenceEpoch = args.limitObject.endDate;
+	var one_day=1000*60*60*24;
+	var differenceDays = Math.ceil(((differenceEpoch*1000)-now.getTime())/(one_day));
+	
+	// Ti.API.info('difference in days: ' + Math.ceil(((differenceEpoch*1000)-now.getTime())/(one_day)));
+	// Ti.API.info('difference epoch: ' + differenceEpoch);
+	// Ti.API.info('now epoch: ' + now.getTime());
+	
 	self.setTitleControl(titleLabel);
 	self.barImage = 'iphone/navBackground.png';
 	
@@ -28,8 +37,54 @@ exports.LimitDetailView = function(args) {
 	});
 	self.leftNavButton = backbutton;
 	
+	var topBackgroundColor = Titanium.UI.createView({
+						backgroundColor:'#444',
+						height:70,
+				  	    width:350,
+						left:0,
+						top:0
+					});
+	
 	var webView = Ti.UI.createWebView({
-		top:50
+		top:150
+	});
+	
+	var daysLeftLabel = Ti.UI.createLabel({
+	  color: '#444',
+	  font: {fontSize:10, fontWeight:'bold'},
+	  text: 'days left',
+	  top: 90,
+	  left: 29,
+	  width: 'auto', height: 'auto'
+	});
+	
+	var daysLeft = Ti.UI.createLabel({
+	  color: '#333',
+	  font: {fontSize:18, fontWeight:'bold'},
+	  text: differenceDays,
+	  top: 70,
+	  left: 39,
+	  textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	  width: 'auto', height: 'auto'
+	});
+	
+	var limitNameLabel = Ti.UI.createLabel({
+	  color: '#f7f7f7',
+	  font: {fontSize:16, fontWeight:'bold'},
+	  text: args.limitObject.name,
+	  top: 10,
+	  left: 65,
+	  width: 'auto', height: 'auto'
+	});
+	
+	var photoPlaceHolder = Ti.UI.createView({
+		backgroundImage: 'iphone/purchaseDetailPhotoPlaceholder.png',
+		height: 50,
+		width: 50,
+		top: 10,
+		left: 10,
+		borderColor:'#b7b7b7',
+		borderWidth:1
 	});
 	
 	var rightChartAmt = 50;
@@ -56,6 +111,38 @@ exports.LimitDetailView = function(args) {
 	htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.bar-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.hbarchart(10, 10, 250, 50, [[' + leftChartAmt + '], [' + rightChartAmt + ']], {stacked: false});} </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 	webView.html = htmlString;
 	
+	var shareButtonBarBackground = Ti.UI.createView({
+		backgroundImage:'iphone/shareButtonBarBackground.png',
+		width:350,
+		height:60,
+		top:60
+	});
+	
+	var verticalDivider = Ti.UI.createView({
+		backgroundColor:'#ccc',
+		width:1,
+		height:50,
+		left:118,
+		top:5
+	});
+	
+	var verticalDivider2 = Ti.UI.createView({
+		backgroundColor:'#ccc',
+		width:1,
+		height:50,
+		left:215,
+		top:5
+	});
+	
+	shareButtonBarBackground.add(verticalDivider);
+	shareButtonBarBackground.add(verticalDivider2);
+	
+	self.add(topBackgroundColor);
+	self.add(limitNameLabel);
 	self.add(webView);
+	self.add(photoPlaceHolder);
+	self.add(shareButtonBarBackground);
+	self.add(daysLeft);
+	self.add(daysLeftLabel);
 	return self;
 }
