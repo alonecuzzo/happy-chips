@@ -5,9 +5,9 @@ exports.PurchaseDetailWindow = function(args) {
 	var db = require('db');
 	var item = db.selectItem(args.rowID)[0];
 	
-	Ti.API.info("item price: " + item.item_price);
-	Ti.API.info("we got question 2! " + args.isQuestionTwo);
-	Ti.API.info("we got question 3! " + args.isQuestionThree);
+	// Ti.API.info("item price: " + item.item_price);
+	// Ti.API.info("we got question 2! " + args.isQuestionTwo);
+	// Ti.API.info("we got question 3! " + args.isQuestionThree);
 	
 	var questionSection = Ti.UI.createTableViewSection({ headerTitle:'' });
 	
@@ -17,7 +17,6 @@ exports.PurchaseDetailWindow = function(args) {
 		selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
 	  	style:Ti.UI.iPhone.TableViewStyle.GROUPED
 	});
-	
 	
 	
 	if(args.isQuestionTwo || args.isQuestionThree) {

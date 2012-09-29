@@ -25,13 +25,27 @@ exports.DummyQuestionWindow = function(args) {
 	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
 	});
 	
+	var answer2Section = Ti.UI.createTableViewSection();
+	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSmileyIcon.png', title:'Happy', backgroundColor:'#FFF'}));
+	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionIndifferentIcon.png', title:'Glad', backgroundColor:'#FFF'}));
+	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSadIcon.png', title:'Mad', backgroundColor:'#FFF'}));
+	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSadIcon.png', title:'Sad', backgroundColor:'#FFF'}));
+	
 	var answer3Section = Ti.UI.createTableViewSection();
 	answer3Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSmileyIcon.png', title:'Very Satisfied', backgroundColor:'#FFF'}));
 	answer3Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionIndifferentIcon.png', title:'Satisfied', backgroundColor:'#FFF'}));
 	answer3Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSadIcon.png', title:'Not Satisfied', backgroundColor:'#FFF'}));
 	
+	
+	var answerSection;
+	if(args.questionTitle === 'Question 2') {
+		answerSection = answer2Section;
+	} else {
+		answerSection = answer3Section;
+	}
+	
 	var table = Ti.UI.createTableView({
-	  data: [answer3Section],
+	  data: [answerSection],
 	  backgroundColor:'#dfdfdf',
 	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
 	  style: Ti.UI.iPhone.TableViewStyle.GROUPED
@@ -54,7 +68,7 @@ exports.DummyQuestionWindow = function(args) {
 	
 	table.addEventListener('click', function(e){
 		e.row.hasCheck = !e.row.hasCheck;
-		self.answerId = collectCheckMark(e.row.title, answer3Section);
+		self.answerId = collectCheckMark(e.row.title, answerSection);
 		//self.iconName = e.row.iconName;
 	});
 	self.add(table);
