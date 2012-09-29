@@ -64,6 +64,8 @@ exports.selectItem = function(rowID) {
 	if(emotionId > -1){
 		var emotionName = db.execute('select ROWID, * from emotions where ROWID=? limit 1', emotionId);
 		retData[0].question_1_emotion_name = emotionName.fieldByName('emotion');
+		retData[0].iconName = emotionName.fieldByName('icon_name');
+		retData[0].whiteIconName = emotionName.fieldByName('white_icon_name');
 	}
 	
 	db.close();

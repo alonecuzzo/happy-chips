@@ -202,45 +202,53 @@ VALUES
 INSERT INTO emotions
 (
 	emotion,
-	icon_name
+	icon_name,
+	white_icon_name
 )
 VALUES
 (
 	'Angry',
-	'emotionMehIcon.png'
+	'emotionMehIcon.png',
+	'emotionMehIcon_white.png'
 );
 
 INSERT INTO emotions
 (
 	emotion,
-	icon_name
+	icon_name,
+	white_icon_name
 )
 VALUES
 (
 	'Happy',
-	'emotionSmileyIcon.png'
+	'emotionSmileyIcon.png',
+	'emotionSmileyIcon_white.png'
 );
 
 INSERT INTO emotions
 (
 	emotion,
-	icon_name
+	icon_name,
+	white_icon_name
 )
 VALUES
 (
 	'Sad',
-	'emotionSadIcon.png'
+	'emotionSadIcon.png',
+	'emotionSadIcon_white.png'
 );
 
 INSERT INTO emotions
 (
 	emotion,
-	icon_name
+	icon_name,
+	white_icon_name
 )
 VALUES
 (
 	'Indifferent',
-	'emotionIndifferentIcon.png'
+	'emotionIndifferentIcon.png',
+	'emotionIndifferentIcon_white.png'
 );
 
 ------------------------------------------------------------------

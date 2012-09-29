@@ -125,6 +125,14 @@ exports.PurchaseDetailWindow = function(args) {
 		 });
 	}
 	
+	var emotionIcon = Ti.UI.createView({
+			 backgroundImage:'iphone/' + item.whiteIconName,
+			 width:22,
+			 height:22,
+			 right:12,
+			 top:23
+		 });
+	
 	var dateLabel = Ti.UI.createLabel({
 	  color: '#f7f7f7',
 	  font: {fontSize:13},
@@ -224,6 +232,7 @@ exports.PurchaseDetailWindow = function(args) {
 	self.add(topBackgroundColor);
 	self.add(mapBackgroundView);
 	self.add(iconView);
+	self.add(emotionIcon);
 	self.add(dateLabel);
 	self.add(photoPlaceHolder);
 	self.add(purchaseNameLabel);
