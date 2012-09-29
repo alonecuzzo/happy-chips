@@ -22,10 +22,9 @@ exports.SettingsWindow = function(args) {
 	var table = Ti.UI.createTableView({
 	  data: [sectionCategory],
 	  backgroundColor:'#dfdfdf',
-	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE
+	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
+	  style:Ti.UI.iPhone.TableViewStyle.GROUPED
 	});
-	
-	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	
 	table.addEventListener('click', function(e){
 		if(e.row.title === 'Manage Categories') {

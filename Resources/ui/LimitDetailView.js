@@ -111,6 +111,27 @@ exports.LimitDetailView = function(args) {
 	htmlString = '<html><head><script src="lib/raphael-min.js"></script><script src="lib/g.raphael-min.js"></script><script src="lib/g.bar-min.js"></script><script> window.onload = function () { var r = Raphael("holder"); r.hbarchart(10, 10, 250, 50, [[' + leftChartAmt + '], [' + rightChartAmt + ']], {stacked: false});} </script></head><body class="raphael" id="g.raphael.dmitry.baranovskiy.com"> <div id="holder"></div></body></html>';
 	webView.html = htmlString;
 	
+	var percentCompleteAmt = Math.ceil((leftChartAmt / rightChartAmt) * 100);
+	
+	var percentCompleteLabel = Ti.UI.createLabel({
+		  color: '#444',
+		  font: {fontSize:10, fontWeight:'bold'},
+		  text: 'spent',
+		  top: 90,
+		  left: 140,
+		  width: 'auto', height: 'auto'
+	});
+	
+	var percentComplete = Ti.UI.createLabel({
+	  color: '#333',
+	  font: {fontSize:18, fontWeight:'bold'},
+	  text: percentCompleteAmt + '%',
+	  top: 70,
+	  left: 137,
+	  textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	  width: 'auto', height: 'auto'
+	});
+	
 	var shareButtonBarBackground = Ti.UI.createView({
 		backgroundImage:'iphone/shareButtonBarBackground.png',
 		width:350,
@@ -144,5 +165,7 @@ exports.LimitDetailView = function(args) {
 	self.add(shareButtonBarBackground);
 	self.add(daysLeft);
 	self.add(daysLeftLabel);
+	self.add(percentCompleteLabel);
+	self.add(percentComplete);
 	return self;
 }
