@@ -95,17 +95,17 @@ if (Ti.version < 1.8 ) {
 	});
 	 
 	var purchaseWindowAddButton = Titanium.UI.createButton({ 
-		height:'30dp',
-		width:'30dp',
-		backgroundImage:'iphone/edit.png' 
+		height:21,
+		width:24,
+		backgroundImage:'iphone/glyphicons_151_edit.png'  
 	}); 
 	purchasesWindow.setRightNavButton(purchaseWindowAddButton);
 	var AddWindow = require('ui/AddWindow').AddWindow;
 	
 	var chartWindowAddButton = Titanium.UI.createButton({ 
-		height:'30dp',
-		width:'30dp',
-		backgroundImage:'iphone/edit.png' 
+		height:21,
+		width:24,
+		backgroundImage:'iphone/glyphicons_151_edit.png' 
 	}); 
 	chartWindow.setRightNavButton(chartWindowAddButton);
 	
