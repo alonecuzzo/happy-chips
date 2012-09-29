@@ -288,7 +288,7 @@ exports.addLimit = function(limitObject) {
 exports.selectLimits = function() {
 	var retData = [];
 	var db = Ti.Database.open(DATABASE_NAME);
-	var query = db.execute('select ROWID, * from limits where completed=?', 'false');
+	var query = db.execute('select ROWID, * from limits where completed=? order by date_time desc', 'false');
 	while(query.isValidRow()){
 		retData.push({id:query.fieldByName('ROWID'), name:query.fieldByName('name'), endDate:query.fieldByName('end_date'),
 			limitAmount:query.fieldByName('limit_amount'), limitType:query.fieldByName('limit_type'), limitConstraint:query.fieldByName('limit_constraint'),
