@@ -25,10 +25,17 @@ exports.FeedViewTableRow = function(args) {
 	  width: 'auto', height: 'auto'
 	});
 	
+	var fuzzyDateObj = new Date(item.date_time*1000);
+	var preFuzzyDateString = (fuzzyDateObj.getFullYear()) + '-' + (fuzzyDateObj.getMonth() + 1) + '-' + (fuzzyDateObj.getDate()) + 'T' + 
+					fuzzyDateObj.getHours() + ':' + fuzzyDateObj.getMinutes() + ':' + fuzzyDateObj.getSeconds() + 'Z';
+	var fuzzyDateString = require('util').prettyDate(preFuzzyDateString);
+	
+	Ti.API.info('prefuzzystring: ' + preFuzzyDateString);
+	
 	var dateLabel = Ti.UI.createLabel({
 	  color: '#666',
 	  font: {fontSize:12, textAlign:'left', fontFamily:'Arial'},
-	  text: '2 hours ago',
+	  text: fuzzyDateString,
 	  top: 61,
 	  left: 12,
 	  width: 'auto', height: 'auto'
