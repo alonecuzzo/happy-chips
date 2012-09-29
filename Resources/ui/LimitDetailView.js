@@ -53,7 +53,7 @@ exports.LimitDetailView = function(args) {
 	  color: '#444',
 	  font: {fontSize:10, fontWeight:'bold'},
 	  text: 'days left',
-	  top: 90,
+	  top: 93,
 	  left: 29,
 	  width: 'auto', height: 'auto'
 	});
@@ -62,7 +62,7 @@ exports.LimitDetailView = function(args) {
 	  color: '#333',
 	  font: {fontSize:18, fontWeight:'bold'},
 	  text: differenceDays,
-	  top: 70,
+	  top: 73,
 	  left: 39,
 	  textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	  width: 'auto', height: 'auto'
@@ -117,8 +117,8 @@ exports.LimitDetailView = function(args) {
 		  color: '#444',
 		  font: {fontSize:10, fontWeight:'bold'},
 		  text: 'spent',
-		  top: 90,
-		  left: 140,
+		  top: 93,
+		  left: 143,
 		  width: 'auto', height: 'auto'
 	});
 	
@@ -126,9 +126,27 @@ exports.LimitDetailView = function(args) {
 	  color: '#333',
 	  font: {fontSize:18, fontWeight:'bold'},
 	  text: percentCompleteAmt + '%',
-	  top: 70,
-	  left: 137,
+	  top: 73,
+	  left: 140,
 	  textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	  width: 'auto', height: 'auto'
+	});
+	
+	var pointsLabel = Ti.UI.createLabel({
+	  color: '#444',
+	  font: {fontSize:10, fontWeight:'bold'},
+	  text: 'points',
+	  top: 93,
+	  left: 256,
+	  width: 'auto', height: 'auto'
+	});
+	
+	var points = Ti.UI.createLabel({
+	  color: '#111',
+	  font: {fontSize:18, fontWeight:'bold'},
+	  text: '42',
+	  top: 73,
+	  left: 260,
 	  width: 'auto', height: 'auto'
 	});
 	
@@ -151,21 +169,23 @@ exports.LimitDetailView = function(args) {
 		backgroundColor:'#ccc',
 		width:1,
 		height:50,
-		left:215,
+		left:230,
 		top:5
 	});
 	
 	shareButtonBarBackground.add(verticalDivider);
 	shareButtonBarBackground.add(verticalDivider2);
-	
+	self.add(shareButtonBarBackground);
 	self.add(topBackgroundColor);
 	self.add(limitNameLabel);
 	self.add(webView);
 	self.add(photoPlaceHolder);
-	self.add(shareButtonBarBackground);
+	
 	self.add(daysLeft);
 	self.add(daysLeftLabel);
 	self.add(percentCompleteLabel);
 	self.add(percentComplete);
+	self.add(points);
+	self.add(pointsLabel);
 	return self;
 }
