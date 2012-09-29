@@ -17,6 +17,12 @@ exports.selectItems = function() {
 	return retData;
 };
 
+exports.setFutureQuestionDeadlines = function(rowID) {
+	var db = Ti.Database.open(DATABASE_NAME);
+	var updateQuery = db.execute('update purchases set question_2_due_date=?, question_3_due_date=? where ROWID=?', 1409529600, 1409529600, rowID);
+	db.close();
+}
+
 exports.selectItem = function(rowID) {
 	var retData = [];
 	var db = Ti.Database.open(DATABASE_NAME);

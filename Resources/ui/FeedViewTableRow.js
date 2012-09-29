@@ -98,7 +98,7 @@ exports.FeedViewTableRow = function(args) {
 
 	if(item.photo){
 		photoImageView.image = item.photo;
-		Ti.API.info('phootto');
+		//Ti.API.info('phootto');
 	}
 	
 	self.add(photoImageView);

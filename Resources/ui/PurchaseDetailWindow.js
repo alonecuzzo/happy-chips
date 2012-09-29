@@ -50,6 +50,15 @@ exports.PurchaseDetailWindow = function(args) {
 		//self.add(extraQuestionTable);
 	}
 	
+	self.slideTable = function() {
+		// var slide_out =  Titanium.UI.createAnimation({bottom:-251});
+		// extraQuestionTable.animate(slide_out);
+		extraQuestionTable.visible = false;
+		//need to set future values in db
+		require('db').setFutureQuestionDeadlines(args.rowID);
+		Ti.App.fireEvent('app:updateTables');
+	}
+	
 	var opts = {
 	  cancel: 2,
 	  options: ['Twitter', 'Facebook', 'Cancel'],

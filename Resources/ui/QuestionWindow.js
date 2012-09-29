@@ -41,8 +41,8 @@ exports.QuestionWindow = function(args) {
 	  data: [answerSection],
 	  backgroundColor:'#dfdfdf',
 	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
+	  style: Ti.UI.iPhone.TableViewStyle.GROUPED
 	});
-	table.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
 	
 	var backbutton = Titanium.UI.createButton({
 		title:'', 
