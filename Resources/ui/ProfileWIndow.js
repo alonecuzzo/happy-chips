@@ -58,6 +58,12 @@ exports.ProfileWindow = function(args) {
 		image:'iphone/avatar.png'
 	});
 	
+	Ti.App.addEventListener('app:updateTables', function() {
+		profileObject = require('db').getProfileStats();
+		totalSpent.text = '$' + (Math.round(100*profileObject.totalSpent)/100);
+		totalItemsBought.text = profileObject.purchaseCount;
+	});
+	
 	var nameLabel = Ti.UI.createLabel({
 	  color: '#f7f7f7',
 	  font: {fontSize:18, fontWeight:'bold'},
@@ -79,7 +85,7 @@ exports.ProfileWindow = function(args) {
 	var totalSpent = Ti.UI.createLabel({
 	  color: '#111',
 	  font: {fontSize:18, fontWeight:'bold'},
-	  text: '$' + profileObject.totalSpent,
+	  text: '$' + (Math.round(100*profileObject.totalSpent)/100),
 	  top: 85,
 	  right: 25,
 	  width: 'auto', height: 'auto'
