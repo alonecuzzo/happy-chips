@@ -252,6 +252,14 @@ exports.LimitDetailView = function(args) {
 		top:5
 	});
 	
+	var horizontalDivider = Ti.UI.createView({
+		backgroundColor:'#aaa',
+		width:400,
+		height:1,
+		left:0,
+		top:112
+	});
+	
 	var verticalDivider4 = Ti.UI.createView({
 		backgroundColor:'#ccc',
 		width:1,
@@ -335,5 +343,6 @@ exports.LimitDetailView = function(args) {
 	self.add(dateLabel);
 	self.add(legendViewHolder);
 	self.add(shareButtonBarBackground);
+	self.add(horizontalDivider);
 	return self;
 }
