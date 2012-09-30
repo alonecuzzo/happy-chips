@@ -43,6 +43,7 @@ exports.AddLimitWindow = function(args) {
 		limitObject.end_date = myEpoch;
 		limitObject.limit_type = self.limiterType;
 		limitObject.limit_constraint = self.limiterId;
+		Ti.API.info('adding constraint: ' + limitObject.limit_constraint);
 		limitObject.limit_amount = amountTextField.value;
 		limitObject.completed = 'false';
 		//insert limit

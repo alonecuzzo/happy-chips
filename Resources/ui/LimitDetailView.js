@@ -31,6 +31,7 @@ exports.LimitDetailView = function(args) {
 	// Ti.API.info('difference in days: ' + Math.ceil(((differenceEpoch*1000)-now.getTime())/(one_day)));
 	// Ti.API.info('difference epoch: ' + differenceEpoch);
 	// Ti.API.info('now epoch: ' + now.getTime());
+	Ti.API.info('limit value: ' + args.limitObject.limitAmount);
 	
 	self.setTitleControl(titleLabel);
 	self.barImage = 'iphone/navBackground.png';
@@ -94,6 +95,13 @@ exports.LimitDetailView = function(args) {
 	  width: 'auto', height: 'auto'
 	});
 	
+	Ti.App.addEventListener('app:updateTables', function() {
+		//replace limit object
+		args.limitObject = require('db').selectLimit(args.limitObject.id);
+		buildChart();
+		Ti.API.info('rebuilt limit detail chart');
+	});
+	
 	var photoPlaceHolder = Ti.UI.createView({
 		backgroundImage: 'iphone/limitPlaceHolder.png',
 		height: 50,
@@ -125,11 +133,39 @@ exports.LimitDetailView = function(args) {
 	var rightChartAmt = 50;
 	var leftChartAmt = 15;
 	
+	function buildChart() {
+		if(args.limitObject.limitType === 'emotions') {
+			var emotionalSums = require('db').getEmotionalSums();
+			var sumOfInterest = {};
+			for(var i=0; i<=emotionalSums.length-1; i++) {
+				if(emotionalSums[i].id === args.limitObject.limitConstraint) {
+					if(emotionalSums[i].sum > args.limitObject.limitAmount) {
+						rightChartAmt = emotionalSums[i].sum;
+						leftChartAmt = args.limitObject.limitAmount;
+					} else {
+						rightChartAmt = args.limitObject.limitAmount;
+						leftChartAmt = emotionalSums[i].sum;
+					}
+				}
+			}
+		}
+		
+		var roundedSum = Math.round(100*leftChartAmt)/100;
+		var roundedSum1 = Math.round(100*rightChartAmt)/100;
+		
+		titleLabel.text = '$' + roundedSum + ': Spent';
+		titleLabel1.text = '$' + roundedSum1 + ': Spent';
+	}
+	
+	
 	if(args.limitObject.limitType === 'emotions') {
 		var emotionalSums = require('db').getEmotionalSums();
 		var sumOfInterest = {};
 		for(var i=0; i<=emotionalSums.length-1; i++) {
+			Ti.API.info('sum id: ' + emotionalSums[i].id);
+			Ti.API.info('constraint id: ' + args.limitObject.limitConstraint);
 			if(emotionalSums[i].id === args.limitObject.limitConstraint) {
+				Ti.API.info('founcd emotional match');
 				if(emotionalSums[i].sum > args.limitObject.limitAmount) {
 					rightChartAmt = emotionalSums[i].sum;
 					leftChartAmt = args.limitObject.limitAmount;
