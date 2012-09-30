@@ -68,7 +68,16 @@ exports.ProfileWindow = function(args) {
 	  color: '#f7f7f7',
 	  font: {fontSize:18, fontWeight:'bold'},
 	  text: profileObject.userObject.firstName + ' ' + profileObject.userObject.lastName,
-	  top: 50,
+	  top: 10,
+	  left: 77,
+	  width: 'auto', height: 'auto'
+	});
+	
+	var challengesCompletedLabel = Ti.UI.createLabel({
+	  color: '#f7f7f7',
+	  font: {fontSize:12},
+	  text: profileObject.userObject.challengesCompleted + ' challenges completed',
+	  top: 30,
 	  left: 77,
 	  width: 'auto', height: 'auto'
 	});
@@ -187,6 +196,7 @@ exports.ProfileWindow = function(args) {
 	self.add(totalItemsBoughtLabel);
 	self.add(points);
 	self.add(pointsLabel);
+	self.add(challengesCompletedLabel);
 	
 	
 	return self;
