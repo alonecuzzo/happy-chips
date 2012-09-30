@@ -26,10 +26,10 @@ exports.DummyQuestionWindow = function(args) {
 	});
 	
 	var answer2Section = Ti.UI.createTableViewSection();
-	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSmileyIcon.png', title:'Happy', backgroundColor:'#FFF'}));
-	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionIndifferentIcon.png', title:'Glad', backgroundColor:'#FFF'}));
-	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSadIcon.png', title:'Mad', backgroundColor:'#FFF'}));
-	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSadIcon.png', title:'Sad', backgroundColor:'#FFF'}));
+	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSmileyIcon.png', title:'Happy I got it!', backgroundColor:'#FFF'}));
+	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionIndifferentIcon.png', title:'It\'s okay.', backgroundColor:'#FFF'}));
+	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSadIcon.png', title:'I think I\'m returning it.', backgroundColor:'#FFF'}));
+	answer2Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionMehIcon.png', title:'Not what I was expecting.', backgroundColor:'#FFF'}));
 	
 	var answer3Section = Ti.UI.createTableViewSection();
 	answer3Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSmileyIcon.png', title:'Very Satisfied', backgroundColor:'#FFF'}));

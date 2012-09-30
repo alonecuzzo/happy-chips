@@ -219,7 +219,7 @@ INSERT INTO emotions
 )
 VALUES
 (
-	'Angry',
+	'Anxious',
 	'emotionMehIcon.png',
 	'emotionMehIcon_white.png'
 );
@@ -232,7 +232,7 @@ INSERT INTO emotions
 )
 VALUES
 (
-	'Happy',
+	'Excited',
 	'emotionSmileyIcon.png',
 	'emotionSmileyIcon_white.png'
 );
@@ -245,7 +245,7 @@ INSERT INTO emotions
 )
 VALUES
 (
-	'Sad',
+	'Down',
 	'emotionSadIcon.png',
 	'emotionSadIcon_white.png'
 );
@@ -258,7 +258,7 @@ INSERT INTO emotions
 )
 VALUES
 (
-	'Indifferent',
+	'Nonchalant',
 	'emotionIndifferentIcon.png',
 	'emotionIndifferentIcon_white.png'
 );
