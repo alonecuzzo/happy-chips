@@ -113,6 +113,19 @@ VALUES
 	'glyphicons_160_imac_white.png'
 );
 
+INSERT INTO categories
+(
+	category_name,
+	icon_name,
+	white_icon_name
+)
+VALUES
+(
+	'Bills',
+	'glyphicons_039_notes.png',
+	'glyphicons_039_notes_white.png'
+);
+
 
 ------------------------------------------------------------------
 ------------------------------------------------------------------

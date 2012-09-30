@@ -196,8 +196,8 @@ exports.PurchaseChartWindow = function(args) {
 	}
 	
 	function populateHTMLSatisfaction() {
-		var sumsString = '[300, 200, 500]';
-		var sums = [{id:0, sum:300, emotion:'Satisfied'}, {id:1, sum:200, emotion:'Very Satisfied'}, {id:2, sum:500, emotion:'Not Satisfied'}];
+		var sumsString = '[650, 450, 150]';
+		var sums = [{id:0, sum:650, emotion:'Satisfied'}, {id:1, sum:450, emotion:'Very Satisfied'}, {id:2, sum:150, emotion:'Not Satisfied'}];
 		
 		if(buttonHolderView){
 			self.remove(buttonHolderView);
