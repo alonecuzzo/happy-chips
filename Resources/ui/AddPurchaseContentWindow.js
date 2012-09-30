@@ -244,9 +244,9 @@ exports.AddPurchaseContentWindow = function(args) {
 	priceTextField.addEventListener('change', function(){
 		//var match = new RegExp(^(\d*\.\d{1,2}|\d+)$);
 		var match = /^(\d*?)(\.\d{1,2})?$/;
-		Ti.API.info("match: " + match.test(priceTextField.value));
+		//Ti.API.info("match: " + match.test(priceTextField.value));
 		ispriceTextFieldValid = (match.test(priceTextField.value) === true) ? true : false;
-		Ti.API.info("ispriceTextFieldValid: " + ispriceTextFieldValid);
+		//Ti.API.info("ispriceTextFieldValid: " + ispriceTextFieldValid);
 	});
 	
 	var noteTextArea = Ti.UI.createTextArea({
@@ -377,6 +377,8 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText, u
 	//there will always be only one emotion to compare to
 	//ALSO NEED TO PUT A DATE CHECK IN!!!
 	for(var i=0; i<=emotionLimitArray.length-1; i++) {
+		//Ti.API.info('limit constraint: ' + emotionLimitArray[i].limitConstraint);
+		//Ti.API.info('selected emotion: ' + optionalFields.question_1_emotion);
 		if(emotionLimitArray[i].limitConstraint === optionalFields.question_1_emotion) {
 			//find sum for that emotion
 			var emotionalSums = require('db').getEmotionalSums();
@@ -384,15 +386,21 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText, u
 			for(var j=0; j<=emotionalSums.length-1; j++) {
 				if(emotionLimitArray[i].limitConstraint === emotionalSums[j].id) {
 					foundMatch = true;
-					var sumItemPriceSum = (emotionalSums[i].sum + item_price);
+					var sumItemPriceSum = emotionalSums[i].sum + parseFloat(item_price);
+					//Ti.API.info('emotional sum: ' + sumItemPriceSum);
+					//Ti.API.info('limit amount: ' + emotionLimitArray[i].limitAmount);
 					if(sumItemPriceSum > emotionLimitArray[i].limitAmount) {
 						Ti.API.info('you are over the limit: ' + emotionLimitArray[i].endDate);
+						alert('You just passed your limit for');
+						return;
 					}
 				} 
 			}
 			if(!foundMatch) {
 				if(item_price > emotionLimitArray[i].limitAmount) {
 					Ti.API.info('you are over the limit first: ' + emotionLimitArray[i].endDate);
+					alert('You just passed your limit for');
+					return;
 				}
 			}
 		}

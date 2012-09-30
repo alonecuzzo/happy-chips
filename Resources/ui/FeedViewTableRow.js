@@ -32,7 +32,7 @@ exports.FeedViewTableRow = function(args) {
 					fuzzyDateObj.getHours() + ':' + fuzzyDateObj.getMinutes() + ':' + fuzzyDateObj.getSeconds() + 'Z';
 	var fuzzyDateString = require('util').prettyDate(preFuzzyDateString);
 	
-	Ti.API.info('prefuzzystring: ' + preFuzzyDateString);
+	//Ti.API.info('prefuzzystring: ' + preFuzzyDateString);
 	
 	var dateLabel = Ti.UI.createLabel({
 	  color: '#666',
