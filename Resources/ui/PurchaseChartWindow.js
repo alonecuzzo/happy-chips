@@ -316,7 +316,7 @@ exports.PurchaseChartWindow = function(args) {
 			    left:15,
 			    text:'$' + roundedSum + ': ' + sums[i].emotion ,
 			    font:{fontSize:10,fontWeight:'bold'},
-			    top:0
+			    top:-3
 			});
 			legendView.add(titleLabel);
 			buttonHolderView.add(legendView);
