@@ -36,6 +36,13 @@ exports.DummyQuestionWindow = function(args) {
 	answer3Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionIndifferentIcon.png', title:'Satisfied', backgroundColor:'#FFF'}));
 	answer3Section.add(Ti.UI.createTableViewRow({leftImage:'iphone/emotionSadIcon.png', title:'Not Satisfied', backgroundColor:'#FFF'}));
 	
+	var questionLabel = Ti.UI.createLabel({
+	  color: '#444',
+	  font: {fontSize:15, fontWeight:'bold'},
+	  text: args.questionString,
+	  top: 5,
+	  width:280, height: 'auto', textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+	});
 	
 	var answerSection;
 	if(args.questionTitle === 'Question 2') {
@@ -48,7 +55,8 @@ exports.DummyQuestionWindow = function(args) {
 	  data: [answerSection],
 	  backgroundColor:'#dfdfdf',
 	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
-	  style: Ti.UI.iPhone.TableViewStyle.GROUPED
+	  style: Ti.UI.iPhone.TableViewStyle.GROUPED,
+	  top:30
 	});
 	
 	var collectCheckMark = function(rowTitle, section) {
@@ -72,6 +80,7 @@ exports.DummyQuestionWindow = function(args) {
 		//self.iconName = e.row.iconName;
 	});
 	self.add(table);
+	self.add(questionLabel);
 	self.setTitleControl(titleLabel);
 	return self;
 }

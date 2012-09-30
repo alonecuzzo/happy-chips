@@ -7,7 +7,7 @@ exports.AddWindow = function(args) {
 		
 	var questionWindow = new QuestionWindow({
 		title: 'Question 1',
-		backgroundColor: '#FFF',
+		backgroundColor: '#dfdfdf',
 		parentWindow: self
 	});
 	questionWindow.barImage = 'iphone/navBackground.png';

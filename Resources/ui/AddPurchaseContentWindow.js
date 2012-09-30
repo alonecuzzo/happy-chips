@@ -202,7 +202,7 @@ exports.AddPurchaseContentWindow = function(args) {
 	
 	var happinessQuestionOneRow = Ti.UI.createTableViewRow({
 		hasChild:true,
-		title:'Happiness Level',
+		title:'How do/did you feel before purchasing this item?',
 		id:0,
 		backgroundColor:'#FFF'
 	});

@@ -23,21 +23,22 @@ exports.PurchaseDetailWindow = function(args) {
 		var questionString = 'a question?';
 		var questionTitle = '';
 		if(args.isQuestionTwo) {
-			questionString = 'question 2';
+			questionString = 'How do you feel about the item after just purchasing it?';
 			questionTitle = 'Question 2';
 		}
 		if(args.isQuestionThree) {
-			questionString = 'question 3';
+			questionString = 'How satisfied are you with the item after having it for a week or so?';
 			questionTitle = 'Question 3';
 		}
 		
 		extraQuestionTable.addEventListener('click', function() {
 			var DummyQuestionWindow = require('ui/DummyQuestionWindow').DummyQuestionWindow;
 			var dummyQuestionWindow = new DummyQuestionWindow({
-				title: 'BIG DUMMY!',
-				backgroundColor: '#FFF',
+				title: '',
+				backgroundColor: '#dfdfdf',
 				parentWindow: self,
-				questionTitle: questionTitle
+				questionTitle: questionTitle,
+				questionString: questionString
 			});
 			dummyQuestionWindow.barImage = 'iphone/navBackground.png';
 			self.containingTab.open(dummyQuestionWindow,{animated:true});

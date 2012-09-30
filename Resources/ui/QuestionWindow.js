@@ -29,7 +29,7 @@ exports.QuestionWindow = function(args) {
 	    height:'auto',
 	    width:'auto',
 	    top:10,
-	    text:'Emotion',
+	    text:'Question 1',
 	    textAlign:'center',
 	    font:{fontSize:20,fontWeight:'bold'},
 	    shadowColor:'#eee',shadowOffset:{x:0,y:1}
@@ -41,7 +41,16 @@ exports.QuestionWindow = function(args) {
 	  data: [answerSection],
 	  backgroundColor:'#dfdfdf',
 	  selectionStyle: Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
-	  style: Ti.UI.iPhone.TableViewStyle.GROUPED
+	  style: Ti.UI.iPhone.TableViewStyle.GROUPED,
+	  top:30
+	});
+	
+	var questionLabel = Ti.UI.createLabel({
+	  color: '#444',
+	  font: {fontSize:15, fontWeight:'bold'},
+	  text: 'How do/did you feel before purchasing this item?',
+	  top: 5,
+	  width:200, height: 'auto', textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
 	});
 	
 	var backbutton = Titanium.UI.createButton({
@@ -74,6 +83,7 @@ exports.QuestionWindow = function(args) {
 	}
 	
 	self.add(table);
+	self.add(questionLabel);
 	
 	table.addEventListener('click', function(e){
 		e.row.hasCheck = !e.row.hasCheck;
