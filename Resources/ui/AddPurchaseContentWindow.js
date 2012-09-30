@@ -390,16 +390,16 @@ var addPurchase = function(item_name, item_price, win, categoryView, noteText, u
 					//Ti.API.info('emotional sum: ' + sumItemPriceSum);
 					//Ti.API.info('limit amount: ' + emotionLimitArray[i].limitAmount);
 					if(sumItemPriceSum > emotionLimitArray[i].limitAmount) {
-						Ti.API.info('you are over the limit: ' + emotionLimitArray[i].endDate);
-						alert('You just passed your limit for');
+						Ti.API.info('you are over the limit for limit: ' + emotionLimitArray[i].name);
+						alert('You just passed your limit for: ' + emotionLimitArray[i].name);
 						return;
 					}
 				} 
 			}
 			if(!foundMatch) {
 				if(item_price > emotionLimitArray[i].limitAmount) {
-					Ti.API.info('you are over the limit first: ' + emotionLimitArray[i].endDate);
-					alert('You just passed your limit for');
+					Ti.API.info('you are over the limit for limit: ' + emotionLimitArray[i].name);
+					alert('You just passed your limit for: ' + emotionLimitArray[i].name);
 					return;
 				}
 			}
