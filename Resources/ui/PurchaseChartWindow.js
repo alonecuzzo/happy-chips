@@ -136,8 +136,8 @@ exports.PurchaseChartWindow = function(args) {
 	});
 	
 	function populateHTMLImpulse(){
-		var sumsString = '[700, 100]';
-		var sums = [{id:0, sum:700, emotion:'Impulsive Spending'}, {id:1, sum:100, emotion:'Planned Spending'}];
+		var sumsString = '[700, 550]';
+		var sums = [{id:0, sum:700, emotion:'Impulsive Spending'}, {id:1, sum:550, emotion:'Planned Spending'}];
 		
 		if(buttonHolderView){
 			self.remove(buttonHolderView);
