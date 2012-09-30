@@ -75,12 +75,22 @@ exports.ProfileWindow = function(args) {
 	
 	var challengesCompletedLabel = Ti.UI.createLabel({
 	  color: '#f7f7f7',
-	  font: {fontSize:12},
+	  font: {fontSize:11},
 	  text: profileObject.userObject.challengesCompleted + ' challenges completed',
-	  top: 30,
+	  top: 55,
 	  left: 77,
 	  width: 'auto', height: 'auto'
 	});
+	
+	var alternateNameLabel = Ti.UI.createLabel({
+	  color: '#f7f7f7',
+	  font: {fontSize:12},
+	  text: 'Super Savings Squirrel',
+	  top: 35,
+	  left: 77,
+	  width: 'auto', height: 'auto'
+	});
+	
 	
 	var totalSpentLabel = Ti.UI.createLabel({
 	  color: '#444',
@@ -197,6 +207,7 @@ exports.ProfileWindow = function(args) {
 	self.add(points);
 	self.add(pointsLabel);
 	self.add(challengesCompletedLabel);
+	self.add(alternateNameLabel);
 	
 	
 	return self;
